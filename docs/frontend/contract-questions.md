@@ -203,3 +203,26 @@ As Frontend Owner, I have conducted a rigorous audit of the frozen `contracts/v1
 3. Once agreed, Mandar will publish minor update to `packages/contracts/v1/`.
 4. In the meantime, Apoorva has implemented typed client schemas and deterministic synthetic DEMO fixtures in `apps/web/src/contracts/v1/` and `apps/web/src/fixtures/` following these exact proposed schemas.
 
+
+## Phase 6 integration gaps (2026-10-29)
+
+The current ApiClientInterface has read methods getRemediationPlan, getSimulation,
+getSafetyContracts and getSecurityGraph, with DemoApiClient as its only implementation.
+No production endpoint has been added or assumed in Phase 6.
+
+Backend agreement is required for:
+- Listing/generating vetted alternatives with objective weights, units, score provenance,
+  optimality status, explicit dependency edges, conflicts and UNSAT explanations.
+- Submitting a what-if simulation bound to a plan hash and contract revision, plus
+  baseline/candidate reachability and per-contract outcomes.
+- Persisting service contracts and returning revision identifiers.
+- Returning affected service/asset identities, impact evidence, confidence, missing
+  topology and downstream dependencies rather than only aggregate counts.
+- Enforcing approval against current plan hash, simulation, contract revision and
+  mandatory violations on the server. Frontend gating is not an authorization boundary.
+- Returning rollout stage telemetry, canary health and supported stop/halt controls.
+
+Until agreed, frontend alternatives and before/after model views are explicitly DEMO.
+The contract editor validates a local draft only; edits invalidate the preview and block
+approval. No frontend optimizer or simulation engine runs. I06-I15 end-to-end completion
+cannot be claimed from these fixtures.

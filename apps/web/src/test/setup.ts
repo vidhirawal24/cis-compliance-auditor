@@ -53,3 +53,8 @@ if (typeof HTMLCanvasElement !== 'undefined') {
     } as unknown as RenderingContext)) as unknown as typeof HTMLCanvasElement.prototype.getContext;
 }
 
+// React Flow renders SVG dependency labels; jsdom has no SVG geometry API.
+Object.defineProperty(SVGElement.prototype, 'getBBox', {
+  configurable: true,
+  value: () => ({ x: 0, y: 0, width: 120, height: 20 }),
+});

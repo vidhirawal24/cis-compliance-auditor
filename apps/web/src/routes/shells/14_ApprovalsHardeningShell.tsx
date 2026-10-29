@@ -6,6 +6,7 @@ import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { fixtureStore } from '../../api/store';
+import { usePhase6 } from '../../features/phase6/model';
 import { ExecutionState } from '../../contracts/v1/enums';
 
 export const ApprovalsHardeningShell: React.FC = () => {
@@ -15,10 +16,15 @@ export const ApprovalsHardeningShell: React.FC = () => {
   const change = fixtureStore.hardeningChange;
   const approval = fixtureStore.approvals[0];
 
+  const safety = usePhase6(orgId ?? '');
+
   const handleExecuteChange = () => {
+    if (!safety.canReview) return;
     setShowConfirm(false);
     change.state = ExecutionState.VERIFIED;
   };
+
+  if (!safety.canReview) return <div className="space-y-4"><h1>Approvals &amp; Controlled Hardening (I14)</h1><p role="alert">Approval blocked: no current eligible simulation preview. Known violations, changed contracts, unsupported models and insufficient evidence cannot be overridden here.</p><p>The server remains the final enforcement authority.</p><Button onClick={() => navigate(`/orgs/${orgId}/simulator`)}>Review service safety</Button></div>;
 
   return (
     <div className="space-y-6">
@@ -116,7 +122,7 @@ export const ApprovalsHardeningShell: React.FC = () => {
 
         <div className="flex justify-end pt-2">
           <Button
-            onClick={() => setShowConfirm(true)}
+            disabled={!safety.canReview} onClick={() => { if (safety.canReview) setShowConfirm(true); }}
             size="sm"
             className="gap-2 bg-rose-600 hover:bg-rose-500 text-white text-xs"
           >
