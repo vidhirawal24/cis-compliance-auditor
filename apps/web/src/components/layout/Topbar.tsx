@@ -18,13 +18,18 @@ export interface TopbarProps {
 }
 
 export const Topbar: React.FC<TopbarProps> = ({ onOpenMobileNav }) => {
-  const { currentOrg, role, setRole, user, logout } = useAuth();
+  const { currentOrg, role, setRole, user, logout, isDemoSession, userOrgs, switchOrg } = useAuth();
   const navigate = useNavigate();
   const { orgId } = useParams<{ orgId: string }>();
 
+  const handleSelectOrgChange = (newOrgId: string) => {
+    switchOrg(newOrgId);
+    navigate(`/orgs/${newOrgId}/overview`);
+  };
+
   return (
     <header className="h-14 bg-[#0e1420]/90 backdrop-blur-md border-b border-slate-800 px-4 flex items-center justify-between gap-4 sticky top-0 z-40">
-      {/* Left: Mobile Nav Button + Org Context Picker */}
+      {/* Left: Mobile Nav Button + Tenant Switcher */}
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenMobileNav}
@@ -34,15 +39,36 @@ export const Topbar: React.FC<TopbarProps> = ({ onOpenMobileNav }) => {
           <Menu className="w-5 h-5" />
         </button>
 
-        <button
-          onClick={() => navigate('/orgs')}
-          className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-medium text-slate-200 transition-colors"
-          title="Switch Tenant Organization"
-        >
-          <Building2 className="w-4 h-4 text-sky-400" />
-          <span className="font-semibold">{currentOrg?.name || 'Acme Financial SecOps'}</span>
-          <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-        </button>
+        {/* Tenant Selector Dropdown (M34 Multi-Tenant Workspace) */}
+        <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-md px-2.5 py-1 text-xs">
+          <Building2 className="w-4 h-4 text-sky-400 shrink-0" />
+          <select
+            value={currentOrg?.org_id || ''}
+            onChange={(e) => handleSelectOrgChange(e.target.value)}
+            className="bg-transparent text-white font-medium text-xs focus:outline-none cursor-pointer max-w-[180px] truncate"
+            aria-label="Switch Tenant Workspace"
+          >
+            {userOrgs.map((org) => (
+              <option key={org.org_id} value={org.org_id} className="bg-slate-900 text-white">
+                {org.name}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={() => navigate('/orgs')}
+            title="All Workspaces"
+            className="text-slate-400 hover:text-white ml-1"
+          >
+            <ChevronDown className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Demo Mode Indicator Pill */}
+        {isDemoSession && (
+          <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950/80 text-amber-300 border border-amber-800/80">
+            DEMO LAB
+          </span>
+        )}
       </div>
 
       {/* Center: Global Search Bar (E29) */}
@@ -95,8 +121,8 @@ export const Topbar: React.FC<TopbarProps> = ({ onOpenMobileNav }) => {
             {user?.email ? user.email.charAt(0).toUpperCase() : 'A'}
           </div>
           <Button
-            onClick={() => {
-              logout();
+            onClick={async () => {
+              await logout();
               navigate('/auth/login');
             }}
             variant="ghost"
@@ -111,4 +137,3 @@ export const Topbar: React.FC<TopbarProps> = ({ onOpenMobileNav }) => {
     </header>
   );
 };
-

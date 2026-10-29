@@ -25,8 +25,13 @@ import {
   DEMO_AUDIT_TRAIL,
 } from '../fixtures/demoData';
 
+import { PlatformFamily, UserRole } from '../contracts/v1/enums';
+
 import type {
+  Organization,
   Asset,
+  AssetCreateInput,
+  DiscoveredCandidate,
   ScanJob,
   Finding,
   RemediationPlan,
@@ -43,6 +48,17 @@ import type {
 class FixtureStore {
   public defaultOrgId = DEMO_ORG_ID;
   public org = DEMO_ORGANIZATION;
+  public organizations: Organization[] = [
+    DEMO_ORGANIZATION,
+    {
+      org_id: 'org-health-staging',
+      name: 'Healthcare DMZ Staging',
+      slug: 'health-dmz-staging',
+      created_at: '2026-02-01T00:00:00Z',
+      role: UserRole.VIEWER,
+      is_active: true,
+    },
+  ];
   public assets: Asset[] = [...DEMO_ASSETS];
   public switchInterfaces = [...DEMO_SWITCH_INTERFACES];
   public scans: ScanJob[] = [...DEMO_SCANS];
@@ -60,6 +76,78 @@ class FixtureStore {
   public reports: GeneratedReport[] = [...DEMO_REPORTS];
   public auditEvents = [...DEMO_AUDIT_TRAIL];
 
+  public createAsset(orgId: string, input: AssetCreateInput): Asset {
+    const assetId = `a${String(this.assets.length + 1).padStart(2, '0')}-${input.hostname.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 16)}`;
+    const newAsset: Asset = {
+      ...input,
+      asset_id: assetId,
+      org_id: orgId,
+      created_at: new Date().toISOString(),
+    };
+    this.assets.unshift(newAsset);
+    return newAsset;
+  }
+
+  public updateAsset(assetId: string, updates: Partial<Asset>): Asset {
+    const index = this.assets.findIndex((a) => a.asset_id === assetId);
+    if (index === -1) {
+      throw new Error(`Asset ${assetId} not found`);
+    }
+    const updated = { ...this.assets[index], ...updates };
+    this.assets[index] = updated;
+    return updated;
+  }
+
+  public retireAsset(assetId: string): Asset {
+    const index = this.assets.findIndex((a) => a.asset_id === assetId);
+    if (index === -1) {
+      throw new Error(`Asset ${assetId} not found`);
+    }
+    const retired = this.assets[index];
+    this.assets.splice(index, 1);
+    return retired;
+  }
+
+  public createOrganization(name: string, slug: string): Organization {
+    const newOrg: Organization = {
+      org_id: `org-${Date.now()}`,
+      name,
+      slug,
+      created_at: new Date().toISOString(),
+      role: UserRole.OWNER,
+      is_active: true,
+    };
+    this.organizations.push(newOrg);
+    return newOrg;
+  }
+
+  public previewDiscovery(cidrRanges: string[], portsToProbe: number[]): DiscoveredCandidate[] {
+    const baseOctets = cidrRanges[0]?.split('/')[0]?.split('.')?.slice(0, 3)?.join('.') || '192.168.10';
+    return [
+      {
+        ip: `${baseOctets}.45`,
+        open_ports: portsToProbe.filter((p) => [22, 443].includes(p)),
+        estimated_platform: PlatformFamily.CISCO_IOS_SWITCH,
+        mac_vendor: 'Cisco Systems',
+        response_time_ms: 4,
+      },
+      {
+        ip: `${baseOctets}.88`,
+        open_ports: portsToProbe.filter((p) => [443, 80].includes(p)),
+        estimated_platform: PlatformFamily.FORTINET_FORTIOS,
+        mac_vendor: 'Fortinet Technologies',
+        response_time_ms: 7,
+      },
+      {
+        ip: `${baseOctets}.112`,
+        open_ports: portsToProbe.filter((p) => [445, 3389].includes(p)),
+        estimated_platform: PlatformFamily.WINDOWS_SERVER_2019,
+        mac_vendor: 'Dell Inc.',
+        response_time_ms: 12,
+      },
+    ];
+  }
+
   // Helper to reset to pristine synthetic state
   public reset() {
     this.assets = [...DEMO_ASSETS];
@@ -67,6 +155,17 @@ class FixtureStore {
     this.findings = [...DEMO_FINDINGS];
     this.remediationPlan = { ...DEMO_REMEDIATION_PLAN };
     this.safetyContracts = [...DEMO_SAFETY_CONTRACTS];
+    this.organizations = [
+      DEMO_ORGANIZATION,
+      {
+        org_id: 'org-health-staging',
+        name: 'Healthcare DMZ Staging',
+        slug: 'health-dmz-staging',
+        created_at: '2026-02-01T00:00:00Z',
+        role: UserRole.VIEWER,
+        is_active: true,
+      },
+    ];
   }
 }
 

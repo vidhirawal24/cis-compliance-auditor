@@ -8,7 +8,10 @@ import { fixtureStore } from './store';
 import type {
   CanonicalResourceEnvelope,
   CanonicalCollectionEnvelope,
+  Organization,
   Asset,
+  AssetCreateInput,
+  DiscoveredCandidate,
   ScanJob,
   Finding,
   SecurityGraphData,
@@ -53,8 +56,14 @@ function wrapCollection<T>(data: T[]): CanonicalCollectionEnvelope<T> {
 }
 
 export interface ApiClientInterface {
+  getOrganizations: () => Promise<CanonicalCollectionEnvelope<Organization>>;
+  createOrganization: (payload: { name: string; slug: string }) => Promise<CanonicalResourceEnvelope<Organization>>;
   getAssets: (orgId: string) => Promise<CanonicalCollectionEnvelope<Asset>>;
   getAsset: (assetId: string) => Promise<CanonicalResourceEnvelope<Asset>>;
+  createAsset: (orgId: string, payload: AssetCreateInput) => Promise<CanonicalResourceEnvelope<Asset>>;
+  updateAsset: (assetId: string, payload: Partial<Asset>) => Promise<CanonicalResourceEnvelope<Asset>>;
+  retireAsset: (assetId: string) => Promise<CanonicalResourceEnvelope<Asset>>;
+  previewDiscovery: (payload: { cidr_ranges: string[]; ports_to_probe: number[]; scope_consent_confirmed: boolean }) => Promise<CanonicalCollectionEnvelope<DiscoveredCandidate>>;
   getScans: (orgId: string) => Promise<CanonicalCollectionEnvelope<ScanJob>>;
   getScan: (scanId: string) => Promise<CanonicalResourceEnvelope<ScanJob>>;
   createScan: (payload: { target_asset_ids: string[]; policy_pack_id: string; profile_level: 'LEVEL_1' | 'LEVEL_2' }) => Promise<CanonicalResourceEnvelope<ScanJob>>;
@@ -77,6 +86,15 @@ export interface ApiClientInterface {
 }
 
 export class DemoApiClient implements ApiClientInterface {
+  async getOrganizations() {
+    return wrapCollection(fixtureStore.organizations);
+  }
+
+  async createOrganization(payload: { name: string; slug: string }) {
+    const org = fixtureStore.createOrganization(payload.name, payload.slug);
+    return wrapResource(org);
+  }
+
   async getAssets(_orgId: string) {
     return wrapCollection(fixtureStore.assets);
   }
@@ -85,6 +103,29 @@ export class DemoApiClient implements ApiClientInterface {
     const asset = fixtureStore.assets.find((a) => a.asset_id === assetId);
     if (!asset) throw new Error(`Asset ${assetId} not found`);
     return wrapResource(asset);
+  }
+
+  async createAsset(orgId: string, payload: AssetCreateInput) {
+    const asset = fixtureStore.createAsset(orgId, payload);
+    return wrapResource(asset);
+  }
+
+  async updateAsset(assetId: string, payload: Partial<Asset>) {
+    const updated = fixtureStore.updateAsset(assetId, payload);
+    return wrapResource(updated);
+  }
+
+  async retireAsset(assetId: string) {
+    const retired = fixtureStore.retireAsset(assetId);
+    return wrapResource(retired);
+  }
+
+  async previewDiscovery(payload: { cidr_ranges: string[]; ports_to_probe: number[]; scope_consent_confirmed: boolean }) {
+    if (!payload.scope_consent_confirmed) {
+      throw new Error('Explicit scope authorization consent is mandatory prior to discovery sweep.');
+    }
+    const candidates = fixtureStore.previewDiscovery(payload.cidr_ranges, payload.ports_to_probe);
+    return wrapCollection(candidates);
   }
 
   async getScans(_orgId: string) {

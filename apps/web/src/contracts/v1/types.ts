@@ -139,6 +139,16 @@ export interface Asset {
   created_at: string;
 }
 
+export type AssetCreateInput = Omit<Asset, 'asset_id' | 'org_id' | 'created_at'>;
+
+export interface DiscoveredCandidate {
+  ip: string;
+  open_ports: number[];
+  estimated_platform?: PlatformFamily;
+  mac_vendor?: string;
+  response_time_ms: number;
+}
+
 // -------------------------------------------------------------
 // Audit Queue & Scans (M13, E04, E08, E18)
 // -------------------------------------------------------------

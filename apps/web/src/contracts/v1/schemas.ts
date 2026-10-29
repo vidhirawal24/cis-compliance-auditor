@@ -55,6 +55,28 @@ export const normalizedEvidenceSchema = z.object({
 });
 
 // -------------------------------------------------------------
+// Authentication & Organization Form Schemas
+// -------------------------------------------------------------
+
+export const loginFormSchema = z.object({
+  email: z.string().email('Valid corporate email address required'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
+
+export const passwordResetFormSchema = z.object({
+  email: z.string().email('Valid corporate email address required'),
+});
+
+export const mfaVerifyFormSchema = z.object({
+  code: z.string().regex(/^\d{6}$/, 'Must be a 6-digit verification code'),
+});
+
+export const orgCreateFormSchema = z.object({
+  name: z.string().min(3, 'Workspace name must be at least 3 characters').max(64),
+  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug must only contain lowercase letters, numbers, and hyphens'),
+});
+
+// -------------------------------------------------------------
 // Asset & Discovery Form Schemas
 // -------------------------------------------------------------
 
