@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 7%; /* #0b0f17 */
+    --foreground: 210 40% 98%; /* #f1f5f9 */
+
+    --card: 217 33% 11%; /* #111827 */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 33% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%; /* #0284c7 Sky-600 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 19% 27%; /* Slate-700 */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 19% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 19% 24%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%; /* #ef4444 */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 28% 18%; /* #1f293d */
+    --input: 217 28% 18%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans text-sm;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Accessible Focus Rings */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-sky-500 ring-offset-2 ring-offset-[#0b0f17];
+  }
+}
+
+/* Custom Scrollbars for High-Density SOC Views */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0f17;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f293d;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* High-Density Compact Table Styling */
+.table-compact th {
+  @apply py-2 px-3 text-xs font-semibold text-slate-400 bg-slate-900/60 uppercase tracking-wider;
+}
+.table-compact td {
+  @apply py-2 px-3 text-xs text-slate-200 border-b border-slate-800/80;
+}
+
