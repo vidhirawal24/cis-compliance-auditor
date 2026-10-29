@@ -1,0 +1,12 @@
+! SYNTHETIC fixture - not collected from a device
+hostname SYNTHETIC-WEAK
+ip ssh version 1
+logging host 198.51.100.50
+ntp server 198.51.100.123
+line vty 0 4
+ transport input telnet ssh
+ exec-timeout 0 0
+line vty 5 15
+ transport input ssh
+ exec-timeout 30 0
+!

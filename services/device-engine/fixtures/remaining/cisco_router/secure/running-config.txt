@@ -1,0 +1,13 @@
+! SYNTHETIC
+version 16.12
+hostname RTR-secure
+ip ssh version 2
+logging host 192.0.2.50
+ntp server 192.0.2.1
+snmp-server user audit grp v3 auth sha REDACTME
+access-list 10 permit 10.0.0.0 0.0.0.255
+interface GigabitEthernet0/0
+ ip access-group 10 in
+line vty 0 4
+ transport input ssh
+ exec-timeout 5 0

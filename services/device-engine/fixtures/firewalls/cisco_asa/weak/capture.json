@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "platform": "cisco_asa",
+  "context": {
+    "security_context": "admin"
+  },
+  "sources": [
+    {
+      "identity": "show running-config access-list",
+      "state": "collected"
+    }
+  ],
+  "facts": {
+    "identity": {
+      "collection_state": "collected",
+      "hostname": "cisco_asa-synthetic"
+    },
+    "management": {
+      "telnet_enabled": true,
+      "http_enabled": true
+    },
+    "objects": {
+      "trusted": {
+        "type": "address",
+        "value": "10.0.0.0/24"
+      },
+      "web": {
+        "type": "service",
+        "value": {
+          "protocol": "tcp",
+          "ports": [
+            "443"
+          ]
+        }
+      },
+      "nested": {
+        "type": "group",
+        "members": [
+          "trusted"
+        ]
+      },
+      "cycle_a": {
+        "type": "group",
+        "members": [
+          "cycle_b"
+        ]
+      },
+      "cycle_b": {
+        "type": "group",
+        "members": [
+          "cycle_a"
+        ]
+      }
+    },
+    "ordered_rules": [
+      {
+        "id": "rule-1",
+        "order": 1,
+        "enabled": true,
+        "action": "allow",
+        "source": [
+          "any"
+        ],
+        "destination": [
+          "any"
+        ],
+        "services": [
+          "any"
+        ],
+        "application_or_user_constraints": null
+      },
+      {
+        "id": "rule-2",
+        "order": 2,
+        "enabled": false,
+        "action": "deny",
+        "source": [
+          "any"
+        ],
+        "destination": [
+          "any"
+        ],
+        "services": [
+          "any"
+        ],
+        "application_or_user_constraints": null
+      }
+    ],
+    "bindings": [
+      {
+        "policy_or_acl": "policy-1",
+        "device_or_interface": "outside",
+        "direction": "in"
+      }
+    ],
+    "nat": [
+      {
+        "id": "nat-1",
+        "type": "source",
+        "original": "10.0.0.0/24",
+        "translated": "interface"
+      }
+    ],
+    "logging": {
+      "configured": true
+    },
+    "ntp": {
+      "configured": true
+    },
+    "snmp": {
+      "configured": true
+    },
+    "deployment": {
+      "saved_or_published": true,
+      "confirmed_installed": null
+    }
+  }
+}

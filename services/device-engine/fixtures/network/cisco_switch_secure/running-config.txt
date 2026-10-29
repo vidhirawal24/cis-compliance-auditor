@@ -1,0 +1,50 @@
+! SYNTHETIC - Phase 6 switch test (secure)
+version 16.12
+hostname SW-p6-secure
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+logging host 192.0.2.50
+!
+ntp server 192.0.2.1
+!
+snmp-server user audituser auditgrp v3 auth sha REDACTME
+!
+ip dhcp snooping
+ip dhcp snooping vlan 10,20
+ip arp inspection vlan 10,20
+!
+! Named ACL with restricted source and explicit deny
+ip access-list extended SWITCH-IN
+ permit tcp 10.0.0.0 0.0.0.255 any eq 22
+ deny ip any any
+!
+interface GigabitEthernet1/0/1
+ switchport mode access
+ switchport access vlan 10
+ switchport port-security
+!
+interface GigabitEthernet1/0/2
+ switchport mode access
+ switchport access vlan 20
+ switchport port-security
+ shutdown
+!
+interface GigabitEthernet1/0/3
+ switchport mode trunk
+!
+interface Vlan10
+ ip address 10.0.0.1 255.255.255.0
+!
+line vty 0 4
+ transport input ssh
+ exec-timeout 5 0
+ login local
+line vty 5 15
+ transport input ssh
+ exec-timeout 5 0
+ login local
+!

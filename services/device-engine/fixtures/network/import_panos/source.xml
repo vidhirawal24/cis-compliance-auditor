@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response status="success">
+  <result>
+    <config version="10.2">
+      <deviceconfig>
+        <system>
+          <hostname>PA-import-test</hostname>
+        </system>
+      </deviceconfig>
+      <devices>
+        <entry name="localhost.localdomain">
+          <vsys>
+            <entry name="vsys1">
+              <address>
+                <entry name="RFC1918-10">
+                  <ip-netmask>10.0.0.0/8</ip-netmask>
+                </entry>
+              </address>
+              <rulebase>
+                <security>
+                  <rules>
+                    <entry name="ALLOW-INTERNAL">
+                      <from><member>trust</member></from>
+                      <to><member>untrust</member></to>
+                      <source><member>RFC1918-10</member></source>
+                      <destination><member>any</member></destination>
+                      <service><member>application-default</member></service>
+                      <application><member>ssl</member></application>
+                      <action>allow</action>
+                    </entry>
+                    <entry name="DEFAULT-DENY">
+                      <from><member>any</member></from>
+                      <to><member>any</member></to>
+                      <source><member>any</member></source>
+                      <destination><member>any</member></destination>
+                      <service><member>any</member></service>
+                      <application><member>any</member></application>
+                      <action>deny</action>
+                    </entry>
+                  </rules>
+                </security>
+                <nat>
+                  <rules/>
+                </nat>
+              </rulebase>
+            </entry>
+          </vsys>
+        </entry>
+      </devices>
+    </config>
+  </result>
+</response>

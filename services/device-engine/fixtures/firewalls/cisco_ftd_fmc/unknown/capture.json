@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "platform": "cisco_ftd_fmc",
+  "context": {
+    "domain": "Global",
+    "device": "ftd-1"
+  },
+  "sources": [
+    {
+      "identity": "/read-only/policy",
+      "state": "denied"
+    }
+  ],
+  "facts": {
+    "identity": {
+      "collection_state": "collected",
+      "hostname": "cisco_ftd_fmc-synthetic"
+    },
+    "management": {
+      "telnet_enabled": null,
+      "http_enabled": null
+    },
+    "objects": {
+      "known": {
+        "type": "address",
+        "value": "10.0.0.0/24"
+      },
+      "missing_group": {
+        "type": "group",
+        "members": [
+          "absent"
+        ]
+      }
+    },
+    "ordered_rules": [
+      {
+        "id": "rule-1",
+        "order": 1,
+        "enabled": true,
+        "action": "unknown",
+        "source": [
+          "missing_group"
+        ],
+        "destination": [
+          "any"
+        ],
+        "services": [
+          "unresolved-service"
+        ],
+        "application_or_user_constraints": {
+          "applications": [
+            "SSL"
+          ],
+          "users": [
+            "Any"
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "policy_or_acl": "policy-1",
+        "device_or_interface": "device-1",
+        "direction": "assigned"
+      }
+    ],
+    "nat": [
+      {
+        "id": "nat-1",
+        "type": "unknown",
+        "original": "10.0.0.0/24",
+        "translated": "203.0.113.10"
+      }
+    ],
+    "logging": {
+      "configured": null
+    },
+    "ntp": {
+      "configured": null
+    },
+    "snmp": {
+      "configured": null
+    },
+    "deployment": {
+      "saved_or_published": true,
+      "confirmed_installed": null
+    }
+  }
+}

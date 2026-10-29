@@ -1,0 +1,38 @@
+! SYNTHETIC - Phase 6 switch test (weak)
+version 16.12
+hostname SW-p6-weak
+!
+ip http server
+!
+ip ssh version 2
+!
+logging host 192.0.2.50
+!
+ntp server 192.0.2.1
+!
+snmp-server user audituser auditgrp v3 auth sha REDACTME
+snmp-server community public RO
+!
+ip dhcp snooping
+ip dhcp snooping vlan 10
+!
+interface GigabitEthernet1/0/1
+ switchport mode access
+ switchport access vlan 10
+ switchport port-security
+!
+interface GigabitEthernet1/0/2
+ switchport mode access
+ switchport access vlan 20
+!
+interface GigabitEthernet1/0/3
+ switchport mode trunk
+!
+interface Vlan1
+ ip address 10.0.0.1 255.255.255.0
+!
+line vty 0 4
+ transport input ssh
+ exec-timeout 30 0
+ login local
+!

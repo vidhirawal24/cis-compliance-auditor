@@ -1,0 +1,35 @@
+! SYNTHETIC - Phase 6 network-predicate test fixture (secure router)
+version 16.12
+hostname RTR-p6-secure
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+logging host 192.0.2.50
+logging host 192.0.2.51
+!
+ntp server 192.0.2.1
+ntp server 192.0.2.2
+!
+snmp-server user audituser auditgrp v3 auth sha REDACTME priv aes 128 REDACTME
+!
+! Named extended ACL with source-restricted permit and explicit deny any
+ip access-list extended MGMT-IN
+ permit tcp 10.0.0.0 0.0.0.255 any eq 22
+ deny ip any any
+!
+interface GigabitEthernet0/0
+ ip address 10.0.0.1 255.255.255.0
+ ip access-group MGMT-IN in
+!
+line vty 0 4
+ transport input ssh
+ exec-timeout 5 0
+ login local
+line vty 5 15
+ transport input ssh
+ exec-timeout 5 0
+ login local
+!

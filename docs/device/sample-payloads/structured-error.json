@@ -1,0 +1,1 @@
+{"schema_version":"1.0.0","operation":"execute","status":"REJECTED","error":{"code":"LIVE_WRITE_BLOCKED","message":"No production execution dependencies are configured; no transport was called.","request_id":"0041df40-9a5b-5389-a51e-a975a7b37947","details":{"phase":"phase6"},"retryable":false}}

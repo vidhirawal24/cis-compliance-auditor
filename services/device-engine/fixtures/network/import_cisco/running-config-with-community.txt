@@ -1,0 +1,15 @@
+! SYNTHETIC - for offline import testing
+version 17.3
+hostname RTR-import-oversized-test
+ip ssh version 2
+logging host 192.0.2.50
+ntp server 192.0.2.1
+snmp-server user audituser auditgrp v3 auth sha REDACTME
+snmp-server community public RO
+interface GigabitEthernet0/0
+ ip access-group EDGE in
+access-list EDGE permit tcp any any eq 22
+line vty 0 4
+ transport input ssh
+ exec-timeout 5 0
+ login local

@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "label": "synthetic-cisco_switch-unknown",
+  "platform": "cisco_switch",
+  "illustrative_version": "IOS-XE 17.x illustrative",
+  "model": "synthetic-cisco_switch",
+  "org_id": "11111111-1111-4111-8111-111111111111",
+  "asset_id": "55555555-0000-4000-8000-000000000041",
+  "collected_at": "2026-10-29T00:00:00Z",
+  "sources": [
+    {
+      "identity": "running_config",
+      "file": "running-config.txt",
+      "state": "collected"
+    },
+    {
+      "identity": "show_output",
+      "file": "show-output.txt",
+      "state": "denied"
+    }
+  ],
+  "completeness": "partial",
+  "designated_unused_ports": null
+}

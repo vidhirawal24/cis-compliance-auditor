@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.2" id="synthetic_content_not_official">
+  <title>SYNTHETIC content fixture - not CIS or real ComplianceAsCode content</title>
+  <version>synthetic-1</version>
+  <platform idref="cpe:/o:canonical:ubuntu_linux:22.04"/>
+  <Profile id="synthetic_profile"><title>Synthetic profile</title></Profile>
+  <Rule id="synthetic_rule"><title>Synthetic rule</title></Rule>
+</Benchmark>

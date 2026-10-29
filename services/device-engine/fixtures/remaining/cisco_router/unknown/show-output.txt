@@ -1,0 +1,2 @@
+GigabitEthernet0/0 up
+Clock is synchronized

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response APIVersion="1905.2">
+  <Identity Firmware="SFOS 19.5.0" Hostname="sophos-import-test"/>
+  <Objects>
+    <Host Name="LAN" Value="10.0.0.0/24" type="Network"/>
+    <Host Name="WAN" Value="0.0.0.0/0" type="Network"/>
+  </Objects>
+  <FirewallRules>
+    <FirewallRule Name="ALLOW-LAN-OUT" Status="Enable" Action="Accept"
+      Source="LAN" Destination="WAN" Services="HTTPS"
+      SourceZones="LAN" DestinationZones="WAN"/>
+    <FirewallRule Name="DEFAULT-DENY" Status="Enable" Action="Drop"
+      Source="WAN" Destination="LAN" Services="Any"
+      SourceZones="WAN" DestinationZones="LAN"/>
+  </FirewallRules>
+  <Management AllowedIPRange="10.0.0.0/24"/>
+  <Logging SyslogServer="192.0.2.50" Status="Enable"/>
+  <NTP Server1="192.0.2.1" Status="Enable"/>
+  <SNMP Version="3" UserName="audituser"/>
+  <NATRules/>
+</Response>

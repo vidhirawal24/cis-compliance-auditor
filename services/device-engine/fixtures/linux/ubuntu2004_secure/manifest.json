@@ -1,0 +1,1 @@
+{"synthetic":true,"label":"SYNTHETIC Ubuntu 20.04 secure capture","intended_platform":"ubuntu_20_04_lts","illustrative_version":"20.04 synthetic only","case":"secure","scope":"bounded Phase-3 facts; no compliance claim","org_id":"11111111-1111-4111-8111-111111111111","asset_id":"30000000-0000-4000-8000-000000000001","model":"synthetic-linux","capture_file":"capture.json"}

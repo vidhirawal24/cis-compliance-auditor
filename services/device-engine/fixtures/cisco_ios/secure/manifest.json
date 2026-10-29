@@ -1,0 +1,31 @@
+{
+  "synthetic": true,
+  "label": "SYNTHETIC Cisco IOS secure-configuration example",
+  "platform": "cisco_ios_fixture",
+  "illustrative_version": "IOS illustrative 15.x - not validated",
+  "model": "synthetic-router",
+  "scope": "complete only for the five Phase-1 configuration fact categories",
+  "org_id": "11111111-1111-4111-8111-111111111111",
+  "asset_id": "10000000-0000-4000-8000-000000000001",
+  "collected_at": "2026-10-29T01:00:00Z",
+  "source_file": "config.txt",
+  "expected_file": "expected.json",
+  "expected_supported_capabilities": [
+    "fixture_replay",
+    "cisco_ios_config_parse",
+    "management_vty_transport_config",
+    "ssh_version_config",
+    "session_timeout_config",
+    "remote_syslog_config",
+    "ntp_server_config"
+  ],
+  "expected_unsupported_capabilities": [
+    "live_collection",
+    "operational_reachability",
+    "effective_exposure",
+    "ssh_key_authentication_state",
+    "ntp_synchronization_state",
+    "compliance_evaluation",
+    "remediation"
+  ]
+}

@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cisguard-device"
+version = "0.1.0"
+description = "Standalone CISGuard 360 device-engine foundation"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.10,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<10", "ruff>=0.9,<1"]
+network = [
+  "httpx>=0.27,<1",
+  "netmiko>=4.5,<5",
+  "paramiko>=3.5,<5",
+  "scrapli>=2025.1.30,<2027",
+]
+parsing = [
+  "lxml>=5.3,<7",
+  "pyyaml>=6.0,<7",
+  "textfsm>=1.1,<3",
+  "ttp>=0.9,<1",
+]
+windows-remote = ["pywinrm>=0.5,<1"]
+linux-remote = ["paramiko>=3.5,<5"]
+phase1 = [
+  "httpx>=0.27,<1",
+  "lxml>=5.3,<7",
+  "netmiko>=4.5,<5",
+  "paramiko>=3.5,<5",
+  "pyyaml>=6.0,<7",
+  "scrapli>=2025.1.30,<2027",
+  "textfsm>=1.1,<3",
+  "ttp>=0.9,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cisguard_device"]
+
+[tool.hatch.build]
+include = ["src/cisguard_device/**/*.py", "src/cisguard_device/scripts/*.ps1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --basetemp=.pytest_tmp_workspace -p no:cacheprovider"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

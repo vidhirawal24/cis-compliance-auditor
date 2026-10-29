@@ -1,0 +1,7 @@
+! SYNTHETIC partial fixture - not collected from a device
+hostname SYNTHETIC-UNKNOWN
+line vty five fifteen
+line vty 0 4
+ transport input
+ exec-timeout invalid
+!

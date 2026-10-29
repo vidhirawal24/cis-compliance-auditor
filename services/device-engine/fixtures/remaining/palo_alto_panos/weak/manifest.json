@@ -1,0 +1,19 @@
+{
+  "synthetic": true,
+  "label": "synthetic-palo_alto_panos-weak",
+  "platform": "palo_alto_panos",
+  "illustrative_version": "PAN-OS 10.2 illustrative",
+  "model": "synthetic-palo_alto_panos",
+  "org_id": "11111111-1111-4111-8111-111111111111",
+  "asset_id": "55555555-0000-4000-8000-000000000021",
+  "collected_at": "2026-10-29T00:00:00Z",
+  "sources": [
+    {
+      "identity": "panos_config_xml",
+      "file": "source.xml",
+      "state": "collected"
+    }
+  ],
+  "completeness": "complete",
+  "designated_unused_ports": null
+}

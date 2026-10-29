@@ -1,0 +1,12 @@
+! SYNTHETIC fixture - not collected from a device
+hostname SYNTHETIC-SECURE
+ip ssh version 2
+logging host 192.0.2.50
+ntp server 192.0.2.123 prefer
+line vty 0 4
+ transport input ssh
+ exec-timeout 10 0
+line vty 5 15
+ transport input ssh
+ exec-timeout 5 0
+!

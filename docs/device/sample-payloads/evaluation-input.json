@@ -1,0 +1,1 @@
+{"status":"PROVISIONAL_WORKER_SHAPE","envelope_file":"external FactsEnvelope JSON","policy":{"session_timeout_seconds":300,"expected_vty_lines":[0,1,2,3,4],"designated_unused_ports":["GigabitEthernet1/0/2"]},"limitation":"Only cisco_router/cisco_switch M20-M33 predicates are supported."}
