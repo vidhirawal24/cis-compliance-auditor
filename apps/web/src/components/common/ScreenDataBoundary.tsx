@@ -29,7 +29,11 @@ export async function legacyRecordCount(family: string, api: ApiClientInterface,
     case '02': return (await api.getOrganizations()).data.length;
     case '03': case '06': return scopedCount((await api.getScans(org)).data);
     case '04': return scopedCount((await api.getAssets(org)).data);
-    case '05': return scopedCount([(await api.getAsset(assetId ?? '')).data]);
+    case '05': {
+      const asset = (await api.getAsset(assetId ?? '')).data;
+      if (asset.asset_id !== assetId) throw new Error('Asset identity mismatch');
+      return scopedCount([asset]);
+    }
     case '07': return (await api.getPolicyPacks()).data.length;
     case '08': {
       const [exceptions, reviews] = await Promise.all([api.getPolicyExceptions(org), api.getManualReviews(org)]);

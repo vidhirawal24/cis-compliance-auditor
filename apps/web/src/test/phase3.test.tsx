@@ -25,7 +25,7 @@ const renderWithRoute = async (initialPath: string) => {
       </AuthProvider>
     </QueryClientProvider>
   );
-  await waitFor(() => expect(screen.queryByText('Loading records...')).not.toBeInTheDocument());
+  await waitFor(() => { expect(screen.queryByText('Loading screen...')).not.toBeInTheDocument(); expect(screen.queryByText('Loading records...')).not.toBeInTheDocument(); });
   return view;
 };
 

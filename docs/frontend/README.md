@@ -54,6 +54,7 @@ corepack pnpm --dir apps/web build
 corepack pnpm --dir apps/web exec playwright install chromium
 corepack pnpm --dir apps/web test:e2e
 corepack pnpm --dir apps/web test:a11y
+corepack pnpm --dir apps/web test:production
 git diff --check
 ```
 
@@ -73,7 +74,7 @@ the screenshot index are genuine DEMO browser evidence, not production results.
 - [Phase 9 gate and result record](phase9-review.md).
 - [API questions and unresolved bindings](contract-questions.md).
 - [Screenshots](screenshots/README.md).
-- Final regression record: `phase10-final-qa.md` will be added only in Phase 10.
+- [Final regression evidence and limitations](phase10-final-qa.md).
 
 Fixtures: `src/fixtures/demoData.ts`, `src/fixtures/phase8Data.ts`, `src/api/store.ts`,
 and Phase 6 frontend-only candidate metadata. Test mocks do not claim real device
@@ -88,6 +89,7 @@ compatibility, notification delivery, signatures, exports or server authorizatio
 - [x] Separate compliance from coverage; keep unknown/unsupported/stale states visible.
 - [x] Typed/API and fixture source boundaries documented; public-only env example.
 - [x] Vitest, lint, build and real browser/axe tooling configured.
+- [x] Combined Phase 0-9 regression, all-family browser navigation and built-production fail-closed checks completed; see Phase 10 record.
 - [ ] Backend contract freeze, memberships/claims, live MFA and real report integration.
 - [ ] Authorized device/version tests, complete evidence, signatures and export reconciliation.
 - [ ] Full keyboard/screen-reader/manual accessibility review beyond automated checks.

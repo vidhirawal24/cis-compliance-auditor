@@ -4,6 +4,8 @@ Freeze audit: Phase 9. Sources: PRD v1 section 4 (pages 6-9), guide pages 10-13.
 
 Summary: 82 PARTIAL, 3 BLOCKED (E09, E10, E30), 3 UNTESTED (M25, M28, M29), 0 DONE. Generic routes do not prove control semantics. Prior review labels are superseded by this evidence audit, not silently treated as implemented features.
 
+Phase 10 revalidation preserves these statuses: frontend regression tests do not establish missing backend/device capabilities. See [final QA evidence](phase10-final-qa.md).
+
 | ID | Feature (PRD-aligned) | Status | Reachable frontend surface | Evidence | Remaining acceptance requirement |
 | --- | --- | --- | --- | --- | --- |
 | M01 | Windows 11 Audit | PARTIAL | `/orgs/:orgId/assets` | Platform inventory/detail fixtures; assets_phase2.test.tsx. Branding is not compatibility evidence. | Version-specific collector/evaluator/remediation and authorized lab matrix. |

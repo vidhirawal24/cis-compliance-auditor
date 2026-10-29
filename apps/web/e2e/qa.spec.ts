@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import path from 'node:path';
+import { existsSync } from 'node:fs';
 
 const org = 'e9c80d50-1011-42e1-88f2-aa11bb22cc01';
 test('DEMO navigation, plan selection and contract-violation blocking', async ({ page }) => {
@@ -43,7 +44,8 @@ for (const [route, heading] of [
     expect(results.violations, JSON.stringify(results.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) })))).toEqual([]);
     await expect(page.locator('body')).toHaveJSProperty('scrollWidth', await page.locator('body').evaluate(el => el.clientWidth));
     if (info.project.name === 'desktop-chromium' || route === 'reports') {
-      await page.screenshot({ path: path.resolve('../../docs/frontend/screenshots', `phase9-${route}-${info.project.name}.png`), fullPage: true });
+      const capture = path.resolve('../../docs/frontend/screenshots', `phase9-${route}-${info.project.name}.png`);
+      if (!existsSync(capture)) await page.screenshot({ path: capture, fullPage: true });
     }
   });
 }

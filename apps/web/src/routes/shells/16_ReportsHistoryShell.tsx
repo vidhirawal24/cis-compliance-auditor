@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useApi, apiCacheKey } from '../../api/context';
 import { DemoApiClient } from '../../api/client';
 import { ReportFormat } from '../../contracts/v1/enums';
+import type { GeneratedReport, DriftEvent } from '../../contracts/v1/types';
 import { ApiState } from '../../components/common/ApiState';
 import { Card } from '../../components/ui/card';
 import { Input } from '../../components/ui/input';
@@ -22,11 +23,17 @@ export function ReportsHistoryShell() {
   const [format, setFormat] = useState('ALL');
   const [tab, setTab] = useState(pathname.endsWith('/drift') ? 'DRIFT' : 'REPORTS');
   useEffect(() => { setTab(pathname.endsWith('/drift') ? 'DRIFT' : 'REPORTS'); }, [pathname]);
-  const query = useQuery({ queryKey: ['reports-history', orgId, apiCacheKey(api)], queryFn: async () => {
-    const [reports, drift] = await Promise.all([api.getReports(), api.getDriftEvents()]);
-    if ([...reports.data, ...drift.data].some(record => record.org_id !== orgId)) throw new Error('Tenant mismatch');
-    return { reports: reports.data, drift: drift.data };
+  const reports = useQuery({ queryKey: ['reports-history', orgId, apiCacheKey(api)], queryFn: async () => {
+    const records = (await api.getReports()).data;
+    if (records.some(record => record.org_id !== orgId)) throw new Error('Tenant mismatch');
+    return { reports: records, drift: [] as DriftEvent[] };
   }, retry: false });
+  const drift = useQuery({ queryKey: ['drift-history', orgId, apiCacheKey(api)], enabled: tab === 'DRIFT', queryFn: async () => {
+    const records = (await api.getDriftEvents()).data;
+    if (records.some(record => record.org_id !== orgId)) throw new Error('Tenant mismatch');
+    return { reports: [] as GeneratedReport[], drift: records };
+  }, retry: false });
+  const query = tab === 'REPORTS' ? reports : drift;
   return <div className="space-y-5"><h1 className="text-xl font-bold">Compliance Reports &amp; Drift Timeline (M38, E05-E07, E28-E29)</h1>
     <Badge variant="warning">{api instanceof DemoApiClient ? 'DEMO - synthetic reports and history' : 'Backend-supplied records'}</Badge>
     <p>Report generation is UNSUPPORTED: no typed generation operation. Report asset scope, benchmark release and profile metadata are not supplied; do not infer them from a title. Exports require server authorization and redaction.</p>

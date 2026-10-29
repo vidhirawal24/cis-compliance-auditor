@@ -4,6 +4,7 @@ import type { ApprovalRecord, DualVerification, HardeningChange, RemediationPlan
 export function approvalState(record: ApprovalRecord, plan: RemediationPlan, snapshot?: RemediationPlan): string {
   if (record.plan_id !== plan.plan_id || record.plan_hash !== plan.plan_hash ||
       (snapshot && JSON.stringify(snapshot) !== JSON.stringify(plan))) return 'STALE';
+  if (!validHash(record.plan_hash) || !validHash(plan.plan_hash)) return 'INSUFFICIENT_EVIDENCE';
   if (record.operator_id === record.approver_id) return 'INVALID_SEPARATION_OF_DUTIES';
   return record.status;
 }

@@ -1,4 +1,8 @@
 import '@testing-library/jest-dom';
+import { configure } from '@testing-library/react';
+
+// Real lazy-route imports may include cold Vite transforms under concurrent QA load.
+configure({ asyncUtilTimeout: 5000 });
 
 // Mock matchMedia for responsive UI tests
 Object.defineProperty(window, 'matchMedia', {

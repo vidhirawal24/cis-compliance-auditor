@@ -127,7 +127,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (error) {
         return {
           success: false,
-          error: error.message || 'Supabase authentication failed. Ensure credentials are valid or use Demo Quick Sign-In.',
+          error: 'Authentication request failed. No fallback session was created.',
         };
       }
       setAuthMode('SUPABASE');
@@ -139,20 +139,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isDemo: false,
       });
       return { success: true, requiresMfa: true };
-    } catch (err: unknown) {
+    } catch {
       return {
         success: false,
-        error: (err as Error)?.message || 'Failed to connect to Supabase auth service.',
+        error: 'Authentication service unavailable. No fallback session was created.',
       };
     }
   };
 
   const logout = async () => {
-    if (authMode === 'SUPABASE' && supabase) {
-      await supabase.auth.signOut();
+    let remoteFailed = false;
+    try {
+      if (authMode === 'SUPABASE' && supabase) {
+        const { error } = await supabase.auth.signOut();
+        remoteFailed = !!error;
+      }
+    } catch { remoteFailed = true; }
+    finally {
+      setUser(null);
+      setCurrentOrg(null);
     }
-    setUser(null);
-    setCurrentOrg(null);
+    if (remoteFailed) throw new Error('Local session ended; remote sign-out was not confirmed.');
   };
 
   const resetPassword = async (email: string) => {

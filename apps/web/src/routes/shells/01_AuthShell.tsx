@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -17,8 +17,9 @@ type PasswordResetFormData = z.infer<typeof passwordResetFormSchema>;
 type MfaVerifyFormData = z.infer<typeof mfaVerifyFormSchema>;
 
 export const AuthShell: React.FC = () => {
+  const location = useLocation();
   const [authTab, setAuthTab] = useState<'LOGIN' | 'RECOVER_PASSWORD' | 'MFA_CHALLENGE' | 'MFA_SETUP' | 'BLOCKED'>('LOGIN');
-  const [authError, setAuthError] = useState<string | null>(null);
+  const [authError, setAuthError] = useState<string | null>(location.state?.logoutUnconfirmed === true ? 'Local session ended; remote sign-out was not confirmed.' : null);
   const [authNotice, setAuthNotice] = useState<string | null>(null);
   const [selectedDemoRole, setSelectedDemoRole] = useState<UserRole>(UserRole.OWNER);
   const [demoEmail, setDemoEmail] = useState('apoorva.lead@baselineguard.local');
@@ -155,7 +156,7 @@ export const AuthShell: React.FC = () => {
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-bold text-white">Sign In to Workspace</CardTitle>
               <CardDescription className="text-xs text-slate-400">
-                Multi-tenant access enforced by Supabase Auth and tenant RBAC policies
+                Server authorization and tenant membership integration required
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

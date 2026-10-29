@@ -11,9 +11,10 @@
     "test:watch": "vitest",
     "type-check": "tsc --noEmit",
     "dev:demo": "vite --mode demo",
-    "lint": "eslint src e2e playwright.config.ts --max-warnings 0",
+    "lint": "eslint src e2e playwright.config.ts playwright.production.config.ts --max-warnings 0",
     "test:e2e": "playwright test",
-    "test:a11y": "playwright test --grep @a11y"
+    "test:a11y": "playwright test --grep @a11y",
+    "test:production": "playwright test --config playwright.production.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

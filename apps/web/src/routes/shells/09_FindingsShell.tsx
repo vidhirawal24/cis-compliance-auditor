@@ -108,6 +108,7 @@ export const FindingsShell: React.FC = () => {
         {/* Status Filter */}
         <div className="flex items-center gap-1.5 text-xs">
           <select
+            aria-label="Filter findings by status"
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="h-8 bg-slate-900 border border-slate-800 rounded px-2.5 text-xs text-slate-300 font-mono focus:ring-1 focus:ring-sky-500"
@@ -125,6 +126,7 @@ export const FindingsShell: React.FC = () => {
         {/* Asset Filter */}
         <div className="flex items-center gap-1.5 text-xs">
           <select
+            aria-label="Filter findings by asset"
             value={selectedAssetId}
             onChange={(e) => setSelectedAssetId(e.target.value)}
             className="h-8 bg-slate-900 border border-slate-800 rounded px-2.5 text-xs text-slate-300 font-mono focus:ring-1 focus:ring-sky-500"
@@ -141,6 +143,7 @@ export const FindingsShell: React.FC = () => {
         {/* Category Filter Dropdown */}
         <div className="flex items-center gap-1.5 text-xs">
           <select
+            aria-label="Filter findings by category"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="h-8 bg-slate-900 border border-slate-800 rounded px-2.5 text-xs text-slate-300 font-mono focus:ring-1 focus:ring-sky-500"
@@ -181,7 +184,7 @@ export const FindingsShell: React.FC = () => {
             <span className="font-mono text-slate-500 text-[11px]">Strict Invariant Evaluation</span>
           </div>
 
-          <div className="divide-y divide-slate-800/80 overflow-y-auto flex-1">
+          <div className="divide-y divide-slate-800/80 overflow-y-auto flex-1" tabIndex={0} role="region" aria-label="Finding results">
             {filtered.length === 0 ? (
               <div className="p-8 text-center text-slate-500 text-xs space-y-2">
                 <Info className="w-6 h-6 mx-auto text-slate-600" />
@@ -206,6 +209,10 @@ export const FindingsShell: React.FC = () => {
                 return (
                   <div
                     key={f.finding_id}
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isSelected}
+                    onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedFindingId(f.finding_id); } }}
                     onClick={() => setSelectedFindingId(f.finding_id)}
                     className={`p-3 cursor-pointer transition-colors ${
                       isSelected

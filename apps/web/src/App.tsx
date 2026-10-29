@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { AuthProvider } from './auth/context';
 import { ApiProvider } from './api/context';
 import { AppRouter } from './routes/AppRouter';
+import { SessionCacheBoundary } from './auth/SessionCacheBoundary';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,12 +21,14 @@ export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <SessionCacheBoundary>
         <ApiProvider>
           <BrowserRouter>
             <AppRouter />
             <Toaster position="top-right" richColors theme="dark" />
           </BrowserRouter>
         </ApiProvider>
+        </SessionCacheBoundary>
       </AuthProvider>
     </QueryClientProvider>
   );

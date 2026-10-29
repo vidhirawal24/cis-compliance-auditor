@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
+import { ErrorBoundary } from '../components/common/ErrorBoundary';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from '../components/layout/AppLayout';
 import { AuthGuard } from '../auth/AuthGuard';
@@ -6,29 +7,29 @@ import { ScreenDataBoundary } from '../components/common/ScreenDataBoundary';
 import { UserRole } from '../contracts/v1/enums';
 
 // 19 Route Shells
-import { AuthShell } from './shells/01_AuthShell';
-import { OrgSelectShell } from './shells/02_OrgSelectShell';
-import { OverviewShell } from './shells/03_OverviewShell';
-import { AssetInventoryShell } from './shells/04_AssetInventoryShell';
-import { AssetDetailShell } from './shells/05_AssetDetailShell';
-import { ScanCenterShell } from './shells/06_ScanCenterShell';
-import { PolicyLibraryShell } from './shells/07_PolicyLibraryShell';
-import { ExceptionsShell } from './shells/08_ExceptionsShell';
-import { FindingsShell } from './shells/09_FindingsShell';
-import { SecurityGraphShell } from './shells/10_SecurityGraphShell';
-import { RiskScenariosShell } from './shells/11_RiskScenariosShell';
-import { RemediationPlannerShell } from './shells/12_RemediationPlannerShell';
-import { WhatIfSimulatorShell } from './shells/13_WhatIfSimulatorShell';
-import { ApprovalsHardeningShell } from './shells/14_ApprovalsHardeningShell';
-import { VerificationProofShell } from './shells/15_VerificationProofShell';
-import { ReportsHistoryShell } from './shells/16_ReportsHistoryShell';
-import { NotificationsTicketsShell } from './shells/17_NotificationsTicketsShell';
-import { AdminSecurityShell } from './shells/18_AdminSecurityShell';
-import { SystemStatesShell } from './shells/19_SystemStatesShell';
+const AuthShell = lazy(() => import('./shells/01_AuthShell').then(module => ({ default: module.AuthShell })));
+const OrgSelectShell = lazy(() => import('./shells/02_OrgSelectShell').then(module => ({ default: module.OrgSelectShell })));
+const OverviewShell = lazy(() => import('./shells/03_OverviewShell').then(module => ({ default: module.OverviewShell })));
+const AssetInventoryShell = lazy(() => import('./shells/04_AssetInventoryShell').then(module => ({ default: module.AssetInventoryShell })));
+const AssetDetailShell = lazy(() => import('./shells/05_AssetDetailShell').then(module => ({ default: module.AssetDetailShell })));
+const ScanCenterShell = lazy(() => import('./shells/06_ScanCenterShell').then(module => ({ default: module.ScanCenterShell })));
+const PolicyLibraryShell = lazy(() => import('./shells/07_PolicyLibraryShell').then(module => ({ default: module.PolicyLibraryShell })));
+const ExceptionsShell = lazy(() => import('./shells/08_ExceptionsShell').then(module => ({ default: module.ExceptionsShell })));
+const FindingsShell = lazy(() => import('./shells/09_FindingsShell').then(module => ({ default: module.FindingsShell })));
+const SecurityGraphShell = lazy(() => import('./shells/10_SecurityGraphShell').then(module => ({ default: module.SecurityGraphShell })));
+const RiskScenariosShell = lazy(() => import('./shells/11_RiskScenariosShell').then(module => ({ default: module.RiskScenariosShell })));
+const RemediationPlannerShell = lazy(() => import('./shells/12_RemediationPlannerShell').then(module => ({ default: module.RemediationPlannerShell })));
+const WhatIfSimulatorShell = lazy(() => import('./shells/13_WhatIfSimulatorShell').then(module => ({ default: module.WhatIfSimulatorShell })));
+const ApprovalsHardeningShell = lazy(() => import('./shells/14_ApprovalsHardeningShell').then(module => ({ default: module.ApprovalsHardeningShell })));
+const VerificationProofShell = lazy(() => import('./shells/15_VerificationProofShell').then(module => ({ default: module.VerificationProofShell })));
+const ReportsHistoryShell = lazy(() => import('./shells/16_ReportsHistoryShell').then(module => ({ default: module.ReportsHistoryShell })));
+const NotificationsTicketsShell = lazy(() => import('./shells/17_NotificationsTicketsShell').then(module => ({ default: module.NotificationsTicketsShell })));
+const AdminSecurityShell = lazy(() => import('./shells/18_AdminSecurityShell').then(module => ({ default: module.AdminSecurityShell })));
+const SystemStatesShell = lazy(() => import('./shells/19_SystemStatesShell').then(module => ({ default: module.SystemStatesShell })));
 
 export const AppRouter: React.FC = () => {
   return (
-    <Routes>
+    <ErrorBoundary><Suspense fallback={<p role="status">Loading screen...</p>}><Routes>
       {/* 01: Authentication Boundary (Public) */}
       <Route path="/auth/*" element={<AuthShell />} />
       <Route path="/auth/login" element={<AuthShell />} />
@@ -202,7 +203,7 @@ export const AppRouter: React.FC = () => {
       {/* Root Fallback */}
       <Route path="/" element={<Navigate to="/orgs" replace />} />
       <Route path="*" element={<SystemStatesShell />} />
-    </Routes>
+    </Routes></Suspense></ErrorBoundary>
   );
 };
 

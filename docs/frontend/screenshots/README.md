@@ -14,3 +14,9 @@ Reproduce with `corepack pnpm --dir apps/web test:e2e` (port 3000 must be free).
 
 These are visual evidence for these screens, not an all-screen accessibility or
 production integration certification. Automated HTML reports and traces are ignored.
+
+`phase10-production-disabled.png` is a separate genuine capture of the built
+production app refusing DEMO sign-in with disabled configuration. Reproduce after
+`build` with `corepack pnpm --dir apps/web test:production` on port 3001. It shows
+an unavailable workflow, not a successful production integration. Phase 9 captures
+are preserved rather than overwritten by subsequent regression runs.

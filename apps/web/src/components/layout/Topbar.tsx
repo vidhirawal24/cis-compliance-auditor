@@ -122,7 +122,8 @@ export const Topbar: React.FC<TopbarProps> = ({ onOpenMobileNav }) => {
           </div>
           <Button
             onClick={async () => {
-              await logout();
+              try { await logout(); }
+              catch { navigate('/auth/login', { state: { logoutUnconfirmed: true } }); return; }
               navigate('/auth/login');
             }}
             variant="ghost"
