@@ -1,7 +1,8 @@
 import React, { createContext, useContext } from 'react';
-import { apiClient, ApiClientInterface } from './client';
+import { ApiClientInterface } from './client';
+import { configuredClient, createConfiguredClient } from './configuredClient';
 
-const ApiContext = createContext<ApiClientInterface>(apiClient);
+const ApiContext = createContext<ApiClientInterface>(createConfiguredClient({ mode: 'disabled', apiBaseUrl: '/api/v1', approvedReads: [] }));
 const adapterKeys = new WeakMap<ApiClientInterface, number>();
 let nextAdapterKey = 0;
 
@@ -12,10 +13,10 @@ export function apiCacheKey(client: ApiClientInterface): number {
 }
 
 export const ApiProvider: React.FC<{ client?: ApiClientInterface; children: React.ReactNode }> = ({
-  client = apiClient,
+  client,
   children,
 }) => {
-  return <ApiContext.Provider value={client}>{children}</ApiContext.Provider>;
+  return <ApiContext.Provider value={client ?? configuredClient()}>{children}</ApiContext.Provider>;
 };
 
 export const useApi = () => {

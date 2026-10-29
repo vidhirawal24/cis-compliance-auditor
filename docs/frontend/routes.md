@@ -1,4 +1,10 @@
 # BaselineGuard (formerly CISGuard 360) - Route Map & 88-Feature Screen Matrix
+
+Phase 9 audit: the mapping below is a planned screen responsibility map, not a DONE
+matrix or a claim that its proposed hooks/endpoints exist. Current evidence statuses
+are in [feature-coverage.md](feature-coverage.md); the actual 19-family source/state
+audit is in [phase8-review.md](phase8-review.md). System States is now reachable from
+owner/admin navigation. Offline import and worker health remain unimplemented.
 **Role:** Frontend Owner (Apoorva)  
 **Date:** October 29, 2026  
 **Document Status:** Complete Phase 0 Route Taxonomy & Feature Binding  

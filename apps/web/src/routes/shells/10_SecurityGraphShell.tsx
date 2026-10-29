@@ -269,7 +269,7 @@ export const SecurityGraphShell: React.FC = () => {
             padding: 30,
           },
         });
-      } catch (err) {
+      } catch {
         // Fallback to headless cytoscape if container canvas initialization fails (e.g. headless jsdom)
         cy = cytoscape({
           headless: true,
@@ -300,8 +300,8 @@ export const SecurityGraphShell: React.FC = () => {
           cy?.destroy();
         };
       }
-    } catch (err) {
-      console.warn('Cytoscape canvas initialization warning:', err);
+    } catch {
+      console.warn('Cytoscape canvas unavailable; use the accessible table view.');
     }
   }, [viewMode, typeFilter, severityFilter, searchQuery]);
 

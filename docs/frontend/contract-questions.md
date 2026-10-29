@@ -251,3 +251,14 @@ Current supported reads are getReports/getDriftEvents/getAuditEvents and existin
 scan/asset/finding/trend/risk getters. No URLs, endpoint signatures, persistence or
 successful delivery were fabricated. Fixture-only legacy routes and unbound production
 plan/simulation/verification routes now explicitly block production rendering.
+
+## Phase 9 freeze
+
+The runtime adapter defaults to disabled. An explicit HTTP configuration can enable
+only the guide's agreed GET /reports after contract confirmation; its existing
+frontend-v1 envelope is runtime-validated. All other operations reject UNSUPPORTED.
+This does not assert that shared production schemas are frozen or that a backend
+was tested. Confirm tenant claims/membership, selected-tenant scope, MFA challenge
+handling, all remaining read bindings, pagination, snapshots, immutable approval
+revisions and every write contract before integration. No guessed URLs or generic
+browser command dispatch were introduced. See README.md and feature-coverage.md.

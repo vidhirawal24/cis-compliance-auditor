@@ -118,6 +118,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getAssets(_orgId: string) {
+    void _orgId; // DEMO-only getter; no production binding is inferred.
     return wrapCollection(fixtureStore.assets);
   }
 
@@ -151,6 +152,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getScans(_orgId: string) {
+    void _orgId; // DEMO-only getter; no production binding is inferred.
     return wrapCollection(fixtureStore.scans);
   }
 
@@ -187,6 +189,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getSchedules(_orgId: string) {
+    void _orgId; // DEMO-only getter; no production binding is inferred.
     return wrapCollection(fixtureStore.scanSchedules);
   }
 
@@ -216,6 +219,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getPolicyOverrides(_orgId: string) {
+    void _orgId; // DEMO-only getter; no production binding is inferred.
     return wrapCollection(fixtureStore.policyOverrides);
   }
 
@@ -235,6 +239,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getPolicyExceptions(_orgId: string) {
+    void _orgId; // DEMO-only getter; no production binding is inferred.
     return wrapCollection(fixtureStore.policyExceptions);
   }
 
@@ -251,6 +256,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getManualReviews(_orgId: string) {
+    void _orgId; // DEMO-only getter; no production binding is inferred.
     return wrapCollection(fixtureStore.manualReviews);
   }
 
@@ -315,6 +321,7 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getSimulation(_simId: string) {
+    void _simId; // DEMO-only getter; no production binding is inferred.
     return wrapResource(fixtureStore.whatIfSimulation);
   }
 
@@ -342,19 +349,23 @@ export class DemoApiClient implements ApiClientInterface {
   }
 
   async getChange(_changeId: string) {
+    void _changeId; // DEMO-only getter; no production binding is inferred.
     return wrapResource(fixtureStore.hardeningChange);
   }
 
   async executeChange(_changeId: string) {
+    void _changeId; // DEMO-only getter; no production binding is inferred.
     fixtureStore.hardeningChange.state = ExecutionState.EXECUTING;
     return wrapResource(fixtureStore.hardeningChange);
   }
 
   async getVerification(_verificationId: string) {
+    void _verificationId; // DEMO-only getter; no production binding is inferred.
     return wrapResource(fixtureStore.dualVerification);
   }
 
   async getProofPackage(_packageId: string) {
+    void _packageId; // DEMO-only getter; no production binding is inferred.
     return wrapResource(fixtureStore.proofPackage);
   }
 
@@ -370,6 +381,3 @@ export class DemoApiClient implements ApiClientInterface {
     return wrapCollection(fixtureStore.auditEvents);
   }
 }
-
-export const apiClient: ApiClientInterface = new DemoApiClient();
-

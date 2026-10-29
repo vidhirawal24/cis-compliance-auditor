@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { AlertOctagon, RotateCcw } from 'lucide-react';
 import { Button } from '../ui/button';
 
@@ -21,8 +21,8 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('BaselineGuard UI Error Caught:', error, errorInfo);
+  public componentDidCatch() {
+    console.error('BaselineGuard view failed. Raw errors are withheld to protect sensitive data.');
   }
 
   public render() {
@@ -39,7 +39,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             <h2 className="text-base font-bold text-white mb-2">Component Execution Error</h2>
             <p className="text-xs text-slate-400 mb-4 font-mono bg-black/40 p-2.5 rounded border border-slate-800 text-left overflow-auto max-h-28">
-              {this.state.error?.message || 'An unexpected rendering error occurred.'}
+              An unexpected rendering error occurred. No sensitive diagnostic details are displayed.
             </p>
             <Button
               onClick={() => this.setState({ hasError: false, error: null })}

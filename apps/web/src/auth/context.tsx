@@ -3,6 +3,7 @@ import { UserRole } from '../contracts/v1/enums';
 import type { Organization } from '../contracts/v1/types';
 import { DEMO_ORGANIZATION } from '../fixtures/demoData';
 import { supabase } from './supabase';
+import { runtimeConfig } from '../api/config';
 
 export interface AuthUser {
   id: string;
@@ -54,21 +55,23 @@ const INITIAL_ORGS: Organization[] = [
 ];
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<AuthUser | null>(DEMO_USER);
-  const [currentOrg, setCurrentOrg] = useState<Organization | null>(DEMO_ORGANIZATION);
-  const [userOrgs] = useState<Organization[]>(INITIAL_ORGS);
-  const [role, setRoleState] = useState<UserRole>(UserRole.OWNER);
-  const [authMode, setAuthMode] = useState<'DEMO' | 'SUPABASE'>('DEMO');
+  const demoAllowed = runtimeConfig().mode === 'demo';
+  const [user, setUser] = useState<AuthUser | null>(demoAllowed ? DEMO_USER : null);
+  const [currentOrg, setCurrentOrg] = useState<Organization | null>(demoAllowed ? DEMO_ORGANIZATION : null);
+  const [userOrgs] = useState<Organization[]>(demoAllowed ? INITIAL_ORGS : []);
+  const [role, setRoleState] = useState<UserRole>(demoAllowed ? UserRole.OWNER : UserRole.VIEWER);
+  const [authMode, setAuthMode] = useState<'DEMO' | 'SUPABASE'>(demoAllowed ? 'DEMO' : 'SUPABASE');
 
   useEffect(() => {
-    // Listen to real Supabase session changes if configured
+    // No fabricated tenant memberships or elevated roles for a real session.
+    if (!supabase) return;
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user && authMode === 'SUPABASE') {
         setUser({
           id: session.user.id,
           email: session.user.email || 'user@baselineguard.local',
-          role: UserRole.OWNER,
-          mfaVerified: true,
+          role: UserRole.VIEWER,
+          mfaVerified: false,
           isDemo: false,
         });
       } else if (event === 'SIGNED_OUT' && authMode === 'SUPABASE') {
@@ -96,6 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const setRole = (newRole: UserRole) => {
+    if (!demoAllowed || authMode !== 'DEMO') return;
     setRoleState(newRole);
     if (user) {
       setUser({ ...user, role: newRole });
@@ -103,6 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const loginDemo = (email: string, targetRole: UserRole) => {
+    if (!demoAllowed) return;
     setAuthMode('DEMO');
     setUser({
       id: `usr-${Date.now()}`,
@@ -117,6 +122,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loginSupabase = async (email: string, password: string) => {
     try {
+      if (!supabase) return { success: false, error: 'Supabase is not configured. No DEMO fallback is enabled.' };
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         return {
@@ -128,7 +134,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser({
         id: data.user.id,
         email: data.user.email || email,
-        role: UserRole.OWNER,
+        role: UserRole.VIEWER,
         mfaVerified: false, // Requires MFA verification
         isDemo: false,
       });
@@ -142,7 +148,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    if (authMode === 'SUPABASE') {
+    if (authMode === 'SUPABASE' && supabase) {
       await supabase.auth.signOut();
     }
     setUser(null);
@@ -150,68 +156,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const resetPassword = async (email: string) => {
+    if (demoAllowed && authMode === 'DEMO') return { success: true, message: 'DEMO password reset preview; no email was sent.' };
+    if (!supabase) return { success: false, message: 'Password reset unavailable: Supabase is not configured.' };
     try {
-      if (authMode === 'DEMO' || !navigator.onLine) {
-        return {
-          success: true,
-          message: `Password reset link dispatched to ${email}. Check your corporate inbox.`,
-        };
-      }
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/login`,
-      });
-      if (error) {
-        return {
-          success: false,
-          message: error.message || 'Failed to trigger password recovery via Supabase.',
-        };
-      }
-      return {
-        success: true,
-        message: `Password reset link dispatched to ${email}. Check your corporate inbox.`,
-      };
-    } catch {
-      // In offline/demo mode, provide deterministic response
-      return {
-        success: true,
-        message: `Password reset instructions dispatched for ${email}. Check inbox.`,
-      };
-    }
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/auth/login` });
+      return error ? { success: false, message: 'Password reset request failed.' } : { success: true, message: 'Password reset request accepted. Delivery is not confirmed.' };
+    } catch { return { success: false, message: 'Password reset request failed. No delivery is claimed.' }; }
   };
 
   const enrollMfa = async () => {
-    try {
-      const { data } = await supabase.auth.mfa.enroll({ factorType: 'totp' });
-      if (data?.totp?.qr_code) {
-        return {
-          qrCode: data.totp.qr_code,
-          secret: data.totp.secret,
-          factorId: data.id,
-        };
-      }
-    } catch {
-      // Fallback to deterministic demo TOTP seed
-    }
-    return {
-      qrCode: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%230284c7"/></svg>',
-      secret: 'JBSWY3DPEHPK3PXP',
-      factorId: 'factor-demo-01',
-    };
+    if (!demoAllowed || authMode !== 'DEMO') return { qrCode: '', secret: '', factorId: '' };
+    return { qrCode: '', secret: 'JBSWY3DPEHPK3PXP', factorId: 'factor-demo-01' };
   };
 
   const verifyMfa = async (code: string) => {
-    if (!/^\d{6}$/.test(code)) {
-      return { success: false, error: 'Verification code must be exactly 6 digits.' };
-    }
-    if (code === '000000') {
-      return { success: false, error: 'Invalid or expired TOTP security token.' };
-    }
-    if (user) {
-      setUser({ ...user, mfaVerified: true });
-    }
+    if (!demoAllowed || authMode !== 'DEMO') return { success: false, error: 'MFA verification is unsupported until the live factor/challenge workflow is integrated. No local approval is granted.' };
+    if (!/^\d{6}$/.test(code)) return { success: false, error: 'Verification code must be exactly 6 digits.' };
+    if (code === '000000') return { success: false, error: 'Invalid or expired TOTP security token.' };
+    if (user) setUser({ ...user, mfaVerified: true });
     return { success: true };
   };
-
   return (
     <AuthContext.Provider
       value={{

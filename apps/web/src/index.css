@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Browser axe findings: readable muted text and white-on-blue primary actions. */
+@layer utilities {
+  .text-slate-500 { color: #94a3b8; }
+  button.bg-sky-600 { background-color: #0369a1; }
+  button.bg-sky-600:hover { background-color: #075985; }
+}
+
 @layer base {
   :root {
     --background: 222 47% 7%; /* #0b0f17 */

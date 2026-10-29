@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../..
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { useAuth } from '../../auth/context';
+import { runtimeConfig } from '../../api/config';
 import { UserRole } from '../../contracts/v1/enums';
 import { loginFormSchema, passwordResetFormSchema, mfaVerifyFormSchema } from '../../contracts/v1/schemas';
 
@@ -21,10 +22,11 @@ export const AuthShell: React.FC = () => {
   const [authNotice, setAuthNotice] = useState<string | null>(null);
   const [selectedDemoRole, setSelectedDemoRole] = useState<UserRole>(UserRole.OWNER);
   const [demoEmail, setDemoEmail] = useState('apoorva.lead@baselineguard.local');
-  const [totpSecret, setTotpSecret] = useState('JBSWY3DPEHPK3PXP');
+  const [totpSecret, setTotpSecret] = useState('');
 
   const { loginDemo, loginSupabase, resetPassword, enrollMfa, verifyMfa } = useAuth();
   const navigate = useNavigate();
+  const demoAllowed = runtimeConfig().mode === 'demo';
 
   // 1. Supabase / Standard Login Form
   const {
@@ -100,6 +102,8 @@ export const AuthShell: React.FC = () => {
   const handleDemoSignIn = (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError(null);
+    if (!demoAllowed) { setAuthError('DEMO sign-in is disabled for this environment.'); return; }
+    loginDemo(demoEmail, selectedDemoRole);
     // Privileged roles require demonstration of the MFA step
     if (selectedDemoRole === UserRole.OWNER || selectedDemoRole === UserRole.ADMIN || selectedDemoRole === UserRole.APPROVER) {
       setAuthTab('MFA_CHALLENGE');
@@ -112,6 +116,7 @@ export const AuthShell: React.FC = () => {
   // Open MFA enrollment
   const handleOpenMfaSetup = async () => {
     const data = await enrollMfa();
+    if (!data.factorId) { setAuthError('MFA enrollment is unavailable until live factor integration is complete.'); return; }
     setTotpSecret(data.secret);
     setAuthTab('MFA_SETUP');
   };

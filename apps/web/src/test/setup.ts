@@ -24,7 +24,7 @@ global.ResizeObserver = class ResizeObserver {
 
 // Mock HTMLCanvasElement.prototype.getContext for Cytoscape in jsdom
 if (typeof HTMLCanvasElement !== 'undefined') {
-  HTMLCanvasElement.prototype.getContext = ((_contextId: string) =>
+  HTMLCanvasElement.prototype.getContext = (() =>
     ({
       fillRect: () => {},
       clearRect: () => {},

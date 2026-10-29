@@ -124,6 +124,7 @@ export const Sidebar: React.FC<{ onCloseMobile?: () => void }> = ({ onCloseMobil
       icon: Settings,
       allowedRoles: [UserRole.OWNER, UserRole.ADMIN],
     },
+    { name: 'System States', href: `/orgs/${currentOrgId}/system-states`, icon: Settings, allowedRoles: [UserRole.OWNER, UserRole.ADMIN] },
   ];
 
   // Filter items based on current active role

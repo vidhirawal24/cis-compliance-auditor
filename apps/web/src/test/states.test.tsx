@@ -49,7 +49,8 @@ describe('BaselineGuard - States & Edge Case Tests', () => {
     );
 
     expect(screen.getByText('Component Execution Error')).toBeInTheDocument();
-    expect(screen.getByText(/Deterministic Component Panic Test/)).toBeInTheDocument();
+    expect(screen.getByText(/No sensitive diagnostic details are displayed/)).toBeInTheDocument();
+    expect(screen.queryByText(/Deterministic Component Panic Test/)).not.toBeInTheDocument();
     expect(screen.getByText('Try Recovering View')).toBeInTheDocument();
 
     spy.mockRestore();

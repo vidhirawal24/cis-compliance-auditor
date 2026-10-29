@@ -1162,7 +1162,7 @@ export const DEMO_FINDINGS: Finding[] = [
     control_id: 'CIS-CISCO-ROUTER-1.1.2',
     benchmark_pack_id: 'cis-cisco-ios-benchmark-v4',
     profile_level: 'LEVEL_1',
-    title: 'NTP Cryptographic Authentication Enforced (M25)',
+    title: 'NTP Cryptographic Authentication Enforced (M32)',
     category: 'Network Time Protocol',
     severity: SeverityLevel.LOW,
     status: EvaluationStatus.PASS,
