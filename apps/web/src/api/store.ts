@@ -331,6 +331,10 @@ class FixtureStore {
     this.riskScenarios = [...DEMO_RISK_SCENARIOS];
     this.remediationPlan = { ...DEMO_REMEDIATION_PLAN };
     this.safetyContracts = [...DEMO_SAFETY_CONTRACTS];
+    this.approvals = [JSON.parse(JSON.stringify(DEMO_APPROVAL_RECORD))];
+    this.hardeningChange = JSON.parse(JSON.stringify(DEMO_HARDENING_CHANGE));
+    this.dualVerification = { ...DEMO_DUAL_VERIFICATION };
+    this.proofPackage = JSON.parse(JSON.stringify(DEMO_PROOF_PACKAGE));
     this.organizations = [
       DEMO_ORGANIZATION,
       {

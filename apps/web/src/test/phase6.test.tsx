@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from '../auth/context';
 import { ApiProvider } from '../api/context';
 import { DemoApiClient } from '../api/client';
 import { RemediationPlannerShell } from '../routes/shells/12_RemediationPlannerShell';
@@ -14,11 +15,11 @@ import { SimulationVerdict as V } from '../contracts/v1/enums';
 
 function mount(path = 'planner', api = new DemoApiClient()) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: 0 } } });
-  return render(<QueryClientProvider client={client}><ApiProvider client={api}><MemoryRouter initialEntries={[`/orgs/${DEMO_ORG_ID}/${path}`]}><Routes>
+  return render(<QueryClientProvider client={client}><AuthProvider><ApiProvider client={api}><MemoryRouter initialEntries={[`/orgs/${DEMO_ORG_ID}/${path}`]}><Routes>
     <Route path="/orgs/:orgId/planner" element={<RemediationPlannerShell />} />
     <Route path="/orgs/:orgId/simulator" element={<WhatIfSimulatorShell />} />
     <Route path="/orgs/:orgId/approvals" element={<ApprovalsHardeningShell />} />
-  </Routes></MemoryRouter></ApiProvider></QueryClientProvider>);
+  </Routes></MemoryRouter></ApiProvider></AuthProvider></QueryClientProvider>);
 }
 const preview = async () => { fireEvent.click(await screen.findByRole('button', { name: 'Load DEMO comparison' })); };
 beforeEach(() => { updateSession(DEMO_ORG_ID, { selected: 'balanced', preview: null, dirty: false }); vi.restoreAllMocks(); });

@@ -226,3 +226,15 @@ Until agreed, frontend alternatives and before/after model views are explicitly 
 The contract editor validates a local draft only; edits invalidate the preview and block
 approval. No frontend optimizer or simulation engine runs. I06-I15 end-to-end completion
 cannot be claimed from these fixtures.
+
+## Phase 7 integration gaps
+
+Source PDFs now supplied and read. PRD sections 9.1-9.4 require immutable approval
+binding to plan AND target configuration, fresh dry-run/safety/recovery checks,
+separate actors and linked retry executions. Current frontend v1 lacks those fields.
+Please agree submission/decision/rejection contracts, exact supported change IDs,
+dry-run/precheck results, target revision, restore readiness, per-target rollout and
+retry/recovery operations before enabling approvePlan/executeChange in the views.
+Verification needs finding/control/service IDs, expected/observed values and evidence
+references. Proof needs artifact URIs, individual integrity outcomes, signature
+verification provenance and signed-access expiry. No endpoint/schema was invented.
