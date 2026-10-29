@@ -124,21 +124,33 @@ export const scanScheduleFormSchema = z.object({
   is_active: z.boolean().default(true),
 });
 
+export const policyOverrideFormSchema = z.object({
+  policy_pack_id: z.string().min(1, 'Policy pack selection is required'),
+  control_id: z.string().min(1, 'Control ID is required'),
+  override_value: z.string().min(1, 'Override configuration value is required'),
+  rationale: z.string().min(10, 'Business and operational justification must be at least 10 characters'),
+  approved_by: z.string().email('Valid approver corporate email is required'),
+});
+
 // -------------------------------------------------------------
 // Policy Exception & Review Schemas
 // -------------------------------------------------------------
 
 export const exceptionRequestSchema = z.object({
-  finding_id: z.string().uuid(),
+  finding_id: z.string().min(1, 'Target finding selection is required'),
+  control_id: z.string().min(1, 'Control ID is required'),
+  asset_id: z.string().min(1, 'Target asset is required'),
   reason: z.string().min(10, 'Business and technical justification must be at least 10 characters'),
-  approver_email: z.string().email('Valid approver email required'),
-  expires_at: z.string().datetime({ message: 'Valid expiration date required' }),
+  approver_email: z.string().email('Valid approver corporate email required'),
+  expires_at: z.string().min(1, 'Valid expiration date required'),
 });
 
 export const manualReviewSubmissionSchema = z.object({
-  verdict: z.enum(['PASS', 'FAIL']),
-  justification: z.string().min(10, 'Attestation rationale is required'),
-  evidence_file_ids: z.array(z.string().uuid()).min(1, 'At least one human evidence artifact must be attached'),
+  review_id: z.string().min(1, 'Review ID required'),
+  verdict: z.enum(['ATTESTED_PASS', 'ATTESTED_FAIL']),
+  reviewer_email: z.string().email('Valid reviewer corporate email required'),
+  justification: z.string().min(10, 'Attestation rationale must be at least 10 characters'),
+  attestation_evidence_uri: z.string().min(1, 'Attestation evidence artifact URI is mandatory'),
 });
 
 // -------------------------------------------------------------

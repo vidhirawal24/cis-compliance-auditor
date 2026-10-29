@@ -28,6 +28,10 @@ import type {
   ApplicationAuditEvent,
   ScanSchedule,
   PolicyPack,
+  PolicyOverride,
+  PolicyVersionDiff,
+  PolicyExceptionItem,
+  ManualReviewItem,
   ComplianceTrendPoint,
 } from '../contracts/v1/types';
 import { ExecutionState } from '../contracts/v1/enums';
@@ -76,6 +80,14 @@ export interface ApiClientInterface {
   toggleSchedule: (scheduleId: string) => Promise<CanonicalResourceEnvelope<ScanSchedule>>;
   deleteSchedule: (scheduleId: string) => Promise<{ success: boolean }>;
   getPolicyPacks: () => Promise<CanonicalCollectionEnvelope<PolicyPack>>;
+  getPolicyOverrides: (orgId: string) => Promise<CanonicalCollectionEnvelope<PolicyOverride>>;
+  createPolicyOverride: (payload: Omit<PolicyOverride, 'override_id' | 'org_id' | 'approved_at'>) => Promise<CanonicalResourceEnvelope<PolicyOverride>>;
+  deletePolicyOverride: (overrideId: string) => Promise<{ success: boolean }>;
+  getPolicyVersionDiff: (packId: string) => Promise<CanonicalResourceEnvelope<PolicyVersionDiff | null>>;
+  getPolicyExceptions: (orgId: string) => Promise<CanonicalCollectionEnvelope<PolicyExceptionItem>>;
+  createPolicyException: (payload: { finding_id: string; control_id: string; asset_id: string; reason: string; approver_email: string; expires_at: string }) => Promise<CanonicalResourceEnvelope<PolicyExceptionItem>>;
+  getManualReviews: (orgId: string) => Promise<CanonicalCollectionEnvelope<ManualReviewItem>>;
+  submitManualReview: (payload: { review_id: string; verdict: 'ATTESTED_PASS' | 'ATTESTED_FAIL'; reviewer_email: string; justification: string; evidence_uri: string }) => Promise<CanonicalResourceEnvelope<ManualReviewItem>>;
   getComplianceTrends: () => Promise<CanonicalCollectionEnvelope<ComplianceTrendPoint>>;
   getFindings: (filters?: { assetId?: string; severity?: string; status?: string }) => Promise<CanonicalCollectionEnvelope<Finding>>;
   getFinding: (findingId: string) => Promise<CanonicalResourceEnvelope<Finding>>;
@@ -201,6 +213,62 @@ export class DemoApiClient implements ApiClientInterface {
 
   async getPolicyPacks() {
     return wrapCollection(fixtureStore.policyPacks);
+  }
+
+  async getPolicyOverrides(_orgId: string) {
+    return wrapCollection(fixtureStore.policyOverrides);
+  }
+
+  async createPolicyOverride(payload: Omit<PolicyOverride, 'override_id' | 'org_id' | 'approved_at'>) {
+    const created = fixtureStore.createOverride(payload);
+    return wrapResource(created);
+  }
+
+  async deletePolicyOverride(overrideId: string) {
+    fixtureStore.deleteOverride(overrideId);
+    return { success: true };
+  }
+
+  async getPolicyVersionDiff(packId: string) {
+    const diff = fixtureStore.policyVersionDiffs[packId] || null;
+    return wrapResource(diff);
+  }
+
+  async getPolicyExceptions(_orgId: string) {
+    return wrapCollection(fixtureStore.policyExceptions);
+  }
+
+  async createPolicyException(payload: {
+    finding_id: string;
+    control_id: string;
+    asset_id: string;
+    reason: string;
+    approver_email: string;
+    expires_at: string;
+  }) {
+    const created = fixtureStore.createException(payload);
+    return wrapResource(created);
+  }
+
+  async getManualReviews(_orgId: string) {
+    return wrapCollection(fixtureStore.manualReviews);
+  }
+
+  async submitManualReview(payload: {
+    review_id: string;
+    verdict: 'ATTESTED_PASS' | 'ATTESTED_FAIL';
+    reviewer_email: string;
+    justification: string;
+    evidence_uri: string;
+  }) {
+    const updated = fixtureStore.submitManualReview(
+      payload.review_id,
+      payload.verdict,
+      payload.reviewer_email,
+      payload.justification,
+      payload.evidence_uri
+    );
+    return wrapResource(updated);
   }
 
   async getComplianceTrends() {

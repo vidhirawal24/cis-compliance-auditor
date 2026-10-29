@@ -26,6 +26,10 @@ import {
   DEMO_SCAN_SCHEDULES,
   DEMO_POLICY_PACKS,
   DEMO_COMPLIANCE_TRENDS,
+  DEMO_POLICY_OVERRIDES,
+  DEMO_POLICY_VERSION_DIFFS,
+  DEMO_POLICY_EXCEPTIONS,
+  DEMO_MANUAL_REVIEWS,
 } from '../fixtures/demoData';
 
 import { PlatformFamily, UserRole } from '../contracts/v1/enums';
@@ -38,6 +42,10 @@ import type {
   ScanJob,
   ScanSchedule,
   PolicyPack,
+  PolicyOverride,
+  PolicyVersionDiff,
+  PolicyExceptionItem,
+  ManualReviewItem,
   ComplianceTrendPoint,
   Finding,
   RemediationPlan,
@@ -71,6 +79,10 @@ class FixtureStore {
   public scanSchedules: ScanSchedule[] = [...DEMO_SCAN_SCHEDULES];
   public policyPacks: PolicyPack[] = [...DEMO_POLICY_PACKS];
   public complianceTrends: ComplianceTrendPoint[] = [...DEMO_COMPLIANCE_TRENDS];
+  public policyOverrides: PolicyOverride[] = [...DEMO_POLICY_OVERRIDES];
+  public policyVersionDiffs: Record<string, PolicyVersionDiff> = { ...DEMO_POLICY_VERSION_DIFFS };
+  public policyExceptions: PolicyExceptionItem[] = [...DEMO_POLICY_EXCEPTIONS];
+  public manualReviews: ManualReviewItem[] = [...DEMO_MANUAL_REVIEWS];
   public findings: Finding[] = [...DEMO_FINDINGS];
   public securityGraph = { ...DEMO_SECURITY_GRAPH };
   public riskScenarios = [...DEMO_RISK_SCENARIOS];
@@ -217,6 +229,92 @@ class FixtureStore {
     return retriedScan;
   }
 
+  // -----------------------------------------------------------
+  // Phase 4: Policy Overrides, Exceptions & Manual Reviews
+  // -----------------------------------------------------------
+
+  public createOverride(input: Omit<PolicyOverride, 'override_id' | 'org_id' | 'approved_at'>): PolicyOverride {
+    const newOverride: PolicyOverride = {
+      override_id: `ovr-${Date.now()}`,
+      org_id: this.defaultOrgId,
+      ...input,
+      approved_at: new Date().toISOString(),
+    };
+    this.policyOverrides.unshift(newOverride);
+    return newOverride;
+  }
+
+  public deleteOverride(overrideId: string): void {
+    const idx = this.policyOverrides.findIndex((o) => o.override_id === overrideId);
+    if (idx !== -1) {
+      this.policyOverrides.splice(idx, 1);
+    }
+  }
+
+  public createException(input: {
+    finding_id: string;
+    control_id: string;
+    asset_id: string;
+    reason: string;
+    approver_email: string;
+    expires_at: string;
+  }): PolicyExceptionItem {
+    const targetAsset = this.assets.find((a) => a.asset_id === input.asset_id);
+    const isExpired = new Date(input.expires_at).getTime() < Date.now();
+
+    const newException: PolicyExceptionItem = {
+      exception_id: `exc-${Date.now()}`,
+      org_id: this.defaultOrgId,
+      finding_id: input.finding_id,
+      control_id: input.control_id,
+      asset_id: input.asset_id,
+      hostname: targetAsset?.hostname || input.asset_id,
+      reason: input.reason,
+      approver_email: input.approver_email,
+      approved_at: new Date().toISOString(),
+      expires_at: input.expires_at,
+      is_expired: isExpired,
+      status: isExpired ? 'EXPIRED' : 'ACTIVE',
+    };
+
+    this.policyExceptions.unshift(newException);
+
+    // Overlay exception onto finding in store without altering violation status (E14 Invariant)
+    const finding = this.findings.find((f) => f.finding_id === input.finding_id);
+    if (finding) {
+      finding.exception = {
+        exception_id: newException.exception_id,
+        reason: newException.reason,
+        approver_email: newException.approver_email,
+        approved_at: newException.approved_at,
+        expires_at: newException.expires_at,
+        is_expired: isExpired,
+      };
+      // Explicit rule: exception DOES NOT turn finding status into PASS!
+    }
+
+    return newException;
+  }
+
+  public submitManualReview(
+    reviewId: string,
+    verdict: 'ATTESTED_PASS' | 'ATTESTED_FAIL',
+    reviewerEmail: string,
+    justification: string,
+    evidenceUri: string
+  ): ManualReviewItem {
+    const review = this.manualReviews.find((r) => r.review_id === reviewId);
+    if (!review) throw new Error(`Manual review ${reviewId} not found`);
+
+    review.status = verdict;
+    review.reviewer_email = reviewerEmail;
+    review.justification = justification;
+    review.attestation_evidence_uri = evidenceUri;
+    review.submitted_at = new Date().toISOString();
+
+    return review;
+  }
+
   // Helper to reset to pristine synthetic state
   public reset() {
     this.assets = [...DEMO_ASSETS];
@@ -224,6 +322,10 @@ class FixtureStore {
     this.scanSchedules = [...DEMO_SCAN_SCHEDULES];
     this.policyPacks = [...DEMO_POLICY_PACKS];
     this.complianceTrends = [...DEMO_COMPLIANCE_TRENDS];
+    this.policyOverrides = [...DEMO_POLICY_OVERRIDES];
+    this.policyVersionDiffs = { ...DEMO_POLICY_VERSION_DIFFS };
+    this.policyExceptions = [...DEMO_POLICY_EXCEPTIONS];
+    this.manualReviews = [...DEMO_MANUAL_REVIEWS];
     this.findings = [...DEMO_FINDINGS];
     this.remediationPlan = { ...DEMO_REMEDIATION_PLAN };
     this.safetyContracts = [...DEMO_SAFETY_CONTRACTS];

@@ -212,6 +212,54 @@ export interface PolicyRule {
   remediation_prerequisites?: string[];
   remediation_risk_warning?: string;
   requires_manual_review: boolean;
+  unsupported_content_warning?: string;
+}
+
+export interface PolicyOverride {
+  override_id: string;
+  org_id: string;
+  policy_pack_id: string;
+  control_id: string;
+  rule_title: string;
+  benchmark_value: unknown;
+  override_value: unknown;
+  rationale: string;
+  approved_by: string;
+  approved_at: string;
+}
+
+export interface PolicyVersionDiff {
+  pack_id: string;
+  pack_name: string;
+  from_version: string;
+  to_version: string;
+  added_rules: PolicyRule[];
+  removed_rules: Array<{ control_id: string; title: string; rationale: string }>;
+  modified_rules: Array<{
+    control_id: string;
+    title: string;
+    change_type: 'SEVERITY' | 'OPERATOR' | 'EXPECTED_VALUE' | 'PROFILE_LEVEL';
+    old_value: unknown;
+    new_value: unknown;
+    upgrade_impact: string;
+  }>;
+  predicted_compliance_impact_pct: number;
+  affected_devices_count: number;
+}
+
+export interface PolicyExceptionItem {
+  exception_id: string;
+  org_id: string;
+  finding_id: string;
+  control_id: string;
+  asset_id: string;
+  hostname: string;
+  reason: string;
+  approver_email: string;
+  approved_at: string;
+  expires_at: string;
+  is_expired: boolean;
+  status: 'ACTIVE' | 'EXPIRED' | 'REVOKED';
 }
 
 export interface PolicyPack {
