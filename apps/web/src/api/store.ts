@@ -327,6 +327,8 @@ class FixtureStore {
     this.policyExceptions = [...DEMO_POLICY_EXCEPTIONS];
     this.manualReviews = [...DEMO_MANUAL_REVIEWS];
     this.findings = [...DEMO_FINDINGS];
+    this.securityGraph = { ...DEMO_SECURITY_GRAPH };
+    this.riskScenarios = [...DEMO_RISK_SCENARIOS];
     this.remediationPlan = { ...DEMO_REMEDIATION_PLAN };
     this.safetyContracts = [...DEMO_SAFETY_CONTRACTS];
     this.organizations = [

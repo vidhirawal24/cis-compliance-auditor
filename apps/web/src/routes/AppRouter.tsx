@@ -92,6 +92,8 @@ export const AppRouter: React.FC = () => {
         {/* 11: Risk Scenarios (I02, I04, I05) */}
         <Route path="risk-scenarios" element={<RiskScenariosShell />} />
         <Route path="risk-scenarios/:scenarioId" element={<RiskScenariosShell />} />
+        <Route path="scenarios" element={<RiskScenariosShell />} />
+        <Route path="scenarios/:scenarioId" element={<RiskScenariosShell />} />
 
         {/* 12: Remediation Planner (I06, I07, I08, I10) */}
         <Route

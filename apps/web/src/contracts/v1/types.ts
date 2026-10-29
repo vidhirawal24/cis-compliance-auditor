@@ -370,6 +370,8 @@ export interface RiskScenario {
   causal_chain: string[];
   confidence_pct: number;
   business_impact: string;
+  topology_uncertainty?: string;
+  model_engine?: string;
 }
 
 // -------------------------------------------------------------
