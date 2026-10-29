@@ -26,6 +26,9 @@ import type {
   GeneratedReport,
   DriftEvent,
   ApplicationAuditEvent,
+  ScanSchedule,
+  PolicyPack,
+  ComplianceTrendPoint,
 } from '../contracts/v1/types';
 import { ExecutionState } from '../contracts/v1/enums';
 
@@ -67,6 +70,13 @@ export interface ApiClientInterface {
   getScans: (orgId: string) => Promise<CanonicalCollectionEnvelope<ScanJob>>;
   getScan: (scanId: string) => Promise<CanonicalResourceEnvelope<ScanJob>>;
   createScan: (payload: { target_asset_ids: string[]; policy_pack_id: string; profile_level: 'LEVEL_1' | 'LEVEL_2' }) => Promise<CanonicalResourceEnvelope<ScanJob>>;
+  retryScan: (scanId: string) => Promise<CanonicalResourceEnvelope<ScanJob>>;
+  getSchedules: (orgId: string) => Promise<CanonicalCollectionEnvelope<ScanSchedule>>;
+  createSchedule: (payload: { name: string; cron_expression: string; target_asset_group: string; policy_pack_id: string; profile_level: 'LEVEL_1' | 'LEVEL_2' }) => Promise<CanonicalResourceEnvelope<ScanSchedule>>;
+  toggleSchedule: (scheduleId: string) => Promise<CanonicalResourceEnvelope<ScanSchedule>>;
+  deleteSchedule: (scheduleId: string) => Promise<{ success: boolean }>;
+  getPolicyPacks: () => Promise<CanonicalCollectionEnvelope<PolicyPack>>;
+  getComplianceTrends: () => Promise<CanonicalCollectionEnvelope<ComplianceTrendPoint>>;
   getFindings: (filters?: { assetId?: string; severity?: string; status?: string }) => Promise<CanonicalCollectionEnvelope<Finding>>;
   getFinding: (findingId: string) => Promise<CanonicalResourceEnvelope<Finding>>;
   getSecurityGraph: () => Promise<CanonicalResourceEnvelope<SecurityGraphData>>;
@@ -157,6 +167,44 @@ export class DemoApiClient implements ApiClientInterface {
     };
     fixtureStore.scans.unshift(newScan);
     return wrapResource(newScan);
+  }
+
+  async retryScan(scanId: string) {
+    const retried = fixtureStore.retryScan(scanId);
+    return wrapResource(retried);
+  }
+
+  async getSchedules(_orgId: string) {
+    return wrapCollection(fixtureStore.scanSchedules);
+  }
+
+  async createSchedule(payload: {
+    name: string;
+    cron_expression: string;
+    target_asset_group: string;
+    policy_pack_id: string;
+    profile_level: 'LEVEL_1' | 'LEVEL_2';
+  }) {
+    const created = fixtureStore.createSchedule(payload);
+    return wrapResource(created);
+  }
+
+  async toggleSchedule(scheduleId: string) {
+    const toggled = fixtureStore.toggleSchedule(scheduleId);
+    return wrapResource(toggled);
+  }
+
+  async deleteSchedule(scheduleId: string) {
+    fixtureStore.deleteSchedule(scheduleId);
+    return { success: true };
+  }
+
+  async getPolicyPacks() {
+    return wrapCollection(fixtureStore.policyPacks);
+  }
+
+  async getComplianceTrends() {
+    return wrapCollection(fixtureStore.complianceTrends);
   }
 
   async getFindings(filters?: { assetId?: string; severity?: string; status?: string }) {

@@ -23,6 +23,9 @@ import {
   DEMO_DRIFT_EVENTS,
   DEMO_REPORTS,
   DEMO_AUDIT_TRAIL,
+  DEMO_SCAN_SCHEDULES,
+  DEMO_POLICY_PACKS,
+  DEMO_COMPLIANCE_TRENDS,
 } from '../fixtures/demoData';
 
 import { PlatformFamily, UserRole } from '../contracts/v1/enums';
@@ -33,6 +36,9 @@ import type {
   AssetCreateInput,
   DiscoveredCandidate,
   ScanJob,
+  ScanSchedule,
+  PolicyPack,
+  ComplianceTrendPoint,
   Finding,
   RemediationPlan,
   ServiceSafetyContract,
@@ -62,6 +68,9 @@ class FixtureStore {
   public assets: Asset[] = [...DEMO_ASSETS];
   public switchInterfaces = [...DEMO_SWITCH_INTERFACES];
   public scans: ScanJob[] = [...DEMO_SCANS];
+  public scanSchedules: ScanSchedule[] = [...DEMO_SCAN_SCHEDULES];
+  public policyPacks: PolicyPack[] = [...DEMO_POLICY_PACKS];
+  public complianceTrends: ComplianceTrendPoint[] = [...DEMO_COMPLIANCE_TRENDS];
   public findings: Finding[] = [...DEMO_FINDINGS];
   public securityGraph = { ...DEMO_SECURITY_GRAPH };
   public riskScenarios = [...DEMO_RISK_SCENARIOS];
@@ -148,10 +157,73 @@ class FixtureStore {
     ];
   }
 
+  public createSchedule(input: {
+    name: string;
+    cron_expression: string;
+    target_asset_group: string;
+    policy_pack_id: string;
+    profile_level: 'LEVEL_1' | 'LEVEL_2';
+  }): ScanSchedule {
+    const newSchedule: ScanSchedule = {
+      schedule_id: `sched-${Date.now()}`,
+      org_id: this.defaultOrgId,
+      name: input.name,
+      cron_expression: input.cron_expression,
+      target_asset_group: input.target_asset_group,
+      policy_pack_id: input.policy_pack_id,
+      profile_level: input.profile_level,
+      is_active: true,
+      next_run_at: new Date(Date.now() + 86400000).toISOString(),
+    };
+    this.scanSchedules.unshift(newSchedule);
+    return newSchedule;
+  }
+
+  public toggleSchedule(scheduleId: string): ScanSchedule {
+    const schedule = this.scanSchedules.find((s) => s.schedule_id === scheduleId);
+    if (!schedule) throw new Error(`Schedule ${scheduleId} not found`);
+    schedule.is_active = !schedule.is_active;
+    return schedule;
+  }
+
+  public deleteSchedule(scheduleId: string): void {
+    const idx = this.scanSchedules.findIndex((s) => s.schedule_id === scheduleId);
+    if (idx !== -1) {
+      this.scanSchedules.splice(idx, 1);
+    }
+  }
+
+  public retryScan(scanId: string): ScanJob {
+    const existing = this.scans.find((s) => s.scan_id === scanId);
+    if (!existing) throw new Error(`Scan ${scanId} not found`);
+
+    const retriedScan: ScanJob = {
+      scan_id: `scan-${Date.now()}`,
+      org_id: existing.org_id,
+      status: 'RUNNING',
+      read_only: true,
+      requested_assets: existing.requested_assets,
+      completed_assets: 0,
+      failed_assets: 0,
+      assessed_compliance_pct: 0,
+      assessment_coverage_pct: 0,
+      policy_pack_id: existing.policy_pack_id,
+      profile_level: existing.profile_level,
+      target_asset_ids: [...existing.target_asset_ids],
+      started_at: new Date().toISOString(),
+      trigger_type: 'MANUAL',
+    };
+    this.scans.unshift(retriedScan);
+    return retriedScan;
+  }
+
   // Helper to reset to pristine synthetic state
   public reset() {
     this.assets = [...DEMO_ASSETS];
     this.scans = [...DEMO_SCANS];
+    this.scanSchedules = [...DEMO_SCAN_SCHEDULES];
+    this.policyPacks = [...DEMO_POLICY_PACKS];
+    this.complianceTrends = [...DEMO_COMPLIANCE_TRENDS];
     this.findings = [...DEMO_FINDINGS];
     this.remediationPlan = { ...DEMO_REMEDIATION_PLAN };
     this.safetyContracts = [...DEMO_SAFETY_CONTRACTS];

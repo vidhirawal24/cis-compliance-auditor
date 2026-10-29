@@ -169,6 +169,15 @@ export interface ScanJob {
   started_at: string;
   completed_at?: string;
   trigger_type: 'MANUAL' | 'SCHEDULED' | 'OFFLINE_UPLOAD';
+  target_errors?: Array<{ asset_id: string; hostname?: string; error: string }>;
+}
+
+export interface ComplianceTrendPoint {
+  date: string;
+  assessed_compliance_pct: number;
+  assessment_coverage_pct: number;
+  critical_findings: number;
+  high_findings: number;
 }
 
 export interface ScanSchedule {
