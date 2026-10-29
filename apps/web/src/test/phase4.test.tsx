@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -25,8 +25,8 @@ const RoleController: React.FC<{ targetRole?: UserRole }> = ({ targetRole }) => 
   return null;
 };
 
-const renderWithRoute = (initialPath: string, role?: UserRole) => {
-  return render(
+const renderWithRoute = async (initialPath: string, role?: UserRole) => {
+  const view = render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ApiProvider>
@@ -38,6 +38,8 @@ const renderWithRoute = (initialPath: string, role?: UserRole) => {
       </AuthProvider>
     </QueryClientProvider>
   );
+  await waitFor(() => expect(screen.queryByText('Loading records...')).not.toBeInTheDocument());
+  return view;
 };
 
 describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions & Manual Audits', () => {
@@ -48,8 +50,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 1: Policy pack and baseline version display (M17)
   // -------------------------------------------------------------
-  it('01: displays active CIS benchmark packs with version, publisher, rule counts and platform (M17)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
+  it('01: displays active CIS benchmark packs with version, publisher, rule counts and platform (M17)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
 
     // Verify header and tab
     expect(screen.getByText('CIS Policy & Benchmark Library (M17, M18, M19)')).toBeInTheDocument();
@@ -74,8 +76,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 2: Benchmark values vs organization-specific overrides (M18)
   // -------------------------------------------------------------
-  it('02: contrasts official benchmark expected value with organization override in control details (M18)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
+  it('02: contrasts official benchmark expected value with organization override in control details (M18)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
 
     // Locate rule with override: CIS-CISCO-ROUTER-2.1.2
     const ruleRow = screen.getByText('CIS-CISCO-ROUTER-2.1.2');
@@ -99,8 +101,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 3: Level 1 / Level 2 profile selection filtering (E11)
   // -------------------------------------------------------------
-  it('03: filters policy rules by CIS Profile Level 1 and Level 2 (E11)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
+  it('03: filters policy rules by CIS Profile Level 1 and Level 2 (E11)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
 
     // Initially ALL is selected, so both Level 1 and Level 2 rules exist
     expect(screen.getByText('CIS-CISCO-ROUTER-2.1.1')).toBeInTheDocument(); // Level 1
@@ -124,8 +126,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 4: Unsupported content notice warnings (CIS-CISCO-ROUTER-3.4.1)
   // -------------------------------------------------------------
-  it('04: displays unsupported content notice badge on controls requiring human or hardware attestation', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
+  it('04: displays unsupported content notice badge on controls requiring human or hardware attestation', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
 
     // Verify control CIS-CISCO-ROUTER-3.4.1 exists
     expect(screen.getByText('CIS-CISCO-ROUTER-3.4.1')).toBeInTheDocument();
@@ -140,7 +142,7 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // Test 5: Override schema validation and creation (M19)
   // -------------------------------------------------------------
   it('05: validates override form schema and creates customized baseline override (M19)', async () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
 
     // Switch to Custom Baseline Overrides tab
     const overridesTab = screen.getByRole('button', { name: /Custom Baseline Overrides/i });
@@ -185,8 +187,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 6: Exception required fields, expiry countdown and filtering (E14)
   // -------------------------------------------------------------
-  it('06: displays time-boxed exceptions with countdown badges and status filters (E14)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/exceptions`);
+  it('06: displays time-boxed exceptions with countdown badges and status filters (E14)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/exceptions`);
 
     // Verify header and alert invariant banner
     expect(screen.getByText('Exceptions & Manual Reviews (E12, E14)')).toBeInTheDocument();
@@ -222,7 +224,7 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
     const targetFinding = fixtureStore.findings.find((f) => f.finding_id === 'find-telnet-01');
     expect(targetFinding?.status).toBe('FAIL');
 
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/exceptions`);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/exceptions`);
 
     // Open Request Policy Exception Modal
     const requestBtn = screen.getByRole('button', { name: /Request Policy Exception/i });
@@ -256,8 +258,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 8: Manual review evidence validation and workflow (E12)
   // -------------------------------------------------------------
-  it('08: validates attestation evidence URI and processes human review sign-off (E12)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/exceptions`);
+  it('08: validates attestation evidence URI and processes human review sign-off (E12)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/exceptions`);
 
     // Switch to Manual Review Queue tab
     const manualTab = screen.getByRole('button', { name: /Manual Review Queue/i });
@@ -310,9 +312,9 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 9: Read-only auditors (AUDITOR, VIEWER) cannot use editor controls
   // -------------------------------------------------------------
-  it('09: blocks read-only AUDITOR role from modifying overrides or creating exceptions', () => {
+  it('09: blocks read-only AUDITOR role from modifying overrides or creating exceptions', async () => {
     // Render Policies view as AUDITOR
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`, UserRole.AUDITOR);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`, UserRole.AUDITOR);
 
     // Switch to Overrides tab
     const overridesTab = screen.getByRole('button', { name: /Custom Baseline Overrides/i });
@@ -326,8 +328,8 @@ describe('BaselineGuard - Phase 4 Suite: Policy Library, Overrides, Exceptions &
   // -------------------------------------------------------------
   // Test 10: Version diff & upgrade impact preview (E20, I19)
   // -------------------------------------------------------------
-  it('10: renders version diff and upgrade impact without invented differences (E20, I19)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
+  it('10: renders version diff and upgrade impact without invented differences (E20, I19)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/policies`);
 
     // Switch to Upgrade Impact Preview tab
     const diffTab = screen.getByRole('button', { name: /Upgrade Impact Preview/i });

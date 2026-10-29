@@ -1,139 +1,51 @@
-import React, { useState } from 'react';
-import { FileText, Download, Clock, GitCompare } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { useApi, apiCacheKey } from '../../api/context';
+import { DemoApiClient } from '../../api/client';
+import { ReportFormat } from '../../contracts/v1/enums';
+import { ApiState } from '../../components/common/ApiState';
 import { Card } from '../../components/ui/card';
+import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '../../components/ui/table';
 import { ConfigDiff } from '../../components/common/ConfigDiff';
-import { fixtureStore } from '../../api/store';
-import { formatBytes } from '../../lib/utils';
+import { ReportAccess } from '../../features/phase8/ReportAccess';
+import { ExecutiveSummary } from '../../features/phase8/ExecutiveSummary';
 
-export const ReportsHistoryShell: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'REPORTS' | 'DRIFT'>('REPORTS');
-  const reports = fixtureStore.reports;
-  const driftEvents = fixtureStore.driftEvents;
-
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <FileText className="w-5 h-5 text-sky-400" />
-            Compliance Reports & Drift Timeline (M38, E05, E28)
-          </h1>
-          <p className="text-xs text-slate-400">
-            Export canonical audit records in 4 formats and inspect configuration drift deltas.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button size="sm" className="gap-1.5 text-xs bg-sky-600 hover:bg-sky-500">
-            <Download className="w-3.5 h-3.5" />
-            Generate New Report (M38)
-          </Button>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex border-b border-slate-800 gap-1 text-xs">
-        <button
-          onClick={() => setActiveTab('REPORTS')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'REPORTS'
-              ? 'border-sky-500 text-sky-400 bg-sky-950/20'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          Export Center (PDF, HTML, CSV, JSON)
-        </button>
-        <button
-          onClick={() => setActiveTab('DRIFT')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'DRIFT'
-              ? 'border-sky-500 text-sky-400 bg-sky-950/20'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          Configuration Drift Events (E05)
-        </button>
-      </div>
-
-      {/* Reports Tab */}
-      {activeTab === 'REPORTS' && (
-        <div className="rounded-lg border border-slate-800 bg-slate-900/60 overflow-hidden">
-          <Table className="table-compact">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Report Document Title</TableHead>
-                <TableHead>Format</TableHead>
-                <TableHead>Size</TableHead>
-                <TableHead>Signed URL Expiry</TableHead>
-                <TableHead>Generated At</TableHead>
-                <TableHead className="text-right">Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {reports.map((rep) => (
-                <TableRow key={rep.report_id}>
-                  <TableCell className="font-semibold text-white">{rep.title}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className="font-mono text-[10px]">
-                      {rep.format}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="font-mono text-slate-400">
-                    {formatBytes(rep.file_size_bytes)}
-                  </TableCell>
-                  <TableCell className="font-mono text-xs text-amber-400">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> 24 Hours Remaining
-                    </span>
-                  </TableCell>
-                  <TableCell className="font-mono text-xs text-slate-400">
-                    {new Date(rep.created_at).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button
-                      onClick={() => window.open(rep.download_url, '_blank')}
-                      size="sm"
-                      variant="outline"
-                      className="h-6 text-[10px] gap-1 px-2"
-                    >
-                      <Download className="w-3 h-3" /> Download
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
-
-      {/* Drift Tab */}
-      {activeTab === 'DRIFT' && (
-        <div className="space-y-4">
-          {driftEvents.map((drift) => (
-            <Card key={drift.event_id} className="border-slate-800 bg-slate-900/90 p-4 space-y-3">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <div className="flex items-center gap-2">
-                  <GitCompare className="w-4 h-4 text-amber-400" />
-                  <span className="font-mono font-bold text-white text-xs">{drift.hostname}</span>
-                  <Badge variant="warning" className="text-[10px] font-mono">
-                    UNAUTHORIZED DRIFT DETECTED
-                  </Badge>
-                </div>
-                <span className="font-mono text-xs text-slate-400">
-                  {new Date(drift.detected_at).toLocaleString()}
-                </span>
-              </div>
-
-              <ConfigDiff diffText={drift.diff_preview} title="Snapshot Delta (Baseline vs Current Effective)" />
-            </Card>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
+// M38,E05-E07,E28-E29: backend artifacts and history only; no generated links.
+export function ReportsHistoryShell() {
+  const api = useApi();
+  const { orgId = '' } = useParams();
+  const { pathname } = useLocation();
+  const [filter, setFilter] = useState('');
+  const [format, setFormat] = useState('ALL');
+  const [tab, setTab] = useState(pathname.endsWith('/drift') ? 'DRIFT' : 'REPORTS');
+  useEffect(() => { setTab(pathname.endsWith('/drift') ? 'DRIFT' : 'REPORTS'); }, [pathname]);
+  const query = useQuery({ queryKey: ['reports-history', orgId, apiCacheKey(api)], queryFn: async () => {
+    const [reports, drift] = await Promise.all([api.getReports(), api.getDriftEvents()]);
+    if ([...reports.data, ...drift.data].some(record => record.org_id !== orgId)) throw new Error('Tenant mismatch');
+    return { reports: reports.data, drift: drift.data };
+  }, retry: false });
+  return <div className="space-y-5"><h1 className="text-xl font-bold">Compliance Reports &amp; Drift Timeline (M38, E05-E07, E28-E29)</h1>
+    <Badge variant="warning">{api instanceof DemoApiClient ? 'DEMO - synthetic reports and history' : 'Backend-supplied records'}</Badge>
+    <p>Report generation is UNSUPPORTED: no typed generation operation. Report asset scope, benchmark release and profile metadata are not supplied; do not infer them from a title. Exports require server authorization and redaction.</p>
+    <Button disabled>Generate new report - unsupported</Button>
+    <div className="flex flex-wrap gap-2">{['REPORTS', 'DRIFT'].map(value => <Button key={value} variant="outline" aria-pressed={tab === value} onClick={() => setTab(value)}>{value === 'REPORTS' ? 'Export center' : 'Configuration drift'}</Button>)}</div>
+    <label>Search reports or drift assets<Input value={filter} onChange={event => setFilter(event.target.value)} /></label>
+    <ApiState pending={query.isPending} error={query.error} retry={() => { void query.refetch(); }}>
+      {tab === 'REPORTS' ? <section aria-label="Report formats" className="space-y-3">
+        <label>Format <select className="bg-slate-900 border p-2" value={format} onChange={event => setFormat(event.target.value)}>{['ALL', ...Object.values(ReportFormat)].map(value => <option key={value}>{value}</option>)}</select></label>
+        {Object.values(ReportFormat).filter(value => format === 'ALL' || format === value).map(value => {
+          const reports = query.data?.reports.filter(report => report.format === value && report.title.toLowerCase().includes(filter.toLowerCase())) ?? [];
+          return <Card key={value} className="p-4 space-y-3"><h2>{value} exports</h2>{reports.length ? reports.map(report => <article key={report.report_id} className="p-3 border border-slate-700 rounded"><h3>{report.title}</h3><p>Report: {report.report_id}; generated: {report.created_at}; size: {report.file_size_bytes} bytes.</p><ReportAccess report={report} /></article>) : <p>No {value} artifact supplied or matching this filter. Generation and signed-URL renewal are unavailable.</p>}</Card>;
+        })}
+      </section> : <section aria-label="Configuration drift timeline" className="space-y-3"><h2>Observed snapshot history</h2><p>Only supplied snapshot events are shown. This does not imply continuous monitoring or prove an unauthorized change.</p>
+        {!query.data?.drift.length && <p>No drift history supplied.</p>}
+        {!!query.data?.drift.length && !query.data.drift.some(event => `${event.hostname} ${event.asset_id}`.toLowerCase().includes(filter.toLowerCase())) && <p>No drift records match this filter.</p>}
+        {query.data?.drift.filter(event => `${event.hostname} ${event.asset_id}`.toLowerCase().includes(filter.toLowerCase())).map(event => <Card key={event.event_id} className="p-4"><h3>{event.hostname}</h3><p>Asset: {event.asset_id}; observed: {event.detected_at}; severity: {event.severity}</p><p>Previous snapshot: {event.previous_snapshot_id || 'Unknown'}; new snapshot: {event.current_snapshot_id || 'Unknown'}</p><ConfigDiff diffText={event.diff_preview} title="Supplied previous/new snapshot delta" /><p>Control identity, full previous/new values, evidence artifact URI, encryption and hash verification are not supplied. Snapshot retrieval is unsupported.</p></Card>)}
+      </section>}
+    </ApiState>
+    <Card className="p-4"><ExecutiveSummary /></Card>
+  </div>;
+}

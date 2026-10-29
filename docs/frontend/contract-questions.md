@@ -238,3 +238,16 @@ retry/recovery operations before enabling approvePlan/executeChange in the views
 Verification needs finding/control/service IDs, expected/observed values and evidence
 references. Proof needs artifact URIs, individual integrity outcomes, signature
 verification provenance and signed-access expiry. No endpoint/schema was invented.
+
+## Phase 8 integration gaps
+
+PRD M38/E05-E07/E19/E26-E30 and guide Phase 8 were checked against the supplied PDFs.
+Please agree report generation/renewal/download authorization and redaction contracts,
+canonical export reconciliation, report benchmark/profile/scope metadata, scoped trend
+series, encrypted snapshot enumeration/retrieval/integrity, notification delivery/error/
+retry and ticket idempotency contracts, organization members/roles, retention settings,
+API-key/rate-limit/documentation and audit pagination/integrity metadata.
+Current supported reads are getReports/getDriftEvents/getAuditEvents and existing
+scan/asset/finding/trend/risk getters. No URLs, endpoint signatures, persistence or
+successful delivery were fabricated. Fixture-only legacy routes and unbound production
+plan/simulation/verification routes now explicitly block production rendering.

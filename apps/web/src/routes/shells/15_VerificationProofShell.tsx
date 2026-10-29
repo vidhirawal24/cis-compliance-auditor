@@ -1,6 +1,6 @@
-﻿import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useApi } from '../../api/context';
+import { useApi, apiCacheKey } from '../../api/context';
 import { DemoApiClient } from '../../api/client';
 import { ApiState } from '../../components/common/ApiState';
 import { Badge } from '../../components/ui/badge';
@@ -11,7 +11,7 @@ import { verificationOutcome, validHash } from '../../features/phase7/review';
 export function VerificationProofShell() {
   const { orgId = '', packageId } = useParams();
   const api = useApi();
-  const query = useQuery({ queryKey: ['phase7-proof', orgId, packageId], queryFn: async () => {
+  const query = useQuery({ queryKey: ['phase7-proof', orgId, packageId, apiCacheKey(api)], queryFn: async () => {
     const proof = (await api.getProofPackage(packageId ?? 'proof-2026-001')).data;
     if (proof.org_id !== orgId || (packageId && proof.package_id !== packageId)) throw new Error('Proof identity mismatch');
     const [change, verification] = await Promise.all([api.getChange(proof.change_id), api.getVerification('verif-2026-9901')]);

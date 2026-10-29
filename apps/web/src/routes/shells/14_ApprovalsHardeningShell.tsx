@@ -1,7 +1,7 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useApi } from '../../api/context';
+import { useApi, apiCacheKey } from '../../api/context';
 import { DemoApiClient } from '../../api/client';
 import { useAuth } from '../../auth/context';
 import { UserRole } from '../../contracts/v1/enums';
@@ -21,7 +21,7 @@ export function ApprovalsHardeningShell() {
   const safety = usePhase6(orgId);
   const [snapshot, setSnapshot] = useState<RemediationPlan>();
   const [decisionFilter, setDecisionFilter] = useState('ALL');
-  const records = useQuery({ queryKey: ['phase7-review', orgId, changeId], queryFn: async () => {
+  const records = useQuery({ queryKey: ['phase7-review', orgId, changeId, apiCacheKey(api)], queryFn: async () => {
     const [approvals, change] = await Promise.all([api.getApprovals(), api.getChange(changeId ?? 'chg-2026-7701')]);
     if (changeId && change.data.change_id !== changeId) throw new Error('Change identity mismatch');
     return { approvals: approvals.data, change: change.data };

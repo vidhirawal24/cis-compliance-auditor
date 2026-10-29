@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '../auth/context';
@@ -12,8 +12,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });
 
-const renderWithRoute = (initialPath: string) => {
-  return render(
+const renderWithRoute = async (initialPath: string) => {
+  const view = render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ApiProvider>
@@ -24,6 +24,8 @@ const renderWithRoute = (initialPath: string) => {
       </AuthProvider>
     </QueryClientProvider>
   );
+  await waitFor(() => expect(screen.queryByText('Loading records...')).not.toBeInTheDocument());
+  return view;
 };
 
 describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () => {
@@ -34,8 +36,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 1: Graph rendering from typed nodes and edges (I01)
   // -------------------------------------------------------------
-  it('01: renders security graph with typed nodes, evidence edges, and interactive canvas (I01)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('01: renders security graph with typed nodes, evidence edges, and interactive canvas (I01)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Verify header and subtitle
     expect(screen.getByText('Cross-Layer Security & Topology Graph (I01, I03)')).toBeInTheDocument();
@@ -60,8 +62,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 2: Node selection and evidence drill-down (I01)
   // -------------------------------------------------------------
-  it('02: supports node selection and evidence drill-down drawer (I01)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('02: supports node selection and evidence drill-down drawer (I01)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Switch to Accessible Table View to select a specific node deterministically
     const switchBtn = screen.getByRole('button', { name: /Accessible Table View/i });
@@ -88,8 +90,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 3: Severity, node type, and search filtering (I01)
   // -------------------------------------------------------------
-  it('03: filters graph elements by node type, severity, and text query (I01)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('03: filters graph elements by node type, severity, and text query (I01)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Switch to table mode for deterministic list inspection
     const switchBtn = screen.getByRole('button', { name: /Accessible Table View/i });
@@ -119,8 +121,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 4: Missing topology and uncertainty messaging (I05)
   // -------------------------------------------------------------
-  it('04: displays topology coverage percentage and model uncertainty notice (I05)', () => {
-    const { unmount } = renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('04: displays topology coverage percentage and model uncertainty notice (I05)', async () => {
+    const { unmount } = await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Verify Topology Uncertainty banner on Security Graph view
     expect(screen.getByText(/Topology Coverage & Model Uncertainty Notice \(I05\)/i)).toBeInTheDocument();
@@ -132,7 +134,7 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
     unmount();
 
     // Navigate to Risk Scenarios view and verify scenario boundary limitation
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/scenarios`);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/scenarios`);
     const boundaryNotices = screen.getAllByText(/Topology Boundary Limitation \(I05\):/i);
     expect(boundaryNotices.length).toBeGreaterThanOrEqual(1);
     expect(
@@ -143,8 +145,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 5: Risk scenarios with source finding IDs and causal explanations (I02, I04)
   // -------------------------------------------------------------
-  it('05: renders correlated risk scenarios with contributing findings and causal chain (I02, I04)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/scenarios`);
+  it('05: renders correlated risk scenarios with contributing findings and causal chain (I02, I04)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/scenarios`);
 
     // Verify header
     expect(screen.getByText('Correlated Risk Scenarios & Lateral Movement (I02, I04, I05)')).toBeInTheDocument();
@@ -178,8 +180,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 6: Keyboard-accessible table fallback (I01)
   // -------------------------------------------------------------
-  it('06: toggles accessible table fallback mode displaying nodes and evidence edges (I01)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('06: toggles accessible table fallback mode displaying nodes and evidence edges (I01)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Click switch to Accessible Table View
     const switchBtn = screen.getByRole('button', { name: /Accessible Table View/i });
@@ -205,8 +207,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 7: Empty and filter mismatch states
   // -------------------------------------------------------------
-  it('07: displays graceful empty states when search or filters yield zero results', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('07: displays graceful empty states when search or filters yield zero results', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Search for nonexistent node
     const searchInput = screen.getByPlaceholderText(/Search graph/i);
@@ -227,8 +229,8 @@ describe('BaselineGuard - Phase 5 Suite: Security Graph & Cross-Layer Risk', () 
   // -------------------------------------------------------------
   // Test 8: No unsupported path presented as verified (I03, I05)
   // -------------------------------------------------------------
-  it('08: enforces invariant that unsupported reachability paths are NOT presented as verified (I03, I05)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
+  it('08: enforces invariant that unsupported reachability paths are NOT presented as verified (I03, I05)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/graph`);
 
     // Configure Path Explorer from internal App server (a03) to external Internet (ext-inet)
     // Directed graph has routes_to from ext-inet to a06 to a10 to a11 to a03, NOT reverse!

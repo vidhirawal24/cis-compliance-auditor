@@ -13,8 +13,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });
 
-const renderWithRoute = (initialPath: string) => {
-  return render(
+const renderWithRoute = async (initialPath: string) => {
+  const view = render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ApiProvider>
@@ -25,6 +25,8 @@ const renderWithRoute = (initialPath: string) => {
       </AuthProvider>
     </QueryClientProvider>
   );
+  await waitFor(() => expect(screen.queryByText('Loading records...')).not.toBeInTheDocument());
+  return view;
 };
 
 describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
@@ -36,8 +38,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
   // Test 1: Overview Dashboard Metrics & Invariant Separation
   // -------------------------------------------------------------
   describe('Overview Dashboard (M34, M35, E07)', () => {
-    it('displays ASSESSED COMPLIANCE and ASSESSMENT COVERAGE as distinct metrics', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/overview`);
+    it('displays ASSESSED COMPLIANCE and ASSESSMENT COVERAGE as distinct metrics', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/overview`);
 
       // Verify separate metrics exist
       expect(screen.getByText('ASSESSED COMPLIANCE')).toBeInTheDocument();
@@ -52,8 +54,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
       expect(screen.getByText(`${currentScan.assessment_coverage_pct}%`)).toBeInTheDocument();
     });
 
-    it('renders all 6 invariant evaluation statuses and NEVER counts NOT_ASSESSED as PASS', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/overview`);
+    it('renders all 6 invariant evaluation statuses and NEVER counts NOT_ASSESSED as PASS', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/overview`);
 
       // Verify all 6 status headers are rendered in the manifest
       expect(screen.getByText('PASS')).toBeInTheDocument();
@@ -86,8 +88,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
       expect(naCard).toHaveTextContent('1');
     });
 
-    it('renders Recharts visual intelligence sections for trends and severity breakdown', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/overview`);
+    it('renders Recharts visual intelligence sections for trends and severity breakdown', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/overview`);
 
       expect(screen.getByText('30-Day Posture Historical Trend (E07)')).toBeInTheDocument();
       expect(screen.getByText('Severity Breakdown (M35)')).toBeInTheDocument();
@@ -100,8 +102,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
   // Test 2: Scan Center, Wizard & Mandatory Read-Only Confirmation
   // -------------------------------------------------------------
   describe('Audit Scan Center (M13, E04, E18)', () => {
-    it('renders scan queue with read-only badge, progress and completion stats', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans`);
+    it('renders scan queue with read-only badge, progress and completion stats', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans`);
 
       expect(screen.getByText('Audit Scan Center (M13, E04, E18)')).toBeInTheDocument();
       expect(screen.getByText('scan-2026-1029-01')).toBeInTheDocument();
@@ -112,7 +114,7 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
     });
 
     it('enforces mandatory Read-Only Audit confirmation checkbox (E18) in the launch wizard', async () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans?tab=NEW_SCAN`);
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans?tab=NEW_SCAN`);
 
       expect(screen.getByText('Multi-Target Audit Scan Dispatcher (M13, E08, E18)')).toBeInTheDocument();
 
@@ -142,7 +144,7 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
     });
 
     it('displays per-target errors drawer for failed scans and allows retry', async () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans`);
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans`);
 
       // Find failed scan 'scan-2026-1027-04'
       expect(screen.getByText('scan-2026-1027-04')).toBeInTheDocument();
@@ -167,7 +169,7 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
     });
 
     it('manages recurring cron audit schedules with 5-field cron validation (E04)', async () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans?tab=SCHEDULES`);
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/scans?tab=SCHEDULES`);
 
       expect(screen.getByText('Active Cron Audit Schedules (E04)')).toBeInTheDocument();
       expect(screen.getByText('Daily Midnight Core Fleet Audit')).toBeInTheDocument();
@@ -210,8 +212,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
   // Test 3: Findings Explorer, Evidence, Exceptions & Non-Executable CLI
   // -------------------------------------------------------------
   describe('Findings Explorer (M36, M37, E29)', () => {
-    it('renders side-by-side Expected vs Observed state and SHA-256 evidence hash (M36)', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
+    it('renders side-by-side Expected vs Observed state and SHA-256 evidence hash (M36)', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
 
       expect(screen.getByText(/Findings & Compliance Evidence Explorer/i)).toBeInTheDocument();
 
@@ -228,8 +230,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
       ).toBeInTheDocument();
     });
 
-    it('renders remediation guidance strictly as non-executable text with risk warnings (M37)', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
+    it('renders remediation guidance strictly as non-executable text with risk warnings (M37)', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
 
       expect(
         screen.getByText('Actionable Remediation Guidance (Read-Only Preview) (M37)')
@@ -251,8 +253,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
       ).toBeInTheDocument();
     });
 
-    it('filters findings by evaluation status including NOT_ASSESSED and ERROR', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
+    it('filters findings by evaluation status including NOT_ASSESSED and ERROR', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
 
       // Filter by NOT_ASSESSED status
       const statusSelect = screen.getByDisplayValue('All Statuses (6 Invariant)');
@@ -281,8 +283,8 @@ describe('BaselineGuard - Phase 3 Suite: Dashboard, Scans & Findings', () => {
       expect(screen.getByText(/Verified CIS Benchmark Compliance/i)).toBeInTheDocument();
     });
 
-    it('displays policy exception banner while strictly preserving violation status (E14)', () => {
-      renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
+    it('displays policy exception banner while strictly preserving violation status (E14)', async () => {
+      await renderWithRoute(`/orgs/${DEMO_ORG_ID}/findings`);
 
       // Find finding with approved exception: CIS-WIN11-2.3.17 (UAC elevation)
       const uacFinding = screen.getByText('CIS-WIN11-2.3.17');

@@ -10,8 +10,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });
 
-const renderWithRoute = (initialPath: string) => {
-  return render(
+const renderWithRoute = async (initialPath: string) => {
+  const view = render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ApiProvider>
@@ -22,20 +22,22 @@ const renderWithRoute = (initialPath: string) => {
       </AuthProvider>
     </QueryClientProvider>
   );
+  await waitFor(() => expect(screen.queryByText('Loading records...')).not.toBeInTheDocument());
+  return view;
 };
 
 describe('BaselineGuard - Phase 2 Organization Shell & Tenant Isolation', () => {
-  it('renders organization selection view with authorized tenants', () => {
-    renderWithRoute('/orgs');
+  it('renders organization selection view with authorized tenants', async () => {
+    await renderWithRoute('/orgs');
 
     expect(screen.getByText('Select Tenant Workspace')).toBeInTheDocument();
     expect(screen.getByText('Acme Financial SecOps (DEMO)')).toBeInTheDocument();
     expect(screen.getByText('Healthcare DMZ Staging')).toBeInTheDocument();
   });
 
-  it('blocks access to unauthorized tenant workspace with 403 Tenant Isolation screen (M34)', () => {
+  it('blocks access to unauthorized tenant workspace with 403 Tenant Isolation screen (M34)', async () => {
     // Attempting to directly navigate to an unassigned/forbidden tenant
-    renderWithRoute('/orgs/org-unauthorized-adversary-corp/overview');
+    await renderWithRoute('/orgs/org-unauthorized-adversary-corp/overview');
 
     expect(screen.getByText(/ERROR 403 - TENANT ISOLATION/i)).toBeInTheDocument();
     expect(screen.getByText('Cross-Tenant Access Restricted')).toBeInTheDocument();
@@ -44,7 +46,7 @@ describe('BaselineGuard - Phase 2 Organization Shell & Tenant Isolation', () => 
   });
 
   it('validates organization creation form with min lengths and slug constraints', async () => {
-    renderWithRoute('/orgs');
+    await renderWithRoute('/orgs');
 
     const createTrigger = screen.getByText('Create New Tenant Workspace');
     fireEvent.click(createTrigger);

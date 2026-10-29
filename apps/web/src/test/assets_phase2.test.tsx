@@ -11,8 +11,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });
 
-const renderWithRoute = (initialPath: string) => {
-  return render(
+const renderWithRoute = async (initialPath: string) => {
+  const view = render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ApiProvider>
@@ -23,11 +23,13 @@ const renderWithRoute = (initialPath: string) => {
       </AuthProvider>
     </QueryClientProvider>
   );
+  await waitFor(() => expect(screen.queryByText('Loading records...')).not.toBeInTheDocument());
+  return view;
 };
 
 describe('BaselineGuard - Phase 2 Asset Inventory & Detail Suite', () => {
-  it('renders asset inventory with masked OpenBao vault pointers (E15)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
+  it('renders asset inventory with masked OpenBao vault pointers (E15)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
 
     expect(screen.getByText('Asset Inventory (E01)')).toBeInTheDocument();
     expect(screen.getByText('DEMO-W11-EXEC-01.acme.local')).toBeInTheDocument();
@@ -37,8 +39,8 @@ describe('BaselineGuard - Phase 2 Asset Inventory & Detail Suite', () => {
     expect(screen.getByText('vault:secret/win11-exec-winrm')).toBeInTheDocument();
   });
 
-  it('filters asset inventory by search text and custom tag pills (E03)', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
+  it('filters asset inventory by search text and custom tag pills (E03)', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
 
     // Search for Fortinet
     const searchInput = screen.getByPlaceholderText('Search hostname, IP, vendor, model...');
@@ -59,7 +61,7 @@ describe('BaselineGuard - Phase 2 Asset Inventory & Detail Suite', () => {
   });
 
   it('validates Onboard Device Wizard forms and enforces zero-plaintext warning (E18, E15)', async () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
 
     const onboardBtn = screen.getByText('Onboard Device (E18)');
     fireEvent.click(onboardBtn);
@@ -86,7 +88,7 @@ describe('BaselineGuard - Phase 2 Asset Inventory & Detail Suite', () => {
   });
 
   it('runs Authorized Subnet Discovery Sweep (E02) and displays unassessed candidate list', async () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets`);
 
     const discoveryBtn = screen.getByText('Authorized Discovery (E02)');
     fireEvent.click(discoveryBtn);
@@ -102,8 +104,8 @@ describe('BaselineGuard - Phase 2 Asset Inventory & Detail Suite', () => {
     });
   });
 
-  it('renders asset details with specs, supported vs unsupported capabilities, and OpenBao vault details', () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets/a01-win11-corp-01`);
+  it('renders asset details with specs, supported vs unsupported capabilities, and OpenBao vault details', async () => {
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets/a01-win11-corp-01`);
 
     expect(screen.getByText('DEMO-W11-EXEC-01.acme.local')).toBeInTheDocument();
     expect(screen.getByText('Device Specification & Collector Facts')).toBeInTheDocument();
@@ -113,7 +115,7 @@ describe('BaselineGuard - Phase 2 Asset Inventory & Detail Suite', () => {
   });
 
   it('opens edit asset modal and confirms save', async () => {
-    renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets/a01-win11-corp-01`);
+    await renderWithRoute(`/orgs/${DEMO_ORG_ID}/assets/a01-win11-corp-01`);
 
     const editBtn = screen.getByText('Edit');
     fireEvent.click(editBtn);

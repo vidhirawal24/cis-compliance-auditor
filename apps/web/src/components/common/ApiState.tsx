@@ -14,6 +14,11 @@ export function ApiState({ pending, error, retry, children }: {
   pending: boolean; error: unknown; retry?: () => void; children: ReactNode;
 }) {
   if (pending) return <p role="status">Loading records...</p>;
-  if (error) return <div role="alert"><p>{apiErrorText(error)}</p>{retry && <Button variant="outline" onClick={retry}>Retry request</Button>}</div>;
+  if (error) {
+    const message = apiErrorText(error);
+    const denied = message.startsWith('401') || message.startsWith('403');
+    const retryable = (error as { retryable?: boolean })?.retryable !== false;
+    return <div role="alert"><p>{message}</p>{retry && !denied && retryable && <Button variant="outline" onClick={retry}>Retry request</Button>}</div>;
+  }
   return <>{children}</>;
 }

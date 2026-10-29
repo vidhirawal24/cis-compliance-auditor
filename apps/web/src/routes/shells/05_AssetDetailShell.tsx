@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -28,6 +28,7 @@ import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { useApi } from '../../api/context';
 import { fixtureStore } from '../../api/store';
 import type { Asset } from '../../contracts/v1/types';
+import { SnapshotHistory } from '../../features/phase8/SnapshotHistory';
 
 const editAssetSchema = z.object({
   hostname: z.string().min(1, 'Hostname is required').max(255),
@@ -44,10 +45,11 @@ export const AssetDetailShell: React.FC = () => {
   const { orgId, assetId } = useParams<{ orgId: string; assetId: string }>();
   const navigate = useNavigate();
   const api = useApi();
+  const { pathname } = useLocation();
 
   const initialAsset = fixtureStore.assets.find((a) => a.asset_id === assetId) || fixtureStore.assets[0];
   const [asset, setAsset] = useState<Asset>(initialAsset);
-  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'INTERFACES' | 'FINDINGS' | 'SNAPSHOTS'>('OVERVIEW');
+  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'INTERFACES' | 'FINDINGS' | 'SNAPSHOTS'>(pathname.endsWith('/snapshots') ? 'SNAPSHOTS' : 'OVERVIEW');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showRetireConfirm, setShowRetireConfirm] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -478,18 +480,7 @@ export const AssetDetailShell: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="p-3 bg-black/40 rounded-lg border border-slate-800 flex items-center justify-between font-mono text-xs">
-              <div>
-                <div className="text-white font-bold">snap-2026-1029-01 (Current Effective Baseline)</div>
-                <div className="text-slate-500 text-[11px]">
-                  SHA256: 7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b
-                </div>
-                <div className="text-emerald-400 text-[10px] mt-0.5">Encrypted AES-GCM (OpenBao Key Managed)</div>
-              </div>
-              <Badge variant="outline" className="text-[10px] text-sky-400 border-sky-800">
-                ACTIVE BASELINE
-              </Badge>
-            </div>
+            <SnapshotHistory orgId={orgId ?? ''} assetId={asset.asset_id} />
           </CardContent>
         </Card>
       )}

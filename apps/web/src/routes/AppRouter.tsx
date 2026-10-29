@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from '../components/layout/AppLayout';
 import { AuthGuard } from '../auth/AuthGuard';
+import { ScreenDataBoundary } from '../components/common/ScreenDataBoundary';
 import { UserRole } from '../contracts/v1/enums';
 
 // 19 Route Shells
@@ -37,7 +38,7 @@ export const AppRouter: React.FC = () => {
         path="/orgs"
         element={
           <AuthGuard>
-            <OrgSelectShell />
+            <ScreenDataBoundary familyOverride="02"><OrgSelectShell /></ScreenDataBoundary>
           </AuthGuard>
         }
       />

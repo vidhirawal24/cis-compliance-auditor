@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useApi } from '../../api/context';
+import { useApi, apiCacheKey } from '../../api/context';
 import { DemoApiClient } from '../../api/client';
 import type { RemediationPlan, WhatIfSimulation } from '../../contracts/v1/types';
 import { SimulationVerdict as V } from '../../contracts/v1/enums';
@@ -40,7 +40,7 @@ export function usePlanSession(org: string) {
 }
 export function usePhase6(org: string, planId = 'plan-2026-8801', simId = 'sim-2026-4401') {
   const api = useApi();
-  const query = useQuery({ queryKey: ['phase6', org, planId, simId, api], queryFn: async () => {
+  const query = useQuery({ queryKey: ['phase6', org, planId, simId, apiCacheKey(api)], queryFn: async () => {
     const [plan, simulation, contracts, graph] = await Promise.all([
       api.getRemediationPlan(planId), api.getSimulation(simId), api.getSafetyContracts(), api.getSecurityGraph(),
     ]);

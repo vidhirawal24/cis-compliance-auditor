@@ -1,170 +1,41 @@
-import React, { useState } from 'react';
-import { Settings, Key, ShieldCheck } from 'lucide-react';
-import { Card, CardTitle } from '../../components/ui/card';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { useApi, apiCacheKey } from '../../api/context';
+import { DemoApiClient } from '../../api/client';
+import { useAuth } from '../../auth/context';
+import { UserRole } from '../../contracts/v1/enums';
+import { ApiState } from '../../components/common/ApiState';
 import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Card } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '../../components/ui/table';
-import { fixtureStore } from '../../api/store';
-import { UserRole } from '../../contracts/v1/enums';
 
-export const AdminSecurityShell: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'USERS' | 'VAULT' | 'AUDIT_LOGS'>('USERS');
-  const auditLogs = fixtureStore.auditEvents;
-
-  const users = [
-    { email: 'apoorva.lead@baselineguard.local', role: UserRole.OWNER, mfa: true },
-    { email: 'ciso@acmefinancial.com', role: UserRole.APPROVER, mfa: true },
-    { email: 'operator@acmefinancial.com', role: UserRole.OPERATOR, mfa: true },
-    { email: 'auditor.external@pwc-audit.local', role: UserRole.AUDITOR, mfa: true },
-  ];
-
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Settings className="w-5 h-5 text-sky-400" />
-            Administration & Security Governance (E15, E16, E17, E19)
-          </h1>
-          <p className="text-xs text-slate-400">
-            Tenant access control, OpenBao vault secret pointers, and immutable application activity trail.
-          </p>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex border-b border-slate-800 gap-1 text-xs">
-        <button
-          onClick={() => setActiveTab('USERS')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'USERS'
-              ? 'border-sky-500 text-sky-400 bg-sky-950/20'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          Users & RBAC (E15, E16)
-        </button>
-        <button
-          onClick={() => setActiveTab('VAULT')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'VAULT'
-              ? 'border-sky-500 text-sky-400 bg-sky-950/20'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          OpenBao Vault Pointers (E17)
-        </button>
-        <button
-          onClick={() => setActiveTab('AUDIT_LOGS')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'AUDIT_LOGS'
-              ? 'border-sky-500 text-sky-400 bg-sky-950/20'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          Application Audit Trail (E19)
-        </button>
-      </div>
-
-      {/* Users Tab */}
-      {activeTab === 'USERS' && (
-        <div className="rounded-lg border border-slate-800 bg-slate-900/60 overflow-hidden">
-          <Table className="table-compact">
-            <TableHeader>
-              <TableRow>
-                <TableHead>User Email</TableHead>
-                <TableHead>Assigned Role (E15)</TableHead>
-                <TableHead>MFA Enforced (E16)</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((u) => (
-                <TableRow key={u.email}>
-                  <TableCell className="font-mono text-white">{u.email}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className="font-mono text-[10px] text-sky-300 border-sky-800">
-                      {u.role}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 font-semibold">
-                      <ShieldCheck className="w-3.5 h-3.5" /> TOTP ACTIVE
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" className="h-6 text-[10px]">Edit Role</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
-
-      {/* Vault Pointers Tab */}
-      {activeTab === 'VAULT' && (
-        <Card className="border-slate-800 bg-slate-900/90 p-4 space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold flex items-center gap-2">
-              <Key className="w-4 h-4 text-amber-400" />
-              OpenBao Credential References (Zero Plaintext Invariant - E17)
-            </CardTitle>
-            <Badge variant="outline" className="text-[10px] text-emerald-400 border-emerald-800 font-mono">
-              VAULT SEALED & AUTHENTICATED
-            </Badge>
-          </div>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            The frontend interface and audit database store only immutable pointer IDs. No plaintext passwords, SSH private keys, or API tokens are transmitted to the browser client.
-          </p>
-          <div className="space-y-2 text-xs font-mono">
-            <div className="p-2.5 bg-black/40 rounded border border-slate-800 flex justify-between">
-              <span className="text-slate-300">vault:secret/cisco-asa-ssh</span>
-              <span className="text-slate-500">Target: DEMO-ASA5525-VPN (SSH Key ID: #9901)</span>
-            </div>
-            <div className="p-2.5 bg-black/40 rounded border border-slate-800 flex justify-between">
-              <span className="text-slate-300">vault:secret/fortigate-api-token</span>
-              <span className="text-slate-500">Target: DEMO-FG100F-PERIMETER (REST Token ID: #9902)</span>
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {/* Audit Logs Tab */}
-      {activeTab === 'AUDIT_LOGS' && (
-        <div className="rounded-lg border border-slate-800 bg-slate-900/60 overflow-hidden">
-          <Table className="table-compact">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Event ID</TableHead>
-                <TableHead>Actor Email</TableHead>
-                <TableHead>Action Type</TableHead>
-                <TableHead>Target Resource</TableHead>
-                <TableHead>Timestamp (UTC)</TableHead>
-                <TableHead>Integrity Hash</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {auditLogs.map((evt) => (
-                <TableRow key={evt.event_id}>
-                  <TableCell className="font-mono text-slate-400">{evt.event_id}</TableCell>
-                  <TableCell className="font-mono text-white">{evt.actor_email}</TableCell>
-                  <TableCell>
-                    <span className="font-mono text-[10px] uppercase font-bold text-sky-400">
-                      {evt.action_type}
-                    </span>
-                  </TableCell>
-                  <TableCell className="font-mono text-xs">{evt.target_resource_id}</TableCell>
-                  <TableCell className="font-mono text-xs text-slate-400">{evt.timestamp}</TableCell>
-                  <TableCell className="font-mono text-xs text-slate-500">{evt.sha256_hash}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
-    </div>
-  );
-};
-
+// E19,E30: context display and backend audit reads, no invented administration writes.
+export function AdminSecurityShell() {
+  const { orgId = '' } = useParams();
+  const api = useApi();
+  const { user, role } = useAuth();
+  const [filter, setFilter] = useState('');
+  const allowed = role === UserRole.OWNER || role === UserRole.ADMIN;
+  const logs = useQuery({ queryKey: ['admin-audit', orgId, apiCacheKey(api)], enabled: allowed, queryFn: async () => {
+    const records = (await api.getAuditEvents()).data;
+    if (records.some(record => record.org_id !== orgId)) throw new Error('Tenant mismatch');
+    return records;
+  }, retry: false });
+  return <div className="space-y-5"><h1 className="text-xl font-bold">Administration &amp; Security Governance (E19, E30)</h1>
+    <Badge variant="warning">{api instanceof DemoApiClient ? 'DEMO - synthetic tenant context and audit records' : 'Backend access required'}</Badge>
+    <Card className="p-4"><h2>RBAC and membership</h2><p>Organization: {orgId}; current role: {role}; current actor: {user?.id ?? 'Unknown'}.</p><p>Role and session display is a UI aid, not proof of server permission. Server authorization is required. Full member enumeration and role editing are UNSUPPORTED.</p><Button disabled>Edit member roles - unsupported</Button></Card>
+    {!allowed && <p role="alert">403 Forbidden: this administration view requires an owner or administrator. The server remains the authority.</p>}
+    <Card className="p-4"><h2>Retention and storage access</h2><p>Retention policy, private-storage ACLs and vault health: UNKNOWN. Read/write settings APIs are unavailable. No settings have been saved.</p><Button disabled>Save retention settings - unsupported</Button><p>Secrets are never requested or included in a local export.</p></Card>
+    <Card className="p-4"><h2>External integration API (E30)</h2><p>API key issuance, rate-limit status and versioned API documentation location are not supplied. No keys are generated or displayed.</p><Button disabled>Create integration key - unsupported</Button></Card>
+    {allowed && <Card className="p-4 space-y-3"><h2>Application audit trail (E19)</h2><label>Filter audit actions or targets<Input value={filter} onChange={event => setFilter(event.target.value)} /></label>
+      <ApiState pending={logs.isPending} error={logs.error} retry={() => { void logs.refetch(); }}>
+        {!!logs.data?.length && !logs.data.some(event => `${event.action_type} ${event.target_resource_id}`.toLowerCase().includes(filter.toLowerCase())) && <p>No audit records match this filter.</p>}
+        {!logs.data?.length ? <p>No audit events supplied.</p> : <Table aria-label="Application audit events"><TableHeader><TableRow><TableHead>Event</TableHead><TableHead>Actor ID</TableHead><TableHead>Action</TableHead><TableHead>Target</TableHead><TableHead>Time (UTC)</TableHead><TableHead>Supplied hash (unverified)</TableHead></TableRow></TableHeader><TableBody>{logs.data.filter(event => `${event.action_type} ${event.target_resource_id}`.toLowerCase().includes(filter.toLowerCase())).map(event => <TableRow key={event.event_id}><TableCell>{event.event_id}</TableCell><TableCell>{event.actor_id}</TableCell><TableCell>{event.action_type}</TableCell><TableCell>{event.target_resource_id}</TableCell><TableCell>{event.timestamp}</TableCell><TableCell className="break-all">{event.sha256_hash || 'Unavailable'}</TableCell></TableRow>)}</TableBody></Table>}
+        <p>Append-only storage, complete history and hash verification are backend responsibilities, not established by this display. IP addresses and actor emails are omitted here for data minimization.</p>
+      </ApiState>
+    </Card>}
+  </div>;
+}

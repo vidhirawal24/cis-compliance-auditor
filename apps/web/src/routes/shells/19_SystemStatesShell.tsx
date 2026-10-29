@@ -19,6 +19,7 @@ export const SystemStatesShell: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      <p>DEMO state gallery: examples below are synthetic, not current device or network outcomes.</p>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
         <div>
@@ -134,7 +135,7 @@ export const SystemStatesShell: React.FC = () => {
             </div>
             <h2 className="text-base font-bold text-white mb-2">Unsupported Appliance Firmware</h2>
             <p className="text-xs text-slate-400 mb-6 leading-relaxed">
-              Target firmware is not supported by the certified CIS evaluator pack. Result marked NOT_ASSESSED.
+              DEMO example: target firmware is unsupported by the selected evaluator pack. Result marked NOT_ASSESSED; no certification is implied.
             </p>
             <Button size="sm" variant="outline">Consult Platform Matrix</Button>
           </div>
