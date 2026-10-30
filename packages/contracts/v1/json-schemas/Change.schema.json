@@ -1,0 +1,82 @@
+{
+  "$defs": {
+    "ExecutionState": {
+      "enum": [
+        "DRAFT",
+        "SIMULATED",
+        "PRECHECKED",
+        "PENDING_APPROVAL",
+        "APPROVED",
+        "EXECUTING",
+        "VERIFYING",
+        "VERIFIED",
+        "FAILED",
+        "ROLLED_BACK",
+        "NEEDS_MANUAL_RECOVERY"
+      ],
+      "title": "ExecutionState",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "change_id": {
+      "format": "uuid",
+      "title": "Change Id",
+      "type": "string"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Created At",
+      "type": "string"
+    },
+    "operator_id": {
+      "format": "uuid",
+      "title": "Operator Id",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "plan_id": {
+      "format": "uuid",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "previous_change_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Previous Change Id"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/ExecutionState"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "change_id",
+    "plan_id",
+    "state",
+    "operator_id",
+    "created_at",
+    "previous_change_id"
+  ],
+  "title": "Change",
+  "type": "object"
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action_id": {
+      "format": "uuid",
+      "title": "Action Id",
+      "type": "string"
+    },
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "baseline_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Baseline Sha256",
+      "type": "string"
+    },
+    "depends_on": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Depends On",
+      "type": "array"
+    },
+    "expected_device_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Expected Device Version",
+      "type": "string"
+    },
+    "recovery": {
+      "enum": [
+        "ROLLBACK",
+        "COMPENSATION",
+        "MANUAL_REQUIRED"
+      ],
+      "title": "Recovery",
+      "type": "string"
+    },
+    "template_id": {
+      "format": "uuid",
+      "title": "Template Id",
+      "type": "string"
+    },
+    "template_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Template Version",
+      "type": "string"
+    },
+    "validated_parameters_ref": {
+      "format": "uuid",
+      "title": "Validated Parameters Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "action_id",
+    "asset_id",
+    "template_id",
+    "template_version",
+    "expected_device_version",
+    "baseline_sha256",
+    "validated_parameters_ref",
+    "depends_on",
+    "recovery"
+  ],
+  "title": "RemediationAction",
+  "type": "object"
+}

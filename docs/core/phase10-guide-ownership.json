@@ -1,0 +1,622 @@
+{
+  "source": "CISGuard_360_Mandar_Parallel_Development_Guide.pdf",
+  "sha256": "331773cb1c11c346d6dc46c3aa8950d73bb67462611db48b256bf9d74a495e95",
+  "features": [
+    {
+      "id": "M01",
+      "title": "Windows 11",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M02",
+      "title": "Windows Server 2019",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M03",
+      "title": "Ubuntu 20.04/22.04",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M04",
+      "title": "RHEL 8/9",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M05",
+      "title": "Fortinet firewall",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M06",
+      "title": "Cisco firewall",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M07",
+      "title": "Check Point firewall",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M08",
+      "title": "Sophos firewall",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M09",
+      "title": "Palo Alto firewall",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M10",
+      "title": "Cisco router",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M11",
+      "title": "Cisco switch",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M12",
+      "title": "Live configuration collection",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M13",
+      "title": "Central multi-target audits",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 10
+    },
+    {
+      "id": "M14",
+      "title": "OS collectors",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M15",
+      "title": "Network collectors",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M16",
+      "title": "Deterministic CIS evaluation",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 10
+    },
+    {
+      "id": "M17",
+      "title": "Modular YAML/JSON/XML rules",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 10
+    },
+    {
+      "id": "M18",
+      "title": "Custom baselines",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 10
+    },
+    {
+      "id": "M19",
+      "title": "Benchmark update maintenance",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 10
+    },
+    {
+      "id": "M20",
+      "title": "Management plane security",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M21",
+      "title": "SSHv2/key authentication/timeout",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M22",
+      "title": "Over-permissive ACLs",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M23",
+      "title": "Sensitive-port exposure",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M24",
+      "title": "Shadowed rules",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M25",
+      "title": "Default-deny policy",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 10
+    },
+    {
+      "id": "M26",
+      "title": "Unused switch ports",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M27",
+      "title": "Port security / MAC binding",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M28",
+      "title": "DHCP snooping",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M29",
+      "title": "Dynamic ARP inspection",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M30",
+      "title": "VLAN 1 management traffic",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M31",
+      "title": "Syslog forwarding",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M32",
+      "title": "NTP synchronization",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M33",
+      "title": "SNMP security",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M34",
+      "title": "Central GUI dashboard",
+      "owner": "Apoorva",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M35",
+      "title": "Compliance/severity breakdown",
+      "owner": "Apoorva",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M36",
+      "title": "Expected vs actual finding",
+      "owner": "Apoorva",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M37",
+      "title": "Actionable remediation",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "M38",
+      "title": "PDF/HTML/CSV/JSON reports and scale",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E01",
+      "title": "Asset inventory",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E02",
+      "title": "Authorized discovery",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E03",
+      "title": "Asset tagging/grouping",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E04",
+      "title": "Scheduled scans",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E05",
+      "title": "Configuration drift alerts",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "E06",
+      "title": "Configuration snapshots",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E07",
+      "title": "Compliance trends",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E08",
+      "title": "Selective audits",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E09",
+      "title": "Distributed workers",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E10",
+      "title": "Offline configuration assessment",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 11
+    },
+    {
+      "id": "E11",
+      "title": "CIS Level 1/2 profiles",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E12",
+      "title": "Manual review workflow",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 11
+    },
+    {
+      "id": "E13",
+      "title": "Risk-based prioritization",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E14",
+      "title": "Policy exceptions",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E15",
+      "title": "Role-based authorization",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E16",
+      "title": "Multi-factor authentication",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E17",
+      "title": "Device credential vault",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E18",
+      "title": "Read-only audit mode",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E19",
+      "title": "Application audit trail",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E20",
+      "title": "Policy version history",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E21",
+      "title": "Approved auto-remediation",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 12
+    },
+    {
+      "id": "E22",
+      "title": "Dry-run preview",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 12
+    },
+    {
+      "id": "E23",
+      "title": "Approval workflow",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E24",
+      "title": "Backup/recovery",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 12
+    },
+    {
+      "id": "E25",
+      "title": "Post-fix re-audit",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 12
+    },
+    {
+      "id": "E26",
+      "title": "Alerts/webhooks",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E27",
+      "title": "Ticket integrations",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E28",
+      "title": "Executive reporting",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "E29",
+      "title": "Search/filter interface",
+      "owner": "Apoorva",
+      "mandar_role": "Interface / review",
+      "page": 12
+    },
+    {
+      "id": "E30",
+      "title": "External integration API",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 12
+    },
+    {
+      "id": "I01",
+      "title": "Infrastructure relationship graph",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I02",
+      "title": "Cross-device correlation",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I03",
+      "title": "Configuration-based path analysis",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I04",
+      "title": "Root-cause reasoning",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I05",
+      "title": "Evidence-backed risk explanation",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I06",
+      "title": "Minimal-change optimization",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I07",
+      "title": "Alternative fix comparison",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I08",
+      "title": "Cross-vendor remediation planning",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I09",
+      "title": "Remediation conflict checks",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I10",
+      "title": "Change sequencing",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I11",
+      "title": "Cross-layer what-if simulation",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 13
+    },
+    {
+      "id": "I12",
+      "title": "Service-safety contracts",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 13
+    },
+    {
+      "id": "I13",
+      "title": "Blast-radius estimation",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 13
+    },
+    {
+      "id": "I14",
+      "title": "Safety-gated execution",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I15",
+      "title": "Staged hardening rollout",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 13
+    },
+    {
+      "id": "I16",
+      "title": "Dual verification",
+      "owner": "Vidhi",
+      "mandar_role": "Interface / review",
+      "page": 13
+    },
+    {
+      "id": "I17",
+      "title": "Residual-risk analysis",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I18",
+      "title": "Proof-of-Hardening dossier",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I19",
+      "title": "Benchmark upgrade impact preview",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    },
+    {
+      "id": "I20",
+      "title": "Explainable coverage decisions",
+      "owner": "Mandar",
+      "mandar_role": "PRIMARY",
+      "page": 13
+    }
+  ]
+}

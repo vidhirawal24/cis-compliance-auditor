@@ -1,0 +1,18 @@
+{
+  "asset_id": "00000000-0000-0000-0000-000000000005",
+  "authorization_scope_id": "00000000-0000-0000-0000-000000000007",
+  "credential_reference_id": null,
+  "deadline_at": "2026-10-29T00:05:00Z",
+  "expected_device_version": "fixture-only",
+  "expected_platform": "synthetic_lab",
+  "idempotency_key": "00000000-0000-0000-0000-000000000008",
+  "job_id": "00000000-0000-0000-0000-000000000002",
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "read_only": true,
+  "request_id": "00000000-0000-0000-0000-000000000006",
+  "requested_capabilities": [
+    "management_telnet"
+  ],
+  "scan_id": "00000000-0000-0000-0000-000000000003",
+  "schema_version": "1.0.0"
+}

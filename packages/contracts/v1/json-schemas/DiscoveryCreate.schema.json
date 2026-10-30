@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approved_cidrs": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Approved Cidrs",
+      "type": "array"
+    },
+    "authorization_scope_id": {
+      "format": "uuid",
+      "title": "Authorization Scope Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "authorization_scope_id",
+    "approved_cidrs"
+  ],
+  "title": "DiscoveryCreate",
+  "type": "object"
+}

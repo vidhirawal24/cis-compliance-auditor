@@ -1,0 +1,16 @@
+{
+  "actions": [],
+  "created_at": "2026-10-29T00:00:00Z",
+  "created_by": "00000000-0000-0000-0000-000000000010",
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "outcome": "UNSAT",
+  "plan_id": "00000000-0000-0000-0000-00000000000e",
+  "plan_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "safety_contract_ids": [
+    "00000000-0000-0000-0000-00000000000f"
+  ],
+  "schema_version": "1.0.0",
+  "violated_constraints": [
+    "Synthetic: no vetted candidate preserves mandatory service"
+  ]
+}

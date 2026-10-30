@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aal": {
+      "enum": [
+        "aal1",
+        "aal2"
+      ],
+      "title": "Aal",
+      "type": "string"
+    },
+    "enrolled": {
+      "title": "Enrolled",
+      "type": "boolean"
+    },
+    "required": {
+      "title": "Required",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "enrolled",
+    "aal",
+    "required"
+  ],
+  "title": "MFAStatus",
+  "type": "object"
+}

@@ -1,0 +1,41 @@
+{
+  "asset_id": "00000000-0000-0000-0000-000000000005",
+  "collected_at": "2026-10-29T00:00:00Z",
+  "collection_method": "offline_fixture",
+  "collector_version": "fixture-1",
+  "errors": [],
+  "evidence_refs": [
+    {
+      "collected_at": "2026-10-29T00:00:00Z",
+      "encrypted_artifact_location": "private://audit-evidence/00000000-0000-0000-0000-000000000001/00000000-0000-0000-0000-000000000004",
+      "evidence_id": "00000000-0000-0000-0000-000000000004",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_identity": "synthetic-fixture/management-v1"
+    }
+  ],
+  "facts": {
+    "management": [
+      {
+        "evidence_ids": [
+          "00000000-0000-0000-0000-000000000004"
+        ],
+        "observed_at": "2026-10-29T00:00:00Z",
+        "path": "management.telnet_enabled",
+        "value": true
+      }
+    ],
+    "network_policy": [],
+    "os_security": [],
+    "topology": []
+  },
+  "model": "fixture-only",
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "os_or_firmware_version": "fixture-only",
+  "platform": "synthetic_lab",
+  "schema_version": "1.0.0",
+  "supported_capabilities": [
+    "management_telnet"
+  ],
+  "unsupported_capabilities": [],
+  "vendor": "Synthetic"
+}

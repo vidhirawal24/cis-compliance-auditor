@@ -1,0 +1,892 @@
+PAGE 1
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+1
+CISGUARD 360 / TEAM ENGINEERING
+Mandar - Parallel Development
+Playbook
+BACKEND LEAD + DATA + AUTH
+Phase-by-phase AI IDE prompts, libraries, deliverables, tests, and independent
+merge contract. Original problem statement remains mandatory; no features
+removed.
+PRODUCT SCOPE
+NON-NEGOTIABLE
+WORK MODE
+88 features: M01-M38 + E01-E30 +
+I01-I20
+No runtime LLM/AI/ML, no fake results,
+read-only auditing
+Parallel work first; contract-based merge
+later
+Your mission
+Core API/Supabase/Auth/RLS, CIS policy engine, scoring, risk graph, OR-Tools planner, approvals, reports,
+audit orchestration.
+Explicit ownership boundary
+Cannot implement frontend pages or vendor collector/CLI implementation in Vidhi directory.
+Required reference uploads
+• Inputs to upload in Phase 0: CISGuard_360_Complete_PRD_v1.pdf and
+CISGuard_360_Final_Tech_Stack_v3.pdf.
+• Scope is exactly M01-M38 (38), E01-E30 (30), I01-I20 (20) as documented in PRD; feature IDs never
+change.
+This guide is a development work plan, not an assertion that the system or any vendor integration is already complete.
+
+
+PAGE 2
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+2
+1. Team split and parallel-work rules
+Member
+Exclusive working directories
+Main responsibilities
+Apoorva
+apps/web/; docs/frontend/
+All pages, UX, graph/simulation visuals, frontend testing
+Mandar
+apps/api/; packages/contracts/;
+infra/; docs/core/
+Backend lead, Supabase DB/Auth/RLS, CIS rules, risk graph, optimizer,
+reports
+Vidhi
+services/device-engine/;
+docs/device/
+All platform adapters, SCAP, policy collectors, simulation, hardening,
+verification
+SINGLE-OWNER REPOSITORY LAYOUT
+apps/web/                 -> Apoorva only (frontend; UI mocks and UI tests)
+apps/api/                 -> Mandar only (FastAPI, Supabase, policy, risk, optimizer, 
+reports)
+services/device-engine/   -> Vidhi only (platform adapters, SCAP, simulation, hardening,
+ verification)
+packages/contracts/v1/    -> Mandar owns; changes require all three to agree
+infra/                   -> Mandar owns (Docker, env examples, queue, Supabase setup)
+docs/frontend/            -> Apoorva; docs/core/ -> Mandar; docs/device/ -> Vidhi
+PARALLEL WORKING RULES
+1. Work in your own folder/branch: feat/apoorva-web, feat/mandar-core, 
+feat/vidhi-device.
+2. Do NOT edit teammates' owned directories; mock missing dependencies.
+3. All production payloads use contracts/v1; do not introduce parallel schemas.
+4. Start Phase 0 by reading the two uploaded source PDFs completely.
+5. Tag every ticket/test by Mxx, Exx, Ixx and record DONE / PARTIAL / BLOCKED / 
+UNTESTED.
+6. Read-only scan is the default; live device writes only after approval and safeguards.
+7. No AI/ML/LLM inside the product, and no paid third-party auditing API dependency.
+8. Never fabricate compliance scores, findings, device compatibility, or successful 
+remediations.
+9. All samples and screenshots use synthetic data; no device credentials in repo/AI 
+prompts.
+10. A phase finishes only after code, tests, docs, and handoff artifacts are produced.
+How three people work without waiting for each other
+• Apoorva: use MSW or a typed in-memory adapter to render every screen and user journey while API is
+unavailable.
+• Mandar: use MockDeviceEngine implementing contract v1 until Vidhi package is installable.
+• Vidhi: run a standalone CLI/fixtures and contract tests without importing Mandar API or Supabase.
+• Contract changes: propose schema diff, review with all three, publish a minor version and only then
+update consumers.
+• Track M/E/I feature IDs in every phase, issue, pull request and acceptance test; full integration requires
+evidence.
+
+
+PAGE 3
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+3
+2. Technology, libraries and IDE skills
+Area
+Exact tools / libraries
+Backend foundation
+Python 3.12 pinned after compatibility check, FastAPI, Uvicorn, Pydantic, SQLAlchemy, psycopg,
+Alembic, HTTPX
+Supabase + security
+Supabase PostgreSQL/Auth/Storage/Realtime, Supabase CLI, JWT/JWKS, MFA policy, RLS, OpenBao,
+cryptography
+Jobs + API
+Celery, Redis, Celery Beat, idempotency, Pydantic contracts, OpenAPI, WebSocket/Realtime bridge
+CIS + intelligence
+PyYAML, jsonschema, lxml, ipaddress, custom rule operators, OpenSCAP result importer, NetworkX,
+OR-Tools
+Reports + evidence
+Jinja2, WeasyPrint, CSV/JSON, encrypted storage, SHA-256, signed manifest, Prometheus/OTel optional
+Testing and DevOps
+pytest, pytest-asyncio, Hypothesis, Testcontainers, Ruff, mypy, OWASP ZAP, Semgrep, Trivy, Docker
+Compose, GitHub Actions
+Development skills
+supabase-tenant-security, cis-rule-authoring, graph-correlation, optimizer-constraints, safe-approvals,
+proof-dossier, 88-feature-registry
+Skill-file rule
+The named development skills above are proposed reusable instruction files, not installed IDE capabilities. If
+the AI IDE supports project skills, create them under a local skill/instructions directory. Otherwise keep
+equivalent markdown checklists under your docs folder. Skills guide code generation; they are NOT runtime
+AI modules.
+Cross-team core stack remains Python/FastAPI, Supabase DB/Auth, OpenSCAP + ComplianceAsCode for compatible Linux
+checks, NetworkX, OR-Tools, Batfish/custom simulation and Ansible. Use only your owned layers; do not reimplement
+teammates' tools.
+Shared developer tooling
+Git + branches, GitHub pull requests, Docker/Compose, dependency lockfiles, .env.example, structured logs,
+CI test commands, signed-off handoff notes. For any vendor hardware, use authorized device access or
+licensed lab images only.
+3. Member-specific implementation inventory
+Core owns business truth, not just CRUD. Mandar is responsible for multi-tenant data, authentic CIS
+evaluation, scalable orchestration, advanced reasoning/optimizer, approvals and proof consistency.
+Domain
+Required database tables / logical entities
+Identity / tenancy
+organizations, organization_members, role_bindings, access_audit
+Asset operations
+assets, asset_groups, tags, sites, credential_references
+Policy / compliance
+benchmark_packs, policy_rules, policy_overrides, manual_reviews, exceptions
+Audit / results
+scan_jobs, scan_targets, audit_results, findings, config_snapshots
+Context / intelligence
+asset_edges, network_facts, risk_scenarios, risk_evidence
+Hardening
+remediation_plans, remediation_actions, safety_contracts, simulation_runs, approvals, execution_events
+
+
+PAGE 4
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+4
+Domain
+Required database tables / logical entities
+Proof / reporting
+verification_runs, proof_manifests, reports, audit_evidence, audit_events, notifications
+Server domain boundaries
+• Auth and RBAC: Supabase JWT validation, RLS, strict organization isolation and role-specific permissions.
+• Scan jobs: atomic job lifecycle, bounded concurrency, idempotent retries, no fake device success.
+• CIS rule interpreter: version, benchmark source, profile, effective override, evidence, applicability, status.
+• Risk and optimizer: evidence-backed graph rules, OR-Tools constraints, UNSAT/unsupported handling.
+• Approvals/changes: server-only safety gates, device-engine adapter, immutable action snapshots.
+• Storage/export: consistent report scores, evidence hashes, four exports and tamper-evident proof.
+• Public contracts: OpenAPI + typed JSON job requests/results; schema versioning with review.
+4. Frozen v1 contract - identical for all three
+Read this carefully before giving any phase prompt to an AI coding IDE. It prevents three independently
+generated projects from becoming incompatible.
+CONTRACT v1.0.0 - FREEZE BEFORE INTEGRATION
+Base HTTP prefix: /api/v1. Supabase Auth provides Bearer access token.
+All API routes validate tenant membership/permissions on the backend.
+Identifiers: org_id, asset_id, scan_id, finding_id, policy_pack_id,
+plan_id, simulation_id, change_id, verification_id, report_id (UUID strings).
+UTC timestamps: ISO 8601. Pagination: cursor + limit; filters in query params.
+Status enum: PASS | FAIL | NOT_APPLICABLE | MANUAL_REVIEW | ERROR |
+NOT_ASSESSED. EXCEPTION is a separate approval overlay, not fabricated PASS.
+Simulation verdict: SAFE_IN_MODEL | VIOLATES_CONTRACT | UNSUPPORTED |
+INSUFFICIENT_EVIDENCE. Execution states: DRAFT, SIMULATED, PRECHECKED,
+PENDING_APPROVAL, APPROVED, EXECUTING, VERIFYING, VERIFIED, FAILED,
+ROLLED_BACK, NEEDS_MANUAL_RECOVERY.
+Canonical API error: {code, message, request_id, details?, retryable}.
+Canonical resource envelope: {schema_version:'1.0.0', data, meta:{request_id}}.
+Audit scores are server-computed: PASS/(PASS+FAIL); show assessed coverage.
+Collector evidence must include asset_id, org_id, platform, vendor,
+model, os_or_firmware_version, collector_version, collection_method,
+collected_at, facts, evidence_refs[], supported_capabilities[],
+unsupported_capabilities[], errors[]. Each evidence_ref has sha256 hash,
+source command/API identity, encrypted artifact location and timestamp.
+No raw passwords, keys, secrets, or privileged token contents in contracts.
+Worker communication: JSON-serializable Pydantic commands/results; versioned.
+Do not store free-form executable commands received from the browser.
+
+
+PAGE 5
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+5
+Minimum canonical examples
+GET /api/v1/scans/{scan_id}
+{ "schema_version":"1.0.0", "data": {
+    "scan_id":"uuid", "org_id":"uuid", "status":"RUNNING",
+    "requested_assets":3, "completed_assets":1,
+    "assessed_compliance_pct":75.0, "assessment_coverage_pct":60.0
+  }, "meta":{"request_id":"uuid"}}
+Normalized evidence:
+{ "schema_version":"1.0.0", "org_id":"uuid", "asset_id":"uuid",
+  "platform":"cisco_ios", "vendor":"Cisco", "model":"lab-fixture",
+  "os_or_firmware_version":"example", "collector_version":"0.1.0",
+  "collection_method":"offline_fixture", "collected_at":"UTC timestamp",
+  "facts":{"management":{"telnet_enabled":true}},
+  "evidence_refs":[], "supported_capabilities":["management_telnet"],
+  "unsupported_capabilities":[], "errors":[] }
+API route families agreed for v1
+Domain
+Endpoint families
+Auth + organizations
+/auth/session; /organizations; /organizations/{id}/members; /me/mfa
+Assets + inventory
+/assets; /assets/{id}; /assets/discover; /assets/{id}/capabilities
+Policy library
+/policies; /policies/{id}; /policies/{id}/rules; /policies/{id}/diff; /exceptions
+Audit queue
+/scans; /scans/{id}; /scans/{id}/assets; /scans/schedules
+Findings + evidence
+/findings; /findings/{id}; /evidence/{id}; /audit-history
+Graph + risk
+/graph; /risk-scenarios; /risk-scenarios/{id}; /trends
+Plans + simulation
+/plans; /plans/{id}; /simulations; /simulations/{id}; /safety-contracts
+Approval + hardening
+/approvals; /changes; /changes/{id}; /changes/{id}/events
+Verification + proof
+/verifications; /proof-packages; /proof-packages/{id}
+Reports + integrations
+/reports; /reports/{id}/download; /notifications; /integrations
+Any field and route detail not specified here must be resolved in contracts/v1 before implementation. The two source documents
+remain authoritative for functional behavior; this contract is authoritative for integration wiring.
+5. Your phase sequence and copy-paste prompts
+Workflow: Upload both source PDFs to your own AI IDE conversation, paste Phase 0 prompt, inspect the
+actual output and tests, then paste Phase 1, etc. Keep the same project workspace and phase handoff files.
+Prompts are independent between team members, but sequential within one member.
+PHASE 0 | Source audit, ownership and contract freeze
+Study uploaded PRD and final stack; define canonical contracts and repo rules.
+Tools/libraries this phase: PDF references, OpenAPI, JSON Schema, Pydantic
+Suggested AI IDE skills/checklists: contract-governance, 88-feature-register
+Deliverables / exit gate: Complete 88-feature owner ledger; contracts/v1; backend domain map; risk and security decision log.
+COPY-PASTE PROMPT | PHASE 0
+
+
+PAGE 6
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+6
+You are Mandar, LEAD BACKEND + DATABASE + AUTH + CORE ALGORITHMS owner for CISGuard 
+360. I upload CISGuard_360_Complete_PRD_v1.pdf and 
+CISGuard_360_Final_Tech_Stack_v3.pdf. Read BOTH completely; extract 88 M/E/I 
+requirements. Your exclusive folders: apps/api, packages/contracts/v1, infra, 
+docs/core. Other owners: Apoorva apps/web, Vidhi services/device-engine. Freeze v1 
+contracts: API envelopes, evidence/normalized fact schema, status enums, job and 
+remediation schemas, auth/role matrix, error codes, version policy. Do not modify 
+teammate modules; mock device-engine through a typed port. No runtime AI/ML/LLM, paid 
+auditing APIs, fake compliance or unapproved changes. Create 
+docs/core/phase0-prd-map.md, complete 88-feature RACI, contracts/v1/openapi.yaml, 
+contracts/v1/json-schemas/, ADRs and a blocker/assumption log. Tests should validate 
+contracts. Return the proposed schema and route diff before next phase.
+PHASE 1 | API foundation, Supabase database and migrations
+Backend service skeleton and authoritative data model.
+Tools/libraries this phase: FastAPI, SQLAlchemy, psycopg, Alembic, Docker
+Suggested AI IDE skills/checklists: postgres-schema, backend-architecture
+Deliverables / exit gate: FastAPI project, Supabase integration, migrations, tenant-aware models, Docker Compose/CI.
+COPY-PASTE PROMPT | PHASE 1
+Create Python FastAPI app under apps/api using uvicorn, Pydantic, SQLAlchemy, psycopg, 
+Alembic, HTTPX. Setup Supabase Postgres schema for organizations/members, 
+assets/groups, policy packs/rules/overrides/exceptions, scan jobs/results, evidence 
+metadata/snapshots, findings, graph/risk scenarios, plans/actions, 
+contracts/simulations, approvals, verification, reports, notifications/audit events. 
+Use UUID IDs, timestamps, org_id, retention controls, indexes and tenant-aware FKs. 
+Establish infra docker-compose for API, Redis, Celery, optional local Supabase 
+dependencies and mock device engine. Keep DB secrets/server keys backend-only. Include 
+.env.example, migrations, fixtures and tests for isolation/cross-org access. Don't 
+create UI/device adapters.
+PHASE 2 | Supabase Auth, MFA, RBAC/RLS and OpenBao
+Secure access boundaries and device-credential references.
+Tools/libraries this phase: Supabase Auth, JWT/JWKS, RLS, OpenBao, cryptography
+Suggested AI IDE skills/checklists: tenant-auth-security, secrets-governance
+Deliverables / exit gate: Auth/JWT verification, membership permissions, RLS migrations, secret references, security tests.
+COPY-PASTE PROMPT | PHASE 2
+Implement Supabase Auth JWT validation (iss, aud, exp, signature, key rotation via 
+JWKS), organization membership, role matrix (owner, security admin, auditor, operator, 
+approver, executive), MFA required for privileged changes, change-approver separation 
+of duties, RLS for frontend-exposed data and backend tenant checks even with privileged
+ SQL. Integrate OpenBao only by secret reference and tightly scoped worker credentials;
+ never store device passwords or SSH private keys in Postgres or browser. Implement 
+/me, membership, invitation, permission endpoints, audit logs, rate limits and 
+denied-access tests. Cover E15-E19 and security PRD SEC requirements. Provide seed 
+roles and negative tests.
+PHASE 3 | Asset inventory, scheduling, job orchestration
+Device CRUD, authorized discovery approvals, multi-target jobs, queue + realtime.
+Tools/libraries this phase: Celery, Redis, Supabase Realtime, FastAPI
+
+
+PAGE 7
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+7
+Suggested AI IDE skills/checklists: job-state-machines, queue-idempotency
+Deliverables / exit gate: Asset APIs, schedules, Celery workers, idempotent job state, failure isolation.
+COPY-PASTE PROMPT | PHASE 3
+Implement /api/v1 assets/groups/sites/discovery scope, asset metadata + capability 
+registry, scan API and schedules, selective runs, tenancy, versioned execution 
+manifest, job statuses and per-target errors. Celery + Redis for background 
+queues/beat, concurrency limits, retries with idempotency and circuit breakers; 
+optional distributed collectors, outbox events and Supabase Realtime Broadcast. Device 
+engine calls must use the v1 port with synthetic fixture stub until Vidhi module 
+merges. Store collection provenance and encrypted artifact references, not plaintext 
+secrets. Add integration tests using fake worker responses. Cover M13, E01-E04, 
+E08-E09, E30.
+PHASE 4 | CIS policy engine, SCAP bridge and accurate scoring
+Deterministic rules, benchmark management, custom baselines, manual assessment.
+Tools/libraries this phase: Python, PyYAML, jsonschema, lxml, SCAP importer
+Suggested AI IDE skills/checklists: cis-rule-authoring, benchmark-mapping
+Deliverables / exit gate: Versioned policy pack service, tests, applicability and score correctness.
+COPY-PASTE PROMPT | PHASE 4
+Implement the main deterministic CIS rule interpreter (allowlisted equality, range, 
+CIDR, set, restricted regex, ordered-policy predicates), YAML/JSON/XML mapping 
+registry, version/profile/applicability resolution, source attribution and rights 
+metadata, overrides, exception status overlay, manual review evidence. Consume 
+normalized Vidhi facts and optional structured OpenSCAP results through adapter; 
+OpenSCAP/ComplianceAsCode are supplementary, never automatically equivalent to CIS. 
+Store immutable audit evidence references and expected/actual. Preserve PASS, FAIL, 
+NOT_APPLICABLE, MANUAL_REVIEW, ERROR, NOT_ASSESSED, exceptions separately. Server 
+calculates assessed_compliance = PASS/(PASS+FAIL) and independently reports coverage. 
+Test unknown evidence never PASS, reproducible output and benchmark upgrade diff. Cover
+ M16-M19,E11-E12,E14,E20,I19,I20.
+PHASE 5 | Compliance findings, API endpoints and reports
+Canonical findings, remediation lookup, dashboards, exports and alerts.
+Tools/libraries this phase: SQLAlchemy, Jinja2, WeasyPrint, CSV/JSON
+Suggested AI IDE skills/checklists: report-consistency, analytics-aggregation
+Deliverables / exit gate: Working findings APIs, severities, trends, PDF/HTML/CSV/JSON, notifications.
+COPY-PASTE PROMPT | PHASE 5
+Build scans->results->findings persistence and API pagination/filters; expected/actual 
+and source/control/version evidence join; severity breakdown and asset/category trend 
+aggregation with coverage. Implement report generator with Jinja2+WeasyPrint for 
+PDF/HTML and canonical CSV/JSON exports from SAME stored results. Add executive 
+reporting, authorized secure downloads, signed artifacts, notifications webhooks with 
+retry/dedup, integrations ticket adapter interface, event audit trail. Produce test 
+comparing all four export formats for identical outcome totals. No front-end rendering 
+code. Cover M35-M38,E06-E07,E26-E30.
+PHASE 6 | Cross-layer graph, correlation and root cause
+Custom deterministic security reasoning: topology, evidence and explanation.
+
+
+PAGE 8
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+8
+Tools/libraries this phase: NetworkX, Python graph traversal, Pydantic
+Suggested AI IDE skills/checklists: graph-correlator, risk-explainability
+Deliverables / exit gate: Graph builder, risk scenario evaluator, coverage-aware path logic and unit tests.
+COPY-PASTE PROMPT | PHASE 6
+Implement NetworkX security graph from evidence-linked asset, interface, subnet, route,
+ rule, service, finding nodes and typed edges. Define scenario rules joining related 
+device findings only when network paths and supporting facts are verifiable. Add graph 
+traversal, topology missingness, exposure severity and asset-criticality ranking, 
+root-cause grouping, explainability chain with finding_ids and evidence_refs. Build 
+/graph and /risk-scenarios endpoints with deterministic stable response ordering. 
+Reject unsupported path assertions and show incomplete evidence. Tests: known 
+reachable/nonreachable graph, false correlation negative cases, unchanged input 
+identical output. Cover E13,I01-I05,I17,I20.
+PHASE 7 | Minimal-change remediation optimizer and plan APIs
+OR-Tools CP-SAT, safety constraints, conflict checks and change sequencing.
+Tools/libraries this phase: OR-Tools CP-SAT, NetworkX, Python
+Suggested AI IDE skills/checklists: optimizer-constraints, deterministic-planning
+Deliverables / exit gate: Feasible/UNSAT plans, alternative tradeoffs, deterministic scoring, tests.
+COPY-PASTE PROMPT | PHASE 7
+Implement plan orchestration using vetted remediation candidates from Vidhi engine. Use
+ OR-Tools CP-SAT to select bounded actions under constraints: eliminate defined 
+findings, preserve service-safety contracts, only supported firmware operations, cap 
+blast radius and change cost, respect dependencies, approval and recoverability. Build 
+graph-based sequencing, conflict detector and alternative plan ranking with explainable
+ objective weights. If UNSAT, return unsatisfied constraints; if no vetted candidate, 
+say NO_VALIDATED_PLAN. No LLM free-form planning and no fabricated CLI commands. 
+Persist plans and version hashes and expose /plans endpoints. Tests: solvable, 
+conflicting, missing candidate, no-recovery, stable output. Cover I06-I10.
+PHASE 8 | Approvals, safety gates and orchestration states
+Secure execution authorization and integration with device engine.
+Tools/libraries this phase: RBAC, JWT, Celery, cryptography
+Suggested AI IDE skills/checklists: safety-gates, approvals
+Deliverables / exit gate: Approval API, tamper-resistant events, safety gating, stale-plan checks.
+COPY-PASTE PROMPT | PHASE 8
+Implement change state machine DRAFT->SIMULATED->PRECHECKED->PENDING_APPROVAL->APPROVED
+->EXECUTING->VERIFYING->terminal. Enforce approver/operator separation, MFA, exact 
+asset/org ownership, policy-specific service contracts, validated snapshot/plan hashes,
+ backup readiness and simulation verdict. For unknown mandatory contract block 
+autonomous execution. Only dispatch bounded, immutable approved action IDs through 
+Vidhi device engine; never accept arbitrary command strings from browser. Provide 
+/approvals, /changes and event streams; test unauthorized action, stale approval 
+invalidation, failed/unknown safety checks, replay/idempotency. Cover E23,I14 and 
+coordination for E21-E25,I15-I16.
+PHASE 9 | Evidence, residual risk, drift orchestration and integrations
+Proof-of-Hardening, alerts, audit versioning and evidence integrity.
+
+
+PAGE 9
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+9
+Tools/libraries this phase: Cryptography, Supabase Storage, hash manifest
+Suggested AI IDE skills/checklists: proof-of-hardening, audit-chain
+Deliverables / exit gate: Signed dossier, integrity checks, snapshot diff and policy upgrade previews.
+COPY-PASTE PROMPT | PHASE 9
+Create proof-of-hardening dossier generator from original finding/evidence hash, plan 
+version, approval actor, simulation result, execution events, post-state hashes, both 
+CIS + service verification, residual-risk calculation. Sign manifest using protected 
+asymmetric key; verify signature and hash references. Create versioned snapshot/drift 
+event persistence; Vidhi supplies normalized change diffs. Implement benchmark upgrade 
+preview and report links. Integrate storage lifecycle/retention, signed access, alerts,
+ ticketing with audit logs. Tests: tamper detection, failed verification cannot be 
+VERIFIED, expired exception/approval. Cover E05-E07,E19,E26-E28,I17-I20.
+PHASE 10 | Core backend independent QA and integration readiness
+Load, security, docs and wire contract tests for collaborators.
+Tools/libraries this phase: pytest, Hypothesis, mypy, Ruff, Semgrep, Docker
+Suggested AI IDE skills/checklists: integration-qa, release-checklist
+Deliverables / exit gate: Passing backend CI, full OpenAPI, migration tests, mock device engine, merge handoff.
+COPY-PASTE PROMPT | PHASE 10
+Run ruff,mypy,pytest,contract tests, integration tests for Supabase/Auth/RLS and 
+Celery, dependency audit, SAST and container scanning. Test tenant isolation, JWT 
+expiry, MFA, permission denial, queue failures, duplicate jobs, correct scores, 
+PDF/CSV/JSON/HTML parity, optimizer UNSAT, graph evidence links, evidence signature 
+validation. Publish stable OpenAPI + JSON schemas, sample sanitized fixtures, running 
+compose config, setup/seed guide, test evidence and M/E/I traceability matrix. Only 
+edit apps/api,packages/contracts/v1,infra,docs/core. Handoff to Apoorva/Vidhi with 
+API/worker interface version 1.0.0 and migration order.
+6. Required feature ownership and dependencies
+The table below includes all 88 IDs and single primary owner. A primary owner supplies tested functionality
+for that row; other teammates still implement their related API/UI/device integration. A feature is only
+complete end-to-end after all required layers pass integration tests.
+
+
+PAGE 10
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+10
+Mandatory PS - M01 to M38
+ID
+Feature
+Owner
+Mandar role
+M01
+Windows 11
+Vidhi
+Interface / review
+M02
+Windows Server 2019
+Vidhi
+Interface / review
+M03
+Ubuntu 20.04/22.04
+Vidhi
+Interface / review
+M04
+RHEL 8/9
+Vidhi
+Interface / review
+M05
+Fortinet firewall
+Vidhi
+Interface / review
+M06
+Cisco firewall
+Vidhi
+Interface / review
+M07
+Check Point firewall
+Vidhi
+Interface / review
+M08
+Sophos firewall
+Vidhi
+Interface / review
+M09
+Palo Alto firewall
+Vidhi
+Interface / review
+M10
+Cisco router
+Vidhi
+Interface / review
+M11
+Cisco switch
+Vidhi
+Interface / review
+M12
+Live configuration collection
+Vidhi
+Interface / review
+Mandatory PS - M01 to M38 (continued: 13-24)
+ID
+Feature
+Owner
+Mandar role
+M13
+Central multi-target audits
+Mandar
+PRIMARY
+M14
+OS collectors
+Vidhi
+Interface / review
+M15
+Network collectors
+Vidhi
+Interface / review
+M16
+Deterministic CIS evaluation
+Mandar
+PRIMARY
+M17
+Modular YAML/JSON/XML rules
+Mandar
+PRIMARY
+M18
+Custom baselines
+Mandar
+PRIMARY
+M19
+Benchmark update maintenance
+Mandar
+PRIMARY
+M20
+Management plane security
+Vidhi
+Interface / review
+M21
+SSHv2/key authentication/timeout
+Vidhi
+Interface / review
+M22
+Over-permissive ACLs
+Vidhi
+Interface / review
+M23
+Sensitive-port exposure
+Vidhi
+Interface / review
+M24
+Shadowed rules
+Vidhi
+Interface / review
+Mandatory PS - M01 to M38 (continued: 25-36)
+ID
+Feature
+Owner
+Mandar role
+M25
+Default-deny policy
+Vidhi
+Interface / review
+
+
+PAGE 11
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+11
+ID
+Feature
+Owner
+Mandar role
+M26
+Unused switch ports
+Vidhi
+Interface / review
+M27
+Port security / MAC binding
+Vidhi
+Interface / review
+M28
+DHCP snooping
+Vidhi
+Interface / review
+M29
+Dynamic ARP inspection
+Vidhi
+Interface / review
+M30
+VLAN 1 management traffic
+Vidhi
+Interface / review
+M31
+Syslog forwarding
+Vidhi
+Interface / review
+M32
+NTP synchronization
+Vidhi
+Interface / review
+M33
+SNMP security
+Vidhi
+Interface / review
+M34
+Central GUI dashboard
+Apoorva
+Interface / review
+M35
+Compliance/severity breakdown
+Apoorva
+Interface / review
+M36
+Expected vs actual finding
+Apoorva
+Interface / review
+Mandatory PS - M01 to M38 (continued: 37-38)
+ID
+Feature
+Owner
+Mandar role
+M37
+Actionable remediation
+Vidhi
+Interface / review
+M38
+PDF/HTML/CSV/JSON reports and scale
+Mandar
+PRIMARY
+Industry extras - E01 to E30
+ID
+Feature
+Owner
+Mandar role
+E01
+Asset inventory
+Mandar
+PRIMARY
+E02
+Authorized discovery
+Mandar
+PRIMARY
+E03
+Asset tagging/grouping
+Mandar
+PRIMARY
+E04
+Scheduled scans
+Mandar
+PRIMARY
+E05
+Configuration drift alerts
+Vidhi
+Interface / review
+E06
+Configuration snapshots
+Mandar
+PRIMARY
+E07
+Compliance trends
+Mandar
+PRIMARY
+E08
+Selective audits
+Mandar
+PRIMARY
+E09
+Distributed workers
+Mandar
+PRIMARY
+E10
+Offline configuration assessment
+Vidhi
+Interface / review
+E11
+CIS Level 1/2 profiles
+Mandar
+PRIMARY
+E12
+Manual review workflow
+Mandar
+PRIMARY
+
+
+PAGE 12
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+12
+Industry extras - E01 to E30 (continued: 13-24)
+ID
+Feature
+Owner
+Mandar role
+E13
+Risk-based prioritization
+Mandar
+PRIMARY
+E14
+Policy exceptions
+Mandar
+PRIMARY
+E15
+Role-based authorization
+Mandar
+PRIMARY
+E16
+Multi-factor authentication
+Mandar
+PRIMARY
+E17
+Device credential vault
+Mandar
+PRIMARY
+E18
+Read-only audit mode
+Mandar
+PRIMARY
+E19
+Application audit trail
+Mandar
+PRIMARY
+E20
+Policy version history
+Mandar
+PRIMARY
+E21
+Approved auto-remediation
+Vidhi
+Interface / review
+E22
+Dry-run preview
+Vidhi
+Interface / review
+E23
+Approval workflow
+Mandar
+PRIMARY
+E24
+Backup/recovery
+Vidhi
+Interface / review
+Industry extras - E01 to E30 (continued: 25-30)
+ID
+Feature
+Owner
+Mandar role
+E25
+Post-fix re-audit
+Vidhi
+Interface / review
+E26
+Alerts/webhooks
+Mandar
+PRIMARY
+E27
+Ticket integrations
+Mandar
+PRIMARY
+E28
+Executive reporting
+Mandar
+PRIMARY
+E29
+Search/filter interface
+Apoorva
+Interface / review
+E30
+External integration API
+Mandar
+PRIMARY
+
+
+PAGE 13
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+13
+Innovations - I01 to I20
+ID
+Feature
+Owner
+Mandar role
+I01
+Infrastructure relationship graph
+Mandar
+PRIMARY
+I02
+Cross-device correlation
+Mandar
+PRIMARY
+I03
+Configuration-based path analysis
+Mandar
+PRIMARY
+I04
+Root-cause reasoning
+Mandar
+PRIMARY
+I05
+Evidence-backed risk explanation
+Mandar
+PRIMARY
+I06
+Minimal-change optimization
+Mandar
+PRIMARY
+I07
+Alternative fix comparison
+Mandar
+PRIMARY
+I08
+Cross-vendor remediation planning
+Mandar
+PRIMARY
+I09
+Remediation conflict checks
+Mandar
+PRIMARY
+I10
+Change sequencing
+Mandar
+PRIMARY
+I11
+Cross-layer what-if simulation
+Vidhi
+Interface / review
+I12
+Service-safety contracts
+Vidhi
+Interface / review
+Innovations - I01 to I20 (continued: 13-20)
+ID
+Feature
+Owner
+Mandar role
+I13
+Blast-radius estimation
+Vidhi
+Interface / review
+I14
+Safety-gated execution
+Mandar
+PRIMARY
+I15
+Staged hardening rollout
+Vidhi
+Interface / review
+I16
+Dual verification
+Vidhi
+Interface / review
+I17
+Residual-risk analysis
+Mandar
+PRIMARY
+I18
+Proof-of-Hardening dossier
+Mandar
+PRIMARY
+I19
+Benchmark upgrade impact preview
+Mandar
+PRIMARY
+I20
+Explainable coverage decisions
+Mandar
+PRIMARY
+7. Review checklist and merge plan
+Common integration order
+• 1. Mandar exports contracts/v1 OpenAPI, Pydantic/JSON Schemas and sanitized fixtures; all three confirm
+compatible signatures.
+• 2. Vidhi installs device-engine as an editable Python package inside Mandar backend worker environment;
+verify CLI and Pydantic contracts.
+• 3. Mandar wires device jobs into Celery worker and checks evidence -> CIS evaluation -> findings/report
+using fixture and lab outputs.
+
+
+PAGE 14
+CISGuard 360  |  Mandar  |  Independent Parallel Development Guide
+14
+• 4. Apoorva points typed API client to FastAPI and swaps mock mode to actual API; real Auth uses Supabase
+access tokens.
+• 5. Run e2e path: login -> register -> audit -> finding -> graph -> plan -> simulation -> approval ->
+controlled change -> verification -> reports.
+• 6. Test authorization and denied paths as thoroughly as success flows. No external device mutation in
+default automated CI.
+• 7. Run full 88-ID coverage audit; any missing capability must be declared PARTIAL/BLOCKED, never
+marked implemented.
+• 8. Produce device/version capability matrix and release notes. Validate PDFs/export counts against
+canonical audit database.
+Merge command pattern (after code review)
+git switch main && git pull
+# Merge in order: contracts/core, device engine, frontend
+# Use protected PRs in GitHub; resolve schema/version conflicts explicitly.
+python -m pytest         # backend/device when installed
+pnpm -C apps/web test    # frontend tests
+pnpm -C apps/web build   # frontend build
+# Run docker compose integration and Playwright e2e in CI.
+Critical acceptance gates
+• 38 mandatory entries are covered by documented platform/control tests, including Windows 11/Server
+2019, Ubuntu 20.04/22.04, RHEL 8/9, five firewall vendors, Cisco routers/switches.
+• No unassessed or unsupported control is considered PASS. Benchmark mapping and licensing/source
+provenance are visible.
+• No privileged device command is sent without authorized scope, approved action, exact state
+preconditions and safety checks.
+• Simulation states and model coverage are truthful; actual service checks are separate from predicted
+reachability.
+• Four output formats (PDF/HTML/CSV/JSON) reconcile from the same canonical audit; reports contain
+expected/actual/evidence/remediation.
+• 88 scope remains retained, but completion status must be evidence-backed. An irreversible change uses
+documented recovery, not fake rollback.
+Handoff package - Mandar: owned directory; pinned dependencies; install/run commands; no-secret .env.example; contract
+fixtures; test report; M/E/I evidence; known version limits; remaining integration questions.

@@ -1,0 +1,7 @@
+{
+  "code": "FORBIDDEN",
+  "details": null,
+  "message": "Operation not permitted in selected organization",
+  "request_id": "00000000-0000-0000-0000-000000000006",
+  "retryable": false
+}

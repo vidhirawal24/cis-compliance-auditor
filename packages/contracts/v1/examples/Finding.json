@@ -1,0 +1,44 @@
+{
+  "applicability": "APPLICABLE",
+  "asset_id": "00000000-0000-0000-0000-000000000005",
+  "benchmark_release": "organizational-fixture",
+  "control_id": "synthetic-management-001",
+  "device_version": "fixture-only",
+  "evaluated_at": "2026-10-29T00:00:00Z",
+  "evaluator_version": "fixture-1",
+  "evidence_refs": [
+    {
+      "collected_at": "2026-10-29T00:00:00Z",
+      "encrypted_artifact_location": "private://audit-evidence/00000000-0000-0000-0000-000000000001/00000000-0000-0000-0000-000000000004",
+      "evidence_id": "00000000-0000-0000-0000-000000000004",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_identity": "synthetic-fixture/management-v1"
+    }
+  ],
+  "exception": null,
+  "expected": false,
+  "finding_id": "00000000-0000-0000-0000-00000000000c",
+  "limitations": [
+    "Synthetic offline wire example; not a real audit"
+  ],
+  "observed": true,
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "policy_pack_id": "00000000-0000-0000-0000-00000000000d",
+  "policy_version": "fixture-1",
+  "profile": "synthetic",
+  "remediation_template_id": null,
+  "rule_inputs": [
+    {
+      "evidence_ids": [
+        "00000000-0000-0000-0000-000000000004"
+      ],
+      "observed_at": "2026-10-29T00:00:00Z",
+      "path": "management.telnet_enabled",
+      "value": true
+    }
+  ],
+  "scan_id": "00000000-0000-0000-0000-000000000003",
+  "schema_version": "1.0.0",
+  "severity": "HIGH",
+  "status": "FAIL"
+}

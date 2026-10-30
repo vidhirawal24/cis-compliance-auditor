@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "audience": {
+      "enum": [
+        "TECHNICAL",
+        "EXECUTIVE"
+      ],
+      "title": "Audience",
+      "type": "string"
+    },
+    "format": {
+      "enum": [
+        "PDF",
+        "HTML",
+        "CSV",
+        "JSON"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "scan_id": {
+      "format": "uuid",
+      "title": "Scan Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "scan_id",
+    "format",
+    "audience"
+  ],
+  "title": "ReportCreate",
+  "type": "object"
+}

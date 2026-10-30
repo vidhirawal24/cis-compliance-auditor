@@ -1,0 +1,28 @@
+rules:
+  - id: cisguard-no-eval
+    languages: [python]
+    severity: ERROR
+    message: Never evaluate user or policy input as executable code.
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+  - id: cisguard-no-tls-bypass
+    languages: [python]
+    severity: ERROR
+    message: TLS certificate verification must remain enabled.
+    pattern: $F(..., verify=False, ...)
+  - id: cisguard-no-unsafe-yaml
+    languages: [python]
+    severity: ERROR
+    message: Use safe_load for policy data.
+    pattern: yaml.load(...)
+  - id: cisguard-no-shell
+    languages: [python]
+    severity: ERROR
+    message: Do not pass interpolated commands through a shell.
+    pattern: $F(..., shell=True, ...)
+  - id: cisguard-review-unverified-jwt
+    languages: [python]
+    severity: WARNING
+    message: Signature verification disabled; review preceding online signature verification.
+    pattern: jwt.decode(..., options={..., "verify_signature": False, ...}, ...)

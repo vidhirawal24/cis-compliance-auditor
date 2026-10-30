@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "edge_id": {
+      "format": "uuid",
+      "title": "Edge Id",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "relationship": {
+      "enum": [
+        "hosted_on",
+        "attached_to",
+        "routes_to",
+        "allows",
+        "denies",
+        "depends_on",
+        "violates"
+      ],
+      "title": "Relationship",
+      "type": "string"
+    },
+    "source_id": {
+      "format": "uuid",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "target_id": {
+      "format": "uuid",
+      "title": "Target Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "edge_id",
+    "source_id",
+    "target_id",
+    "relationship",
+    "evidence_ids"
+  ],
+  "title": "GraphEdge",
+  "type": "object"
+}

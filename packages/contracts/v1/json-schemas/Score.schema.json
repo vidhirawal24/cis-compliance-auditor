@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assessed_compliance_pct": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Assessed Compliance Pct"
+    },
+    "assessment_coverage_pct": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Assessment Coverage Pct"
+    },
+    "error_count": {
+      "minimum": 0,
+      "title": "Error Count",
+      "type": "integer"
+    },
+    "fail_count": {
+      "minimum": 0,
+      "title": "Fail Count",
+      "type": "integer"
+    },
+    "manual_review_count": {
+      "minimum": 0,
+      "title": "Manual Review Count",
+      "type": "integer"
+    },
+    "not_applicable_count": {
+      "minimum": 0,
+      "title": "Not Applicable Count",
+      "type": "integer"
+    },
+    "not_assessed_count": {
+      "minimum": 0,
+      "title": "Not Assessed Count",
+      "type": "integer"
+    },
+    "pass_count": {
+      "minimum": 0,
+      "title": "Pass Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "pass_count",
+    "fail_count",
+    "not_applicable_count",
+    "manual_review_count",
+    "error_count",
+    "not_assessed_count",
+    "assessed_compliance_pct",
+    "assessment_coverage_pct"
+  ],
+  "title": "Score",
+  "type": "object"
+}

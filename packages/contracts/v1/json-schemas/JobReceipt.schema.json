@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "JobState": {
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "SUCCEEDED",
+        "PARTIAL",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "JobState",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "format": "uuid",
+      "title": "Job Id",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "resource_id": {
+      "format": "uuid",
+      "title": "Resource Id",
+      "type": "string"
+    },
+    "resource_type": {
+      "enum": [
+        "discovery",
+        "plan",
+        "simulation",
+        "verification",
+        "proof",
+        "report",
+        "precheck"
+      ],
+      "title": "Resource Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/JobState"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "job_id",
+    "status",
+    "resource_id",
+    "resource_type"
+  ],
+  "title": "JobReceipt",
+  "type": "object"
+}

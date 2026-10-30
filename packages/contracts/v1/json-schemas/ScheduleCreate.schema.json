@@ -1,0 +1,91 @@
+{
+  "$defs": {
+    "ScanCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "title": "Asset Ids",
+          "type": "array"
+        },
+        "control_ids": {
+          "items": {
+            "maxLength": 4096,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Control Ids",
+          "type": "array"
+        },
+        "mode": {
+          "const": "read_only",
+          "default": "read_only",
+          "title": "Mode",
+          "type": "string"
+        },
+        "offline_evidence_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Offline Evidence Ids",
+          "type": "array"
+        },
+        "policy_pack_id": {
+          "format": "uuid",
+          "title": "Policy Pack Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "profile": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Profile",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_ids",
+        "policy_pack_id",
+        "policy_version",
+        "profile"
+      ],
+      "title": "ScanCreate",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cron_utc": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Cron Utc",
+      "type": "string"
+    },
+    "enabled": {
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "scan": {
+      "$ref": "#/$defs/ScanCreate"
+    }
+  },
+  "required": [
+    "scan",
+    "cron_utc",
+    "enabled"
+  ],
+  "title": "ScheduleCreate",
+  "type": "object"
+}

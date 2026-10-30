@@ -1,0 +1,34 @@
+{
+  "$defs": {
+    "Role": {
+      "enum": [
+        "owner",
+        "security_admin",
+        "auditor",
+        "operator",
+        "approver",
+        "executive"
+      ],
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "email": {
+      "maxLength": 254,
+      "minLength": 3,
+      "title": "Email",
+      "type": "string"
+    },
+    "role": {
+      "$ref": "#/$defs/Role"
+    }
+  },
+  "required": [
+    "email",
+    "role"
+  ],
+  "title": "InviteBody",
+  "type": "object"
+}

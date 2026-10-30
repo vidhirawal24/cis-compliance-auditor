@@ -1,0 +1,8 @@
+.venv-phase0/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.local-postgres/
+.runtime/

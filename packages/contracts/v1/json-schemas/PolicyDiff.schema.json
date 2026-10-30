@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "added_control_ids": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Added Control Ids",
+      "type": "array"
+    },
+    "from_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "From Version",
+      "type": "string"
+    },
+    "modified_control_ids": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Modified Control Ids",
+      "type": "array"
+    },
+    "policy_pack_id": {
+      "format": "uuid",
+      "title": "Policy Pack Id",
+      "type": "string"
+    },
+    "removed_control_ids": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Removed Control Ids",
+      "type": "array"
+    },
+    "to_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "To Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_pack_id",
+    "from_version",
+    "to_version",
+    "added_control_ids",
+    "removed_control_ids",
+    "modified_control_ids"
+  ],
+  "title": "PolicyDiff",
+  "type": "object"
+}

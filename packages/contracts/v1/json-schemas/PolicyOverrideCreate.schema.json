@@ -1,0 +1,44 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "base_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Base Version",
+      "type": "string"
+    },
+    "control_id": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Control Id",
+      "type": "string"
+    },
+    "expected": {
+      "$ref": "#/$defs/JsonValue"
+    },
+    "policy_pack_id": {
+      "format": "uuid",
+      "title": "Policy Pack Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_pack_id",
+    "base_version",
+    "control_id",
+    "expected",
+    "reason"
+  ],
+  "title": "PolicyOverrideCreate",
+  "type": "object"
+}

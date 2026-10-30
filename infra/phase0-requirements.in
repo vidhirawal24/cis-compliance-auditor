@@ -1,0 +1,6 @@
+# Development-only contract tools. Resolved exact environment: phase0-requirements.lock.txt
+pydantic>=2.10,<3
+pytest>=8,<10
+jsonschema>=4.23,<5
+PyYAML>=6,<7
+openapi-spec-validator>=0.7,<0.9

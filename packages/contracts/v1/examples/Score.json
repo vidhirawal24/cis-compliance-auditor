@@ -1,0 +1,10 @@
+{
+  "assessed_compliance_pct": 75.0,
+  "assessment_coverage_pct": 50.0,
+  "error_count": 1,
+  "fail_count": 1,
+  "manual_review_count": 1,
+  "not_applicable_count": 1,
+  "not_assessed_count": 2,
+  "pass_count": 3
+}

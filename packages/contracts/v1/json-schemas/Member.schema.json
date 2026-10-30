@@ -1,0 +1,40 @@
+{
+  "$defs": {
+    "Role": {
+      "enum": [
+        "owner",
+        "security_admin",
+        "auditor",
+        "operator",
+        "approver",
+        "executive"
+      ],
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "role": {
+      "$ref": "#/$defs/Role"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "role",
+    "org_id"
+  ],
+  "title": "Member",
+  "type": "object"
+}

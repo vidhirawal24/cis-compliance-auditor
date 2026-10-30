@@ -1,0 +1,17 @@
+{
+  "asset_id": "00000000-0000-0000-0000-000000000005",
+  "errors": [
+    {
+      "capability": null,
+      "code": "UNSUPPORTED",
+      "message": "Synthetic offline fixture; no device implementation",
+      "retryable": false
+    }
+  ],
+  "evidence": null,
+  "job_id": "00000000-0000-0000-0000-000000000002",
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "scan_id": "00000000-0000-0000-0000-000000000003",
+  "schema_version": "1.0.0",
+  "status": "UNSUPPORTED"
+}

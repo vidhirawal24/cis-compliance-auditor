@@ -1,0 +1,5 @@
+# Render ORG_UUID and REFERENCE_UUID for ONE dispatched credential, not a wildcard tenant.
+path "device-secrets/data/ORG_UUID/REFERENCE_UUID" {
+  capabilities = ["read"]
+}
+# No list, write, delete, metadata enumeration, policy administration or other secrets.

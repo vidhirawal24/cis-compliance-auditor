@@ -1,0 +1,154 @@
+[
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 16,
+      "row": 324
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 324
+    },
+    "message": "Invalid annotated assignment target",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 57,
+      "row": 324
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 56,
+      "row": 324
+    },
+    "message": "Expected a statement",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 1,
+      "row": 325
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 57,
+      "row": 324
+    },
+    "message": "Expected a statement",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 18,
+      "row": 325
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 325
+    },
+    "message": "Invalid annotated assignment target",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 59,
+      "row": 325
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 58,
+      "row": 325
+    },
+    "message": "Expected a statement",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 1,
+      "row": 326
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 59,
+      "row": 325
+    },
+    "message": "Expected a statement",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 6,
+      "row": 326
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 5,
+      "row": 326
+    },
+    "message": "Expected a statement",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 1,
+      "row": 327
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": null,
+    "location": {
+      "column": 6,
+      "row": 326
+    },
+    "message": "Expected a statement",
+    "name": "invalid-syntax",
+    "noqa_row": null,
+    "severity": "error",
+    "url": null
+  }
+]

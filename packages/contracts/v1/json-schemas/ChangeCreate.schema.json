@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approval_id": {
+      "format": "uuid",
+      "title": "Approval Id",
+      "type": "string"
+    },
+    "plan_id": {
+      "format": "uuid",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "plan_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Plan Sha256",
+      "type": "string"
+    },
+    "precheck_id": {
+      "format": "uuid",
+      "title": "Precheck Id",
+      "type": "string"
+    },
+    "simulation_id": {
+      "format": "uuid",
+      "title": "Simulation Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_id",
+    "plan_sha256",
+    "approval_id",
+    "simulation_id",
+    "precheck_id"
+  ],
+  "title": "ChangeCreate",
+  "type": "object"
+}

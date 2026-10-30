@@ -1,0 +1,107 @@
+{
+  "$defs": {
+    "SimulationVerdict": {
+      "enum": [
+        "SAFE_IN_MODEL",
+        "VIOLATES_CONTRACT",
+        "UNSUPPORTED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "title": "SimulationVerdict",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "checked_contract_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Checked Contract Ids",
+      "type": "array"
+    },
+    "evidence_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "model_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Model Version",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "plan_id": {
+      "format": "uuid",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "plan_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Plan Sha256",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "simulated_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Simulated At",
+      "type": "string"
+    },
+    "simulation_id": {
+      "format": "uuid",
+      "title": "Simulation Id",
+      "type": "string"
+    },
+    "unsupported_capabilities": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Unsupported Capabilities",
+      "type": "array"
+    },
+    "verdict": {
+      "$ref": "#/$defs/SimulationVerdict"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "simulation_id",
+    "plan_id",
+    "plan_sha256",
+    "verdict",
+    "checked_contract_ids",
+    "unsupported_capabilities",
+    "evidence_ids",
+    "limitations",
+    "model_version",
+    "simulated_at"
+  ],
+  "title": "Simulation",
+  "type": "object"
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "kind": "prd",
+    "supplied_filename": "CISGuard_360_Complete_PRD_v1.pdf",
+    "page_count": 21,
+    "sha256": "22a8100676c6509989fed3bb627b924121a7d877c2e8e9eed2b10ff41c0804a7",
+    "extracted_text": "sources/prd.txt",
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ]
+  },
+  {
+    "kind": "stack",
+    "supplied_filename": "DOC-20261029-WA0004 (1).pdf",
+    "page_count": 13,
+    "sha256": "7061316fd28aa9d106d5e6a36a8a749ec9989da45753176199145e368d20b153",
+    "extracted_text": "sources/stack.txt",
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ]
+  }
+]

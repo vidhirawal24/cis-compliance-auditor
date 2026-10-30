@@ -1,0 +1,16 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "label": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    }
+  },
+  "required": [
+    "label"
+  ],
+  "title": "ReferenceBody",
+  "type": "object"
+}

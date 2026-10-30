@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "compatibility_status": {
+      "enum": [
+        "UNTESTED",
+        "FIXTURE_TESTED",
+        "LAB_VERIFIED"
+      ],
+      "title": "Compatibility Status",
+      "type": "string"
+    },
+    "supported": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Supported",
+      "type": "array"
+    },
+    "unsupported": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Unsupported",
+      "type": "array"
+    }
+  },
+  "required": [
+    "asset_id",
+    "supported",
+    "unsupported",
+    "compatibility_status"
+  ],
+  "title": "Capabilities",
+  "type": "object"
+}

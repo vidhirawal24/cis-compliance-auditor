@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "change_id": {
+      "format": "uuid",
+      "title": "Change Id",
+      "type": "string"
+    },
+    "verification_id": {
+      "format": "uuid",
+      "title": "Verification Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "change_id",
+    "verification_id"
+  ],
+  "title": "ProofCreate",
+  "type": "object"
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "roles": {
+    "owner": ["session.read", "tenant.admin", "inventory.write", "audit.read", "audit.scan", "policy.write", "report.export", "summary.read", "integration.write"],
+    "security_admin": ["session.read", "inventory.write", "audit.read", "audit.scan", "policy.write", "report.export", "summary.read"],
+    "auditor": ["session.read", "audit.read", "report.export", "summary.read"],
+    "operator": ["session.read", "audit.read", "audit.scan", "plan.write", "change.execute", "summary.read"],
+    "approver": ["session.read", "audit.read", "change.approve", "summary.read"],
+    "executive": ["session.read", "summary.read"]
+  },
+  "mfa_roles": ["owner", "security_admin", "operator", "approver"],
+  "constraints": [
+    "Deny by default; verify active tenant membership and asset scope for every request and task.",
+    "Executive may access only aggregate reports/trends; never raw evidence, findings, graph or signed technical downloads.",
+    "Role membership is server managed; JWT user metadata never grants roles.",
+    "Approver must differ from plan author and executing operator; role unions cannot bypass this.",
+    "Privileged roles require Supabase aal2; AAL is read from validated JWT, never browser input.",
+    "Owner is not an automatic remediation or approval superuser. Role escalation is audited."
+  ]
+}

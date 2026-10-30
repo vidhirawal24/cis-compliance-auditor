@@ -1,0 +1,193 @@
+{
+  "$defs": {
+    "EvidenceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "collected_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Collected At",
+          "type": "string"
+        },
+        "encrypted_artifact_location": {
+          "pattern": "^private://[a-z0-9-]+/[a-zA-Z0-9/_-]+$",
+          "title": "Encrypted Artifact Location",
+          "type": "string"
+        },
+        "evidence_id": {
+          "format": "uuid",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_identity": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Source Identity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "sha256",
+        "source_identity",
+        "encrypted_artifact_location",
+        "collected_at"
+      ],
+      "title": "EvidenceRef",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "after_evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRef"
+      },
+      "minItems": 1,
+      "title": "After Evidence",
+      "type": "array"
+    },
+    "approval_id": {
+      "format": "uuid",
+      "title": "Approval Id",
+      "type": "string"
+    },
+    "approver_id": {
+      "format": "uuid",
+      "title": "Approver Id",
+      "type": "string"
+    },
+    "before_evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRef"
+      },
+      "minItems": 1,
+      "title": "Before Evidence",
+      "type": "array"
+    },
+    "benchmark_release": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Benchmark Release",
+      "type": "string"
+    },
+    "change_id": {
+      "format": "uuid",
+      "title": "Change Id",
+      "type": "string"
+    },
+    "execution_event_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Execution Event Ids",
+      "type": "array"
+    },
+    "manifest_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Sha256",
+      "type": "string"
+    },
+    "operator_id": {
+      "format": "uuid",
+      "title": "Operator Id",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "original_finding_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Original Finding Ids",
+      "type": "array"
+    },
+    "plan_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Plan Sha256",
+      "type": "string"
+    },
+    "profile": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Profile",
+      "type": "string"
+    },
+    "proof_id": {
+      "format": "uuid",
+      "title": "Proof Id",
+      "type": "string"
+    },
+    "residual_risk_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Residual Risk Ids",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "signature": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Signature",
+      "type": "string"
+    },
+    "signing_key_id": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Signing Key Id",
+      "type": "string"
+    },
+    "simulation_id": {
+      "format": "uuid",
+      "title": "Simulation Id",
+      "type": "string"
+    },
+    "verification_id": {
+      "format": "uuid",
+      "title": "Verification Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "proof_id",
+    "change_id",
+    "verification_id",
+    "original_finding_ids",
+    "benchmark_release",
+    "profile",
+    "operator_id",
+    "approver_id",
+    "before_evidence",
+    "after_evidence",
+    "plan_sha256",
+    "approval_id",
+    "simulation_id",
+    "execution_event_ids",
+    "residual_risk_ids",
+    "manifest_sha256",
+    "signature",
+    "signing_key_id"
+  ],
+  "title": "Proof",
+  "type": "object"
+}

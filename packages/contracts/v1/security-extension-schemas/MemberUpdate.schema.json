@@ -1,0 +1,32 @@
+{
+  "$defs": {
+    "Role": {
+      "enum": [
+        "owner",
+        "security_admin",
+        "auditor",
+        "operator",
+        "approver",
+        "executive"
+      ],
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "role": {
+      "$ref": "#/$defs/Role"
+    },
+    "active": {
+      "title": "Active",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "role",
+    "active"
+  ],
+  "title": "MemberUpdate",
+  "type": "object"
+}

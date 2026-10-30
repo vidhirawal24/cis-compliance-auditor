@@ -1,0 +1,12 @@
+{
+  "status": "PROPOSED",
+  "base_version": "1.0.0",
+  "phase": 2,
+  "source": "security_extensions.py",
+  "sha256": "a73f9b267e91ab6680a3dc55c3899fa90544157fb8d7f4c573ad2ab966c4e428",
+  "reviews": {
+    "Mandar": "PENDING",
+    "Apoorva": "PENDING",
+    "Vidhi": "PENDING"
+  }
+}

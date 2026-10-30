@@ -1,0 +1,337 @@
+{
+  "$defs": {
+    "AssessmentStatus": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "MANUAL_REVIEW",
+        "ERROR",
+        "NOT_ASSESSED"
+      ],
+      "title": "AssessmentStatus",
+      "type": "string"
+    },
+    "EvidenceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "collected_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Collected At",
+          "type": "string"
+        },
+        "encrypted_artifact_location": {
+          "pattern": "^private://[a-z0-9-]+/[a-zA-Z0-9/_-]+$",
+          "title": "Encrypted Artifact Location",
+          "type": "string"
+        },
+        "evidence_id": {
+          "format": "uuid",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_identity": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Source Identity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "sha256",
+        "source_identity",
+        "encrypted_artifact_location",
+        "collected_at"
+      ],
+      "title": "EvidenceRef",
+      "type": "object"
+    },
+    "ExceptionOverlay": {
+      "additionalProperties": false,
+      "properties": {
+        "approver_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Approver Id"
+        },
+        "decision": {
+          "enum": [
+            "PENDING",
+            "APPROVED",
+            "REJECTED",
+            "EXPIRED"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "exception_id": {
+          "format": "uuid",
+          "title": "Exception Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "finding_id": {
+          "format": "uuid",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "org_id": {
+          "format": "uuid",
+          "title": "Org Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "org_id",
+        "finding_id",
+        "reason",
+        "expires_at",
+        "exception_id",
+        "decision",
+        "approver_id"
+      ],
+      "title": "ExceptionOverlay",
+      "type": "object"
+    },
+    "Fact": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "observed_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "path",
+        "value",
+        "evidence_ids",
+        "observed_at"
+      ],
+      "title": "Fact",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "applicability": {
+      "enum": [
+        "APPLICABLE",
+        "NOT_APPLICABLE",
+        "UNKNOWN"
+      ],
+      "title": "Applicability",
+      "type": "string"
+    },
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "benchmark_release": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Benchmark Release",
+      "type": "string"
+    },
+    "control_id": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Control Id",
+      "type": "string"
+    },
+    "device_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Device Version",
+      "type": "string"
+    },
+    "evaluated_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Evaluated At",
+      "type": "string"
+    },
+    "evaluator_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Evaluator Version",
+      "type": "string"
+    },
+    "evidence_refs": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRef"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "exception": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExceptionOverlay"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "expected": {
+      "$ref": "#/$defs/JsonValue"
+    },
+    "finding_id": {
+      "format": "uuid",
+      "title": "Finding Id",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "observed": {
+      "$ref": "#/$defs/JsonValue"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "policy_pack_id": {
+      "format": "uuid",
+      "title": "Policy Pack Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "profile": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Profile",
+      "type": "string"
+    },
+    "remediation_template_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Remediation Template Id"
+    },
+    "rule_inputs": {
+      "items": {
+        "$ref": "#/$defs/Fact"
+      },
+      "title": "Rule Inputs",
+      "type": "array"
+    },
+    "scan_id": {
+      "format": "uuid",
+      "title": "Scan Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/AssessmentStatus"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "finding_id",
+    "scan_id",
+    "asset_id",
+    "device_version",
+    "control_id",
+    "policy_pack_id",
+    "policy_version",
+    "benchmark_release",
+    "profile",
+    "applicability",
+    "status",
+    "severity",
+    "expected",
+    "observed",
+    "rule_inputs",
+    "evidence_refs",
+    "evaluator_version",
+    "evaluated_at",
+    "remediation_template_id",
+    "limitations"
+  ],
+  "title": "Finding",
+  "type": "object"
+}

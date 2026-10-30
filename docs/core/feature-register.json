@@ -1,0 +1,1903 @@
+[
+  {
+    "id": "M01",
+    "title": "Windows 11",
+    "requirement": "Audit Enterprise and standalone Windows 11 configuration against applicable selected CIS profile.",
+    "acceptance_evidence": "Run on supported Windows 11 test hosts; validate policy results against known secure/insecure configurations.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M01",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M02",
+    "title": "Windows Server 2019",
+    "requirement": "Collect and assess applicable server-local security controls and relevant policy state.",
+    "acceptance_evidence": "Validate on a Windows Server 2019 VM; record evidence for each supported control.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M02",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M03",
+    "title": "Ubuntu 20.04/22.04",
+    "requirement": "Collect and evaluate Ubuntu-specific system, SSH, account, service, firewall and audit settings.",
+    "acceptance_evidence": "Run version-specific tests on both LTS versions; no unsupported checks silently pass.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M03",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M04",
+    "title": "RHEL 8/9",
+    "requirement": "Audit RHEL-specific controls including SELinux, audit rules, accounts and services.",
+    "acceptance_evidence": "Pass independently reviewed tests on both major versions.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M04",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M05",
+    "title": "Fortinet firewall",
+    "requirement": "Collect and assess supported FortiOS management and policy configuration.",
+    "acceptance_evidence": "Verify vendor/model/firmware handshake and known fixture results.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M05",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M06",
+    "title": "Cisco firewall",
+    "requirement": "Support documented Cisco ASA and/or FTD- family flows with explicit family handling.",
+    "acceptance_evidence": "Execute family-specific collection and tests; label compatibility precisely.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M06",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M07",
+    "title": "Check Point firewall",
+    "requirement": "Collect management-policy and device configuration from authorized management interfaces.",
+    "acceptance_evidence": "Validate policy extraction, normalization and checks on supported versions.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M07",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M08",
+    "title": "Sophos firewall",
+    "requirement": "Collect and parse supported Sophos firewall configuration using applicable API/CLI.",
+    "acceptance_evidence": "Validate version-specific fixtures and at least one authorized lab integration.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M08",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M09",
+    "title": "Palo Alto firewall",
+    "requirement": "Collect PAN-OS configuration and policy via supported REST/XML interfaces.",
+    "acceptance_evidence": "Verify current committed state and relevant objects in findings.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M09",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M10",
+    "title": "Cisco router",
+    "requirement": "Audit IOS/IOS-XE or other explicitly supported Cisco router families.",
+    "acceptance_evidence": "Test Cisco router fixtures, command authorization and rule results.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M10",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M11",
+    "title": "Cisco switch",
+    "requirement": "Audit supported managed Cisco switch families and Layer-2 hardening.",
+    "acceptance_evidence": "Test VLAN, interface, port-security and switch-specific findings.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M11",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M12",
+    "title": "Live collection",
+    "requirement": "Securely retrieve actual configuration/state from authorized managed devices.",
+    "acceptance_evidence": "Audit run logs source, timestamp, identity, retrieval success and evidence hash.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M12",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M13",
+    "title": "Central multi-target audits",
+    "requirement": "Schedule and execute audits across multiple asset categories from one interface.",
+    "acceptance_evidence": "Single job contains mixed supported devices; per- device result and failure isolation.",
+    "prd_page": 6,
+    "domain": "orchestration",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi",
+      "Apoorva"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M13",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M14",
+    "title": "OS collectors",
+    "requirement": "Collect Windows/Linux local policies, users, processes and system security state.",
+    "acceptance_evidence": "Collector outputs canonical evidence with explicit missing-data status.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M14",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M15",
+    "title": "Network collectors",
+    "requirement": "Collect firewall, router and switch running/effective configuration as available.",
+    "acceptance_evidence": "Adapter tags vendor, device family, firmware and collection method.",
+    "prd_page": 6,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M15",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M16",
+    "title": "Deterministic rule engine",
+    "requirement": "Evaluate versioned CIS-aligned controls with reproducible operators, not AI/ML.",
+    "acceptance_evidence": "Repeat identical input/profile -> identical result and evidence links.",
+    "prd_page": 6,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M16",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M17",
+    "title": "Modular structured rule files",
+    "requirement": "Support maintainable, validated YAML/JSON and XML/SCAP where applicable.",
+    "acceptance_evidence": "Schema-invalid rule rejected with clear diagnostic; valid pack loads.",
+    "prd_page": 6,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M17",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M18",
+    "title": "Custom baselines",
+    "requirement": "Allow organization thresholds/overrides separate from benchmark source.",
+    "acceptance_evidence": "Changing override changes only appropriate checks and preserves history.",
+    "prd_page": 6,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M18",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M19",
+    "title": "Benchmark update maintenance",
+    "requirement": "Track benchmark version/profile and controlled change to rule packs.",
+    "acceptance_evidence": "Old audit remains reproducible; new version diff is reviewable.",
+    "prd_page": 6,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M19",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M20",
+    "title": "Management plane security",
+    "requirement": "Audit Telnet/HTTP management restrictions as applicable to device/config.",
+    "acceptance_evidence": "Unsafe management interface produces documented failure and evidence.",
+    "prd_page": 6,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M20",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M21",
+    "title": "SSHv2, key auth, timeout",
+    "requirement": "Check SSH version, permitted auth method and idle timeout where supported.",
+    "acceptance_evidence": "Fixtures distinguish compliant/weak/unknown management configurations.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M21",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M22",
+    "title": "Over-permissive ACLs",
+    "requirement": "Detect broad allows such as permit ip any any in effective context.",
+    "acceptance_evidence": "Parser respects ACL order/context and produces evidence/location.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M22",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M23",
+    "title": "Sensitive port exposure",
+    "requirement": "Detect risky inbound rules from broad sources to 22/3389/445 and extensible port list.",
+    "acceptance_evidence": "Exposure scenario uses actual effective policy and source/destination scope.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M23",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M24",
+    "title": "Shadowed rules",
+    "requirement": "Identify fully shadowed or unreachable ordered firewall/ACL rules where model supports it.",
+    "acceptance_evidence": "Constructed fixture detects known shadowed rule without false pass.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M24",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M25",
+    "title": "Default-deny policy",
+    "requirement": "Assess applicable implicit/explicit final action and exceptions.",
+    "acceptance_evidence": "Correct results on deny, permit and unknown cases.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M25",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M26",
+    "title": "Unused switch ports",
+    "requirement": "Check designated unused ports are administratively disabled.",
+    "acceptance_evidence": "Unassigned enabled ports flagged with inventory- based applicability.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M26",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M27",
+    "title": "Port security / MAC binding",
+    "requirement": "Verify switch edge-port restrictions and configured limits.",
+    "acceptance_evidence": "Known secure/insecure port security fixtures return expected outcomes.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M27",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M28",
+    "title": "DHCP snooping",
+    "requirement": "Evaluate feature state, trusted ports and VLAN applicability.",
+    "acceptance_evidence": "Flags missing scope or unsafe trust with exact interface evidence.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M28",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M29",
+    "title": "Dynamic ARP inspection",
+    "requirement": "Evaluate DAI/ARP-inspection settings and trust boundaries.",
+    "acceptance_evidence": "Flags disabled/mis-scoped protections where supported.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M29",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M30",
+    "title": "VLAN 1 management traffic",
+    "requirement": "Detect use of default VLAN for management where applicable.",
+    "acceptance_evidence": "Report actual management VLAN and evidence.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M30",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M31",
+    "title": "Syslog forwarding",
+    "requirement": "Verify remote logging destinations and security-relevant configuration.",
+    "acceptance_evidence": "Missing/invalid forwarding recorded as failing or unknown with reason.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M31",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M32",
+    "title": "NTP synchronization",
+    "requirement": "Verify time source configuration and available sync status.",
+    "acceptance_evidence": "NTP configured vs merely present distinguished in results.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M32",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M33",
+    "title": "SNMP security",
+    "requirement": "Flag default v1/v2c strings; validate version 3 controls where supported.",
+    "acceptance_evidence": "Sample public/private communities fail; configured v3 is inspected.",
+    "prd_page": 7,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Vidhi"
+    ],
+    "consulted": [
+      "Apoorva"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M33",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M34",
+    "title": "Central GUI dashboard",
+    "requirement": "Provide searchable device overview, audit initiation and findings pages.",
+    "acceptance_evidence": "Authorized reviewer navigates complete audit without command line.",
+    "prd_page": 7,
+    "domain": "dashboard",
+    "accountable": "Apoorva",
+    "responsible": [
+      "Apoorva",
+      "Mandar"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M34",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M35",
+    "title": "Compliance/severity breakdown",
+    "requirement": "Display overall and category compliance with Critical/High/Medium/Low distribution.",
+    "acceptance_evidence": "Score excludes unassessed/errors; coverage reported separately.",
+    "prd_page": 7,
+    "domain": "results",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M35",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M36",
+    "title": "Expected vs actual findings",
+    "requirement": "Present rule, expected value, actual observation and evidence side-by-side.",
+    "acceptance_evidence": "Every failed automated control links to evidence and rule version.",
+    "prd_page": 7,
+    "domain": "results",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M36",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M37",
+    "title": "Actionable remediation",
+    "requirement": "Show vendor/version-specific safe guidance and exact CLI where reliably applicable.",
+    "acceptance_evidence": "Remediation includes prerequisites, risk warning and command/source mapping.",
+    "prd_page": 7,
+    "domain": "results",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M37",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "M38",
+    "title": "Reports and scale",
+    "requirement": "Export PDF/HTML/CSV/JSON with passes, fails, severity, evidence and remediation; scale across assets.",
+    "acceptance_evidence": "Four formats reconcile with same audit; load test records latency and failures.",
+    "prd_page": 7,
+    "domain": "reporting",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-M38",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E01",
+    "title": "Asset inventory",
+    "requirement": "Searchable centralized asset registry.",
+    "acceptance_evidence": "Create, edit, retire and filter asset records.",
+    "prd_page": 7,
+    "domain": "inventory",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E01",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E02",
+    "title": "Authorized discovery",
+    "requirement": "Discover eligible targets only within approved ranges.",
+    "acceptance_evidence": "Discovery logs scope; out-of-scope assets are excluded.",
+    "prd_page": 7,
+    "domain": "collection",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E02",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E03",
+    "title": "Tag/group assets",
+    "requirement": "Group by site, environment, owner and criticality.",
+    "acceptance_evidence": "Tags control filters and policy assignment.",
+    "prd_page": 7,
+    "domain": "inventory",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E03",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E04",
+    "title": "Scheduled scans",
+    "requirement": "Run recurring audits without manual action.",
+    "acceptance_evidence": "Schedule triggers expected job and records time.",
+    "prd_page": 7,
+    "domain": "orchestration",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E04",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E05",
+    "title": "Drift alerts",
+    "requirement": "Detect relevant config changes between snapshots.",
+    "acceptance_evidence": "Controlled change produces accurate change event.",
+    "prd_page": 8,
+    "domain": "history",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E05",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E06",
+    "title": "Configuration snapshots",
+    "requirement": "Retain encrypted, versioned configuration evidence.",
+    "acceptance_evidence": "Snapshot can be decrypted by authorized actor and hash checked.",
+    "prd_page": 8,
+    "domain": "evidence",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E06",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E07",
+    "title": "Compliance trends",
+    "requirement": "Compare audit scores with consistent benchmarks and coverage.",
+    "acceptance_evidence": "Time-series view reflects historical results accurately.",
+    "prd_page": 8,
+    "domain": "history",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E07",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E08",
+    "title": "Selective audits",
+    "requirement": "Scan chosen devices, groups, rule packs or controls.",
+    "acceptance_evidence": "Selection matches executed checks and job manifest.",
+    "prd_page": 8,
+    "domain": "orchestration",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E08",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E09",
+    "title": "Distributed workers",
+    "requirement": "Execute collectors across approved networks/sites.",
+    "acceptance_evidence": "Multiple workers isolate job failures and maintain tenant boundaries.",
+    "prd_page": 8,
+    "domain": "orchestration",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E09",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E10",
+    "title": "Offline config assessment",
+    "requirement": "Audit uploaded/sanitized device configuration snapshots.",
+    "acceptance_evidence": "Offline results clearly marked as non-live.",
+    "prd_page": 8,
+    "domain": "collection",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E10",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E11",
+    "title": "CIS profile selection",
+    "requirement": "Choose appropriate Level 1/Level 2 profiles where available.",
+    "acceptance_evidence": "Profile changes applicable controls and report label.",
+    "prd_page": 8,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E11",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E12",
+    "title": "Manual-review workflow",
+    "requirement": "Assign controls requiring human validation.",
+    "acceptance_evidence": "Manual item has reviewer, evidence and auditable verdict.",
+    "prd_page": 8,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E12",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E13",
+    "title": "Risk ranking",
+    "requirement": "Prioritize by severity, exposure, asset criticality and evidence confidence.",
+    "acceptance_evidence": "Risk output reproducible, factors shown.",
+    "prd_page": 8,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E13",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E14",
+    "title": "Policy exceptions",
+    "requirement": "Time-box exceptions with approver, reason and expiration.",
+    "acceptance_evidence": "Expired exceptions return to active finding workflow.",
+    "prd_page": 8,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E14",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E15",
+    "title": "Role-based access control",
+    "requirement": "Restrict audit/remediation/report permissions by role and tenant.",
+    "acceptance_evidence": "Negative authorization tests pass for all privileged actions.",
+    "prd_page": 8,
+    "domain": "identity",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E15",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E16",
+    "title": "Multi-factor authentication",
+    "requirement": "Protect privileged dashboard accounts with MFA.",
+    "acceptance_evidence": "MFA-required role cannot perform protected action without MFA.",
+    "prd_page": 8,
+    "domain": "identity",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E16",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E17",
+    "title": "Secrets vault",
+    "requirement": "Store device credentials/keys outside source code and audit tables.",
+    "acceptance_evidence": "Application references secret ID only; no plaintext in logs.",
+    "prd_page": 8,
+    "domain": "secrets",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E17",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E18",
+    "title": "Read-only audit mode",
+    "requirement": "Collection never mutates device settings by default.",
+    "acceptance_evidence": "Audit-mode tests show zero configuration-write calls.",
+    "prd_page": 8,
+    "domain": "orchestration",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E18",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E19",
+    "title": "Application audit trail",
+    "requirement": "Record logins, policy changes, approvals, exports and commands.",
+    "acceptance_evidence": "Event sequence attributable and integrity-checkable.",
+    "prd_page": 8,
+    "domain": "evidence",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E19",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E20",
+    "title": "Policy version history",
+    "requirement": "Diff and restore organization rule pack versions.",
+    "acceptance_evidence": "Historical audit remains linked to original policy.",
+    "prd_page": 8,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E20",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E21",
+    "title": "Approved auto- remediation",
+    "requirement": "Execute allowlisted supported changes after authorization.",
+    "acceptance_evidence": "Only compatible, approved actions execute and are journaled.",
+    "prd_page": 8,
+    "domain": "hardening",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E21",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E22",
+    "title": "Dry-run preview",
+    "requirement": "Show intended configuration changes before execution.",
+    "acceptance_evidence": "Preview contains diff/prerequisites; unsupported preview labeled.",
+    "prd_page": 8,
+    "domain": "simulation",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E22",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E23",
+    "title": "Approval workflow",
+    "requirement": "Require explicit reviewer approval for sensitive changes.",
+    "acceptance_evidence": "Unapproved action cannot run; approval actor logged.",
+    "prd_page": 8,
+    "domain": "approvals",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E23",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E24",
+    "title": "Backup/recovery",
+    "requirement": "Take backups and provide rollback/compensation for supported actions.",
+    "acceptance_evidence": "Supported rollback passes test; unsupported clearly escalates.",
+    "prd_page": 8,
+    "domain": "recovery",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E24",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E25",
+    "title": "Post-fix re-audit",
+    "requirement": "Automatically re-evaluate controls after change.",
+    "acceptance_evidence": "Result linked to original finding and change.",
+    "prd_page": 8,
+    "domain": "verification",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E25",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E26",
+    "title": "Alerts/webhooks",
+    "requirement": "Send notices for critical events and changed statuses.",
+    "acceptance_evidence": "Deliver or retry notification; secret values never included.",
+    "prd_page": 8,
+    "domain": "integrations",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E26",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E27",
+    "title": "Ticket integrations",
+    "requirement": "Export/route findings into external issue workflows.",
+    "acceptance_evidence": "Idempotent ticket creation/update with links.",
+    "prd_page": 8,
+    "domain": "integrations",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E27",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E28",
+    "title": "Executive reporting",
+    "requirement": "Provide concise management-level audit summary.",
+    "acceptance_evidence": "Summary totals reconcile with technical report.",
+    "prd_page": 8,
+    "domain": "reporting",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E28",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E29",
+    "title": "Search/filter interface",
+    "requirement": "Filter by asset, severity, benchmark, status and owner.",
+    "acceptance_evidence": "Saved filters return correct permitted records.",
+    "prd_page": 9,
+    "domain": "dashboard",
+    "accountable": "Apoorva",
+    "responsible": [
+      "Apoorva",
+      "Mandar"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E29",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "E30",
+    "title": "External integration API",
+    "requirement": "Expose secured machine-readable audit/export interfaces.",
+    "acceptance_evidence": "Documented versioned API with auth and rate controls.",
+    "prd_page": 9,
+    "domain": "integrations",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [
+      "Vidhi"
+    ],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-E30",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I01",
+    "title": "Infrastructure relationship graph",
+    "requirement": "Link assets, zones, interfaces, subnets, services and controls.",
+    "acceptance_evidence": "Graph edges backed by configuration/observed evidence.",
+    "prd_page": 9,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I01",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I02",
+    "title": "Cross-device correlation",
+    "requirement": "Join related findings into contextual scenarios.",
+    "acceptance_evidence": "Correlated scenario retains all source finding IDs.",
+    "prd_page": 9,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I02",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I03",
+    "title": "Config-based path analysis",
+    "requirement": "Estimate permitted access paths from effective ACL/NAT/route/host policy.",
+    "acceptance_evidence": "Known reachable/unreachable test topologies pass.",
+    "prd_page": 9,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I03",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I04",
+    "title": "Root-cause reasoning",
+    "requirement": "Group findings sharing a verifiable underlying cause.",
+    "acceptance_evidence": "Explanation names cause rule and supporting data.",
+    "prd_page": 9,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I04",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I05",
+    "title": "Evidence-backed risk explanation",
+    "requirement": "Explain every detected cross-layer security scenario.",
+    "acceptance_evidence": "User can trace each risk to exact normalized facts.",
+    "prd_page": 9,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I05",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I06",
+    "title": "Minimal-change optimization",
+    "requirement": "Select feasible remediation actions minimizing weighted change impact.",
+    "acceptance_evidence": "Test solver solution obeys constraints and compares alternatives.",
+    "prd_page": 9,
+    "domain": "planning",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I06",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I07",
+    "title": "Alternative fix comparison",
+    "requirement": "Present viable candidates with impact and trade-offs.",
+    "acceptance_evidence": "At least two vetted alternatives on supported scenario.",
+    "prd_page": 9,
+    "domain": "planning",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I07",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I08",
+    "title": "Cross-vendor planning",
+    "requirement": "Combine fixes for related devices in a coordinated plan.",
+    "acceptance_evidence": "Plan connects vendor-specific actions and dependencies.",
+    "prd_page": 9,
+    "domain": "planning",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I08",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I09",
+    "title": "Remediation conflict checks",
+    "requirement": "Identify policy, access and resource conflicts before execution.",
+    "acceptance_evidence": "Known unsafe conflicting plan blocked.",
+    "prd_page": 9,
+    "domain": "planning",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I09",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I10",
+    "title": "Change sequencing",
+    "requirement": "Order approved actions to protect management access and dependencies.",
+    "acceptance_evidence": "Ordering respects graph constraints in fixture.",
+    "prd_page": 9,
+    "domain": "planning",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I10",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I11",
+    "title": "Cross-layer what-if",
+    "requirement": "Simulate selected network/host policy modifications within model coverage.",
+    "acceptance_evidence": "Compare baseline vs candidate on labeled test topology.",
+    "prd_page": 9,
+    "domain": "simulation",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I11",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I12",
+    "title": "Service-safety contracts",
+    "requirement": "Define traffic/services that must remain accessible.",
+    "acceptance_evidence": "A violating proposed change is flagged.",
+    "prd_page": 9,
+    "domain": "approvals",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I12",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I13",
+    "title": "Blast-radius estimation",
+    "requirement": "Identify endpoints/services potentially impacted by a change.",
+    "acceptance_evidence": "Affected-set reconciles with known connectivity fixture.",
+    "prd_page": 9,
+    "domain": "simulation",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I13",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I14",
+    "title": "Safety-gated execution",
+    "requirement": "Prevent execution when required safety tests fail or unknown policy blocks.",
+    "acceptance_evidence": "Failing/unverified mandatory contract prevents automated run.",
+    "prd_page": 9,
+    "domain": "approvals",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I14",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I15",
+    "title": "Staged rollout",
+    "requirement": "Apply supported changes through controlled batches and gates.",
+    "acceptance_evidence": "Unhealthy first batch prevents later execution.",
+    "prd_page": 9,
+    "domain": "approvals",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I15",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I16",
+    "title": "Dual verification",
+    "requirement": "Recheck CIS configuration and real service/connectivity behavior.",
+    "acceptance_evidence": "Success requires both requested check types to pass.",
+    "prd_page": 9,
+    "domain": "verification",
+    "accountable": "Vidhi",
+    "responsible": [
+      "Vidhi",
+      "Mandar",
+      "Apoorva"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I16",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I17",
+    "title": "Residual risk measurement",
+    "requirement": "Report remaining risk/exposure following verified hardening.",
+    "acceptance_evidence": "Post-state calculation reproducible and evidence- linked.",
+    "prd_page": 9,
+    "domain": "risk",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I17",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I18",
+    "title": "Proof-of-Hardening dossier",
+    "requirement": "Package before/after evidence, approvals, actions, checks and signatures.",
+    "acceptance_evidence": "Third-party verifier checks hashes/signatures and event chain.",
+    "prd_page": 9,
+    "domain": "evidence",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I18",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I19",
+    "title": "Benchmark upgrade preview",
+    "requirement": "Compare applicability/evaluation changes across two policy versions.",
+    "acceptance_evidence": "Preview shows added/removed/modified rules and affected devices.",
+    "prd_page": 9,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I19",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  },
+  {
+    "id": "I20",
+    "title": "Explainable coverage decisions",
+    "requirement": "Show rule reasoning, unsupported semantics, errors and evidence coverage.",
+    "acceptance_evidence": "No unsupported/unknown state appears as PASS; reason accessible.",
+    "prd_page": 9,
+    "domain": "policy",
+    "accountable": "Mandar",
+    "responsible": [
+      "Mandar",
+      "Apoorva",
+      "Vidhi"
+    ],
+    "consulted": [],
+    "informed": [],
+    "status": "UNTESTED",
+    "phase0_status": "DONE",
+    "evidence": [],
+    "acceptance_test_id": "AC-I20",
+    "phase0_test": "apps/api/tests/test_contracts.py::test_feature_register"
+  }
+]

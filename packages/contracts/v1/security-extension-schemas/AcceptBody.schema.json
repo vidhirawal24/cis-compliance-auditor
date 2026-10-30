@@ -1,0 +1,16 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "token": {
+      "maxLength": 128,
+      "minLength": 40,
+      "title": "Token",
+      "type": "string"
+    }
+  },
+  "required": [
+    "token"
+  ],
+  "title": "AcceptBody",
+  "type": "object"
+}

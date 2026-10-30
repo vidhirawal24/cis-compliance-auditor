@@ -1,0 +1,59 @@
+{
+  "$defs": {
+    "Role": {
+      "enum": [
+        "owner",
+        "security_admin",
+        "auditor",
+        "operator",
+        "approver",
+        "executive"
+      ],
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aal": {
+      "enum": [
+        "aal1",
+        "aal2"
+      ],
+      "title": "Aal",
+      "type": "string"
+    },
+    "expires_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "roles": {
+      "items": {
+        "$ref": "#/$defs/Role"
+      },
+      "title": "Roles",
+      "type": "array"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "org_id",
+    "roles",
+    "aal",
+    "expires_at"
+  ],
+  "title": "Session",
+  "type": "object"
+}

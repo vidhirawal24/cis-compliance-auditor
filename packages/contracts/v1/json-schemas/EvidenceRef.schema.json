@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "collected_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Collected At",
+      "type": "string"
+    },
+    "encrypted_artifact_location": {
+      "pattern": "^private://[a-z0-9-]+/[a-zA-Z0-9/_-]+$",
+      "title": "Encrypted Artifact Location",
+      "type": "string"
+    },
+    "evidence_id": {
+      "format": "uuid",
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "source_identity": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Source Identity",
+      "type": "string"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "sha256",
+    "source_identity",
+    "encrypted_artifact_location",
+    "collected_at"
+  ],
+  "title": "EvidenceRef",
+  "type": "object"
+}

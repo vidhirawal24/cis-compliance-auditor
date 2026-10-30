@@ -1,0 +1,18 @@
+{
+  "checked_contract_ids": [],
+  "evidence_ids": [],
+  "limitations": [
+    "Synthetic fixture: no model executed"
+  ],
+  "model_version": "fixture-only",
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "plan_id": "00000000-0000-0000-0000-00000000000e",
+  "plan_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "schema_version": "1.0.0",
+  "simulated_at": "2026-10-29T00:00:00Z",
+  "simulation_id": "00000000-0000-0000-0000-000000000011",
+  "unsupported_capabilities": [
+    "synthetic_semantics"
+  ],
+  "verdict": "UNSUPPORTED"
+}

@@ -1,0 +1,20 @@
+{
+  "change_id": "00000000-0000-0000-0000-000000000012",
+  "control_statuses": [
+    "NOT_ASSESSED"
+  ],
+  "evidence_refs": [],
+  "org_id": "00000000-0000-0000-0000-000000000001",
+  "post_scan_id": "00000000-0000-0000-0000-000000000018",
+  "schema_version": "1.0.0",
+  "service_checks": [
+    {
+      "evidence_refs": [],
+      "safety_contract_id": "00000000-0000-0000-0000-00000000000f",
+      "status": "NOT_ASSESSED"
+    }
+  ],
+  "status": "NOT_FULLY_VERIFIED",
+  "verification_id": "00000000-0000-0000-0000-000000000017",
+  "verified_at": "2026-10-29T00:00:00Z"
+}

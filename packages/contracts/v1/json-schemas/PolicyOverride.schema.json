@@ -1,0 +1,81 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "author_id": {
+      "format": "uuid",
+      "title": "Author Id",
+      "type": "string"
+    },
+    "base_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Base Version",
+      "type": "string"
+    },
+    "control_id": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Control Id",
+      "type": "string"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Created At",
+      "type": "string"
+    },
+    "expected": {
+      "$ref": "#/$defs/JsonValue"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "override_id": {
+      "format": "uuid",
+      "title": "Override Id",
+      "type": "string"
+    },
+    "policy_pack_id": {
+      "format": "uuid",
+      "title": "Policy Pack Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "policy_pack_id",
+    "base_version",
+    "control_id",
+    "expected",
+    "reason",
+    "override_id",
+    "version",
+    "author_id",
+    "created_at"
+  ],
+  "title": "PolicyOverride",
+  "type": "object"
+}

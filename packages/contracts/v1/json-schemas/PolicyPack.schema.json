@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "benchmark_id": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Benchmark Id",
+      "type": "string"
+    },
+    "benchmark_release": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Benchmark Release",
+      "type": "string"
+    },
+    "content_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Content Sha256",
+      "type": "string"
+    },
+    "evaluator_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Evaluator Version",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "pack_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Pack Version",
+      "type": "string"
+    },
+    "policy_pack_id": {
+      "format": "uuid",
+      "title": "Policy Pack Id",
+      "type": "string"
+    },
+    "profiles": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Profiles",
+      "type": "array"
+    },
+    "rights_status": {
+      "enum": [
+        "UNREVIEWED",
+        "AUTHORIZED",
+        "RESTRICTED"
+      ],
+      "title": "Rights Status",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "authorized_cis_mapping",
+        "organizational",
+        "validated_scap_mapping"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "source_reference": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Source Reference",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "policy_pack_id",
+    "benchmark_id",
+    "benchmark_release",
+    "pack_version",
+    "profiles",
+    "source",
+    "source_reference",
+    "rights_status",
+    "evaluator_version",
+    "content_sha256"
+  ],
+  "title": "PolicyPack",
+  "type": "object"
+}

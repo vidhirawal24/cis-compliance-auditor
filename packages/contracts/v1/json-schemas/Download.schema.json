@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "expires_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "signed_url": {
+      "pattern": "^https://",
+      "title": "Signed Url",
+      "type": "string"
+    }
+  },
+  "required": [
+    "signed_url",
+    "expires_at",
+    "sha256"
+  ],
+  "title": "Download",
+  "type": "object"
+}

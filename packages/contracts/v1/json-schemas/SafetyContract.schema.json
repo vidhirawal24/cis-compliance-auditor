@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "destination_asset_id": {
+      "format": "uuid",
+      "title": "Destination Asset Id",
+      "type": "string"
+    },
+    "expected": {
+      "enum": [
+        "REACHABLE",
+        "BLOCKED"
+      ],
+      "title": "Expected",
+      "type": "string"
+    },
+    "mandatory": {
+      "title": "Mandatory",
+      "type": "boolean"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "port": {
+      "anyOf": [
+        {
+          "maximum": 65535,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Port"
+    },
+    "protocol": {
+      "enum": [
+        "tcp",
+        "udp",
+        "icmp",
+        "https",
+        "ssh"
+      ],
+      "title": "Protocol",
+      "type": "string"
+    },
+    "safety_contract_id": {
+      "format": "uuid",
+      "title": "Safety Contract Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_asset_id": {
+      "format": "uuid",
+      "title": "Source Asset Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "safety_contract_id",
+    "source_asset_id",
+    "destination_asset_id",
+    "protocol",
+    "port",
+    "mandatory",
+    "expected"
+  ],
+  "title": "SafetyContract",
+  "type": "object"
+}

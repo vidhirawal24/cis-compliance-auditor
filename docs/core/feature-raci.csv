@@ -1,0 +1,89 @@
+ID,Feature,Domain,Accountable,Responsible,Consulted,Informed,Product status,PRD page,Acceptance test
+M01,Windows 11,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M01
+M02,Windows Server 2019,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M02
+M03,Ubuntu 20.04/22.04,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M03
+M04,RHEL 8/9,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M04
+M05,Fortinet firewall,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M05
+M06,Cisco firewall,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M06
+M07,Check Point firewall,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M07
+M08,Sophos firewall,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M08
+M09,Palo Alto firewall,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M09
+M10,Cisco router,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M10
+M11,Cisco switch,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M11
+M12,Live collection,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M12
+M13,Central multi-target audits,orchestration,Mandar,"Mandar, Vidhi, Apoorva",,,UNTESTED,6,AC-M13
+M14,OS collectors,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M14
+M15,Network collectors,collection,Vidhi,"Vidhi, Mandar",Apoorva,,UNTESTED,6,AC-M15
+M16,Deterministic rule engine,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,6,AC-M16
+M17,Modular structured rule files,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,6,AC-M17
+M18,Custom baselines,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,6,AC-M18
+M19,Benchmark update maintenance,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,6,AC-M19
+M20,Management plane security,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,6,AC-M20
+M21,"SSHv2, key auth, timeout",policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M21
+M22,Over-permissive ACLs,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M22
+M23,Sensitive port exposure,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M23
+M24,Shadowed rules,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M24
+M25,Default-deny policy,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M25
+M26,Unused switch ports,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M26
+M27,Port security / MAC binding,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M27
+M28,DHCP snooping,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M28
+M29,Dynamic ARP inspection,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M29
+M30,VLAN 1 management traffic,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M30
+M31,Syslog forwarding,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M31
+M32,NTP synchronization,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M32
+M33,SNMP security,policy,Mandar,"Mandar, Vidhi",Apoorva,,UNTESTED,7,AC-M33
+M34,Central GUI dashboard,dashboard,Apoorva,"Apoorva, Mandar",Vidhi,,UNTESTED,7,AC-M34
+M35,Compliance/severity breakdown,results,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,7,AC-M35
+M36,Expected vs actual findings,results,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,7,AC-M36
+M37,Actionable remediation,results,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,7,AC-M37
+M38,Reports and scale,reporting,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,7,AC-M38
+E01,Asset inventory,inventory,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,7,AC-E01
+E02,Authorized discovery,collection,Vidhi,"Vidhi, Mandar, Apoorva",,,UNTESTED,7,AC-E02
+E03,Tag/group assets,inventory,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,7,AC-E03
+E04,Scheduled scans,orchestration,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,7,AC-E04
+E05,Drift alerts,history,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E05
+E06,Configuration snapshots,evidence,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E06
+E07,Compliance trends,history,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E07
+E08,Selective audits,orchestration,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E08
+E09,Distributed workers,orchestration,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E09
+E10,Offline config assessment,collection,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E10
+E11,CIS profile selection,policy,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E11
+E12,Manual-review workflow,policy,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E12
+E13,Risk ranking,risk,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E13
+E14,Policy exceptions,policy,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E14
+E15,Role-based access control,identity,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E15
+E16,Multi-factor authentication,identity,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E16
+E17,Secrets vault,secrets,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E17
+E18,Read-only audit mode,orchestration,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E18
+E19,Application audit trail,evidence,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E19
+E20,Policy version history,policy,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E20
+E21,Approved auto- remediation,hardening,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E21
+E22,Dry-run preview,simulation,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E22
+E23,Approval workflow,approvals,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E23
+E24,Backup/recovery,recovery,Vidhi,"Vidhi, Mandar, Apoorva",,,UNTESTED,8,AC-E24
+E25,Post-fix re-audit,verification,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,8,AC-E25
+E26,Alerts/webhooks,integrations,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E26
+E27,Ticket integrations,integrations,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E27
+E28,Executive reporting,reporting,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,8,AC-E28
+E29,Search/filter interface,dashboard,Apoorva,"Apoorva, Mandar",Vidhi,,UNTESTED,9,AC-E29
+E30,External integration API,integrations,Mandar,"Mandar, Apoorva",Vidhi,,UNTESTED,9,AC-E30
+I01,Infrastructure relationship graph,risk,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I01
+I02,Cross-device correlation,risk,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I02
+I03,Config-based path analysis,risk,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I03
+I04,Root-cause reasoning,risk,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I04
+I05,Evidence-backed risk explanation,risk,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I05
+I06,Minimal-change optimization,planning,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I06
+I07,Alternative fix comparison,planning,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I07
+I08,Cross-vendor planning,planning,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I08
+I09,Remediation conflict checks,planning,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I09
+I10,Change sequencing,planning,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I10
+I11,Cross-layer what-if,simulation,Vidhi,"Vidhi, Mandar, Apoorva",,,UNTESTED,9,AC-I11
+I12,Service-safety contracts,approvals,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I12
+I13,Blast-radius estimation,simulation,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I13
+I14,Safety-gated execution,approvals,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I14
+I15,Staged rollout,approvals,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I15
+I16,Dual verification,verification,Vidhi,"Vidhi, Mandar, Apoorva",,,UNTESTED,9,AC-I16
+I17,Residual risk measurement,risk,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I17
+I18,Proof-of-Hardening dossier,evidence,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I18
+I19,Benchmark upgrade preview,policy,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I19
+I20,Explainable coverage decisions,policy,Mandar,"Mandar, Apoorva, Vidhi",,,UNTESTED,9,AC-I20

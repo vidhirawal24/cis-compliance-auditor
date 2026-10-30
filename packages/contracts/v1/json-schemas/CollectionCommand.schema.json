@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "authorization_scope_id": {
+      "format": "uuid",
+      "title": "Authorization Scope Id",
+      "type": "string"
+    },
+    "credential_reference_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Credential Reference Id"
+    },
+    "deadline_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Deadline At",
+      "type": "string"
+    },
+    "expected_device_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Expected Device Version",
+      "type": "string"
+    },
+    "expected_platform": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Expected Platform",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "format": "uuid",
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "job_id": {
+      "format": "uuid",
+      "title": "Job Id",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "read_only": {
+      "const": true,
+      "default": true,
+      "title": "Read Only",
+      "type": "boolean"
+    },
+    "request_id": {
+      "format": "uuid",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "requested_capabilities": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Requested Capabilities",
+      "type": "array"
+    },
+    "scan_id": {
+      "format": "uuid",
+      "title": "Scan Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "job_id",
+    "scan_id",
+    "asset_id",
+    "request_id",
+    "authorization_scope_id",
+    "credential_reference_id",
+    "expected_platform",
+    "expected_device_version",
+    "requested_capabilities",
+    "deadline_at",
+    "idempotency_key"
+  ],
+  "title": "CollectionCommand",
+  "type": "object"
+}

@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    env_file: ../apps/api/.env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on: [redis]
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    env_file: ../apps/api/.env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    command: celery -A cisguard_api.worker:celery worker --loglevel=warning
+    depends_on: [redis]
+  redis:
+    image: redis:7.4-alpine
+    command: redis-server --appendonly yes
+    volumes: ["redis-data:/data"]
+  mock-device-engine:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    command: uvicorn cisguard_api.mock_engine:app --host 0.0.0.0 --port 8090
+  postgres:
+    image: postgres:17-alpine
+    profiles: [local-db]
+    environment:
+      POSTGRES_DB: cisguard
+      POSTGRES_USER: cisguard_admin
+      POSTGRES_PASSWORD: ${LOCAL_POSTGRES_PASSWORD:-local-development-only}
+    ports: ["127.0.0.1:54322:5432"]
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+volumes:
+  redis-data:
+  postgres-data:

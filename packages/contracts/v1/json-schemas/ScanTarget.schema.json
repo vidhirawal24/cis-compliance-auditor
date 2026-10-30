@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "CollectorError": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "code": {
+          "enum": [
+            "UNSUPPORTED",
+            "AUTH_FAILED",
+            "TIMEOUT",
+            "PARSE_ERROR",
+            "MISSING_EVIDENCE",
+            "DEVICE_UNAVAILABLE"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "title": "CollectorError",
+      "type": "object"
+    },
+    "JobState": {
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "SUCCEEDED",
+        "PARTIAL",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "JobState",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/CollectorError"
+      },
+      "title": "Errors",
+      "type": "array"
+    },
+    "scan_id": {
+      "format": "uuid",
+      "title": "Scan Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/JobState"
+    }
+  },
+  "required": [
+    "scan_id",
+    "asset_id",
+    "status",
+    "errors"
+  ],
+  "title": "ScanTarget",
+  "type": "object"
+}

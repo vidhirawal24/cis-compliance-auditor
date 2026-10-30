@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authorization_scope_id": {
+      "format": "uuid",
+      "title": "Authorization Scope Id",
+      "type": "string"
+    },
+    "credential_reference_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Credential Reference Id"
+    },
+    "family": {
+      "enum": [
+        "windows",
+        "linux",
+        "firewall",
+        "router",
+        "switch"
+      ],
+      "title": "Family",
+      "type": "string"
+    },
+    "model": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Model",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "os_or_firmware_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Os Or Firmware Version",
+      "type": "string"
+    },
+    "platform": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Platform",
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "target": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Target",
+      "type": "string"
+    },
+    "vendor": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Vendor",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "family",
+    "platform",
+    "vendor",
+    "model",
+    "os_or_firmware_version",
+    "target",
+    "authorization_scope_id"
+  ],
+  "title": "AssetCreate",
+  "type": "object"
+}

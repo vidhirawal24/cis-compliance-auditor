@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidate_template_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Candidate Template Ids",
+      "type": "array"
+    },
+    "finding_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Finding Ids",
+      "type": "array"
+    },
+    "max_change_cost": {
+      "minimum": 0,
+      "title": "Max Change Cost",
+      "type": "integer"
+    },
+    "safety_contract_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Safety Contract Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "finding_ids",
+    "safety_contract_ids",
+    "candidate_template_ids",
+    "max_change_cost"
+  ],
+  "title": "PlanCreate",
+  "type": "object"
+}

@@ -1,0 +1,283 @@
+{
+  "$defs": {
+    "CollectorError": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "code": {
+          "enum": [
+            "UNSUPPORTED",
+            "AUTH_FAILED",
+            "TIMEOUT",
+            "PARSE_ERROR",
+            "MISSING_EVIDENCE",
+            "DEVICE_UNAVAILABLE"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "title": "CollectorError",
+      "type": "object"
+    },
+    "EvidenceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "collected_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Collected At",
+          "type": "string"
+        },
+        "encrypted_artifact_location": {
+          "pattern": "^private://[a-z0-9-]+/[a-zA-Z0-9/_-]+$",
+          "title": "Encrypted Artifact Location",
+          "type": "string"
+        },
+        "evidence_id": {
+          "format": "uuid",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_identity": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Source Identity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "sha256",
+        "source_identity",
+        "encrypted_artifact_location",
+        "collected_at"
+      ],
+      "title": "EvidenceRef",
+      "type": "object"
+    },
+    "Fact": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "observed_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "path",
+        "value",
+        "evidence_ids",
+        "observed_at"
+      ],
+      "title": "Fact",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "NormalizedFacts": {
+      "additionalProperties": false,
+      "properties": {
+        "management": {
+          "items": {
+            "$ref": "#/$defs/Fact"
+          },
+          "title": "Management",
+          "type": "array"
+        },
+        "network_policy": {
+          "items": {
+            "$ref": "#/$defs/Fact"
+          },
+          "title": "Network Policy",
+          "type": "array"
+        },
+        "os_security": {
+          "items": {
+            "$ref": "#/$defs/Fact"
+          },
+          "title": "Os Security",
+          "type": "array"
+        },
+        "topology": {
+          "items": {
+            "$ref": "#/$defs/Fact"
+          },
+          "title": "Topology",
+          "type": "array"
+        }
+      },
+      "title": "NormalizedFacts",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "collected_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Collected At",
+      "type": "string"
+    },
+    "collection_method": {
+      "enum": [
+        "ssh",
+        "winrm",
+        "vendor_api",
+        "openscap",
+        "offline_upload",
+        "offline_fixture"
+      ],
+      "title": "Collection Method",
+      "type": "string"
+    },
+    "collector_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Collector Version",
+      "type": "string"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/CollectorError"
+      },
+      "title": "Errors",
+      "type": "array"
+    },
+    "evidence_refs": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRef"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "facts": {
+      "$ref": "#/$defs/NormalizedFacts"
+    },
+    "model": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Model",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "os_or_firmware_version": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Os Or Firmware Version",
+      "type": "string"
+    },
+    "platform": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Platform",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "supported_capabilities": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Supported Capabilities",
+      "type": "array"
+    },
+    "unsupported_capabilities": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Unsupported Capabilities",
+      "type": "array"
+    },
+    "vendor": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Vendor",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "asset_id",
+    "platform",
+    "vendor",
+    "model",
+    "os_or_firmware_version",
+    "collector_version",
+    "collection_method",
+    "collected_at",
+    "facts",
+    "evidence_refs",
+    "supported_capabilities",
+    "unsupported_capabilities",
+    "errors"
+  ],
+  "title": "NormalizedEvidence",
+  "type": "object"
+}

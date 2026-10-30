@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actor_id": {
+      "format": "uuid",
+      "title": "Actor Id",
+      "type": "string"
+    },
+    "actor_kind": {
+      "enum": [
+        "user",
+        "worker"
+      ],
+      "title": "Actor Kind",
+      "type": "string"
+    },
+    "event_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Event Hash",
+      "type": "string"
+    },
+    "event_id": {
+      "format": "uuid",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "enum": [
+        "audit.requested",
+        "audit.started",
+        "evidence.collected",
+        "control.evaluated",
+        "finding.created",
+        "scenario.correlated",
+        "plan.generated",
+        "simulation.completed",
+        "approval.granted",
+        "approval.rejected",
+        "action.started",
+        "action.completed",
+        "action.failed",
+        "verification.completed",
+        "evidence.signed",
+        "drift.detected",
+        "report.generated",
+        "auth.login",
+        "policy.changed",
+        "report.exported"
+      ],
+      "title": "Event Type",
+      "type": "string"
+    },
+    "occurred_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "previous_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Previous Hash"
+    },
+    "request_id": {
+      "format": "uuid",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "resource_id": {
+      "format": "uuid",
+      "title": "Resource Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "event_id",
+    "event_type",
+    "request_id",
+    "actor_id",
+    "actor_kind",
+    "occurred_at",
+    "resource_id",
+    "previous_hash",
+    "event_hash"
+  ],
+  "title": "AuditEvent",
+  "type": "object"
+}

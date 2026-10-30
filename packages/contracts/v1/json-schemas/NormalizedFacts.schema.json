@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "Fact": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "observed_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "path",
+        "value",
+        "evidence_ids",
+        "observed_at"
+      ],
+      "title": "Fact",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "management": {
+      "items": {
+        "$ref": "#/$defs/Fact"
+      },
+      "title": "Management",
+      "type": "array"
+    },
+    "network_policy": {
+      "items": {
+        "$ref": "#/$defs/Fact"
+      },
+      "title": "Network Policy",
+      "type": "array"
+    },
+    "os_security": {
+      "items": {
+        "$ref": "#/$defs/Fact"
+      },
+      "title": "Os Security",
+      "type": "array"
+    },
+    "topology": {
+      "items": {
+        "$ref": "#/$defs/Fact"
+      },
+      "title": "Topology",
+      "type": "array"
+    }
+  },
+  "title": "NormalizedFacts",
+  "type": "object"
+}

@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "applicability_platforms": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Applicability Platforms",
+      "type": "array"
+    },
+    "control_id": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Control Id",
+      "type": "string"
+    },
+    "expected": {
+      "$ref": "#/$defs/JsonValue"
+    },
+    "fact_path": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Fact Path",
+      "type": "string"
+    },
+    "feature_ids": {
+      "items": {
+        "pattern": "^(M(0[1-9]|[12][0-9]|3[0-8])|E(0[1-9]|[12][0-9]|30)|I(0[1-9]|1[0-9]|20))$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Feature Ids",
+      "type": "array"
+    },
+    "operator": {
+      "enum": [
+        "equals",
+        "contains",
+        "regex",
+        "range",
+        "set_membership",
+        "cidr_contains",
+        "ordered_acl",
+        "xccdf_oval"
+      ],
+      "title": "Operator",
+      "type": "string"
+    },
+    "remediation_template_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Remediation Template Id"
+    },
+    "requires_manual_review": {
+      "title": "Requires Manual Review",
+      "type": "boolean"
+    },
+    "severity": {
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "feature_ids",
+    "fact_path",
+    "operator",
+    "expected",
+    "severity",
+    "applicability_platforms",
+    "requires_manual_review",
+    "remediation_template_id"
+  ],
+  "title": "PolicyRule",
+  "type": "object"
+}

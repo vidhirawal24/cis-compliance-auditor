@@ -1,0 +1,158 @@
+{
+  "$defs": {
+    "RemediationAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "format": "uuid",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "asset_id": {
+          "format": "uuid",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "baseline_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Baseline Sha256",
+          "type": "string"
+        },
+        "depends_on": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "expected_device_version": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Expected Device Version",
+          "type": "string"
+        },
+        "recovery": {
+          "enum": [
+            "ROLLBACK",
+            "COMPENSATION",
+            "MANUAL_REQUIRED"
+          ],
+          "title": "Recovery",
+          "type": "string"
+        },
+        "template_id": {
+          "format": "uuid",
+          "title": "Template Id",
+          "type": "string"
+        },
+        "template_version": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Template Version",
+          "type": "string"
+        },
+        "validated_parameters_ref": {
+          "format": "uuid",
+          "title": "Validated Parameters Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action_id",
+        "asset_id",
+        "template_id",
+        "template_version",
+        "expected_device_version",
+        "baseline_sha256",
+        "validated_parameters_ref",
+        "depends_on",
+        "recovery"
+      ],
+      "title": "RemediationAction",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/RemediationAction"
+      },
+      "title": "Actions",
+      "type": "array"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by": {
+      "format": "uuid",
+      "title": "Created By",
+      "type": "string"
+    },
+    "org_id": {
+      "format": "uuid",
+      "title": "Org Id",
+      "type": "string"
+    },
+    "outcome": {
+      "enum": [
+        "FEASIBLE",
+        "UNSAT",
+        "UNSUPPORTED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "plan_id": {
+      "format": "uuid",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "plan_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Plan Sha256",
+      "type": "string"
+    },
+    "safety_contract_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Safety Contract Ids",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "violated_constraints": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Violated Constraints",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "org_id",
+    "plan_id",
+    "plan_sha256",
+    "outcome",
+    "actions",
+    "violated_constraints",
+    "safety_contract_ids",
+    "created_by",
+    "created_at"
+  ],
+  "title": "Plan",
+  "type": "object"
+}

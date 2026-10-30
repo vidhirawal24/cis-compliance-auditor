@@ -1,0 +1,231 @@
+[
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 7,
+      "row": 324
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\benchmark_service.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 328
+          },
+          "location": {
+            "column": 1,
+            "row": 324
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `ns`"
+    },
+    "location": {
+      "column": 5,
+      "row": 324
+    },
+    "message": "Local variable `ns` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 324,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 12,
+      "row": 193
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\change_routes.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 15,
+            "row": 193
+          },
+          "location": {
+            "column": 9,
+            "row": 193
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `row`"
+    },
+    "location": {
+      "column": 9,
+      "row": 193
+    },
+    "message": "Local variable `row` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 193,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 24,
+      "row": 218
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\change_routes.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 27,
+            "row": 218
+          },
+          "location": {
+            "column": 9,
+            "row": 218
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `default_expires`"
+    },
+    "location": {
+      "column": 9,
+      "row": 218
+    },
+    "message": "Local variable `default_expires` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 218,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 25,
+      "row": 448
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\graph_engine.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 28,
+            "row": 448
+          },
+          "location": {
+            "column": 21,
+            "row": 448
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `port`"
+    },
+    "location": {
+      "column": 21,
+      "row": 448
+    },
+    "message": "Local variable `port` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 448,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 44,
+      "row": 122
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\plan_optimizer.py",
+    "fix": null,
+    "location": {
+      "column": 36,
+      "row": 122
+    },
+    "message": "`ortools.sat.python.cp_model` imported but unused; consider using `importlib.util.find_spec` to test for availability",
+    "name": "unused-import",
+    "noqa_row": 122,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 23,
+      "row": 297
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\proof_routes.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 26,
+            "row": 297
+          },
+          "location": {
+            "column": 9,
+            "row": 297
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `manifest_bytes`"
+    },
+    "location": {
+      "column": 9,
+      "row": 297
+    },
+    "message": "Local variable `manifest_bytes` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 297,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 18,
+      "row": 105
+    },
+    "filename": "C:\\Users\\sawan\\OneDrive\\Desktop\\miniproject hack !!\\apps\\api\\cisguard_api\\report_service.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 21,
+            "row": 105
+          },
+          "location": {
+            "column": 9,
+            "row": 105
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `score_obj`"
+    },
+    "location": {
+      "column": 9,
+      "row": 105
+    },
+    "message": "Local variable `score_obj` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 105,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  }
+]
