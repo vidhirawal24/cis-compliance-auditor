@@ -14,6 +14,16 @@ LINUX_FIXTURES = Path(__file__).parents[1] / "fixtures" / "linux"
 OPENSCAP_FIXTURES = Path(__file__).parents[1] / "fixtures" / "openscap"
 
 
+def test_cli_capabilities_reports_fixture_coverage_for_every_listed_family() -> None:
+    result = _run("capabilities")
+    assert result.returncode == 0
+    assert result.stderr == ""
+    payload = json.loads(result.stdout)
+    assert payload["device_families"]
+    assert all(family["fixture_tests"] for family in payload["device_families"])
+    assert all(not family["live_lab_tests"] for family in payload["device_families"])
+
+
 def test_cli_self_test_produces_valid_json() -> None:
     result = subprocess.run(
         [sys.executable, "-m", "cisguard_device", "self-test"],

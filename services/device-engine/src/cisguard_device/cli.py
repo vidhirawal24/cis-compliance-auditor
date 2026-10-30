@@ -99,16 +99,7 @@ def capabilities() -> int:
                         if platform in {"cisco_router", "cisco_managed_switch"}
                         else "NOT_IMPLEMENTED"
                     ),
-                    "fixture_tests": platform
-                    in {
-                        "windows_11_enterprise",
-                        "windows_11_standalone",
-                        "windows_server_2019",
-                        "ubuntu_20_04_lts",
-                        "ubuntu_22_04_lts",
-                        "rhel_8",
-                        "rhel_9",
-                    },
+                    "fixture_tests": True,
                     "live_lab_tests": False,
                 }
                 for platform in DEVICE_FAMILIES

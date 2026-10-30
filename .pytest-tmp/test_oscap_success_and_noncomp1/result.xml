@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.2" id="synthetic_benchmark_not_official" resolved="true">
+  <title>SYNTHETIC XCCDF result-state fixture - not a real scan</title>
+  <version>synthetic-1</version>
+  <TestResult id="synthetic_test_result" start-time="2026-10-29T04:00:00Z" end-time="2026-10-29T04:01:00Z">
+    <profile idref="synthetic_profile"/>
+    <rule-result idref="synthetic_rule_pass"><result>pass</result></rule-result>
+    <rule-result idref="synthetic_rule_fail"><result>fail</result></rule-result>
+    <rule-result idref="synthetic_rule_notchecked"><result>notchecked</result></rule-result>
+    <rule-result idref="synthetic_rule_notselected"><result>notselected</result></rule-result>
+    <rule-result idref="synthetic_rule_unknown"><result>unknown</result></rule-result>
+    <rule-result idref="synthetic_rule_error"><result>error</result></rule-result>
+    <rule-result idref="synthetic_rule_informational"><result>informational</result></rule-result>
+    <rule-result idref="synthetic_rule_notapplicable"><result>notapplicable</result></rule-result>
+    <rule-result idref="synthetic_rule_fixed"><result>fixed</result></rule-result>
+  </TestResult>
+</Benchmark>
